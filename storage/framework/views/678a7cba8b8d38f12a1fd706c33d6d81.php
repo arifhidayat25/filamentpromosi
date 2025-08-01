@@ -23,8 +23,9 @@
     <?php echo e($attributes
             ->merge([
                 'wire:key' => "{$this->getId()}.notifications.{$notification->getId()}",
+                'x-on:close-notification.window' => "if (\$event.detail.id == '{$notification->getId()}') close()",
             ], escape: false)
-            ->class(['fi-no-notification pointer-events-auto invisible'])); ?>
+            ->class(['pointer-events-auto invisible'])); ?>
 
 >
     <?php echo e($slot); ?>

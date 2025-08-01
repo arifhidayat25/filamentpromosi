@@ -53,6 +53,9 @@ class Kernel extends HttpKernel
      * @var array<string, class-string|string>
      */
     protected $middlewareAliases = [
+        // Di dalam array $middlewareAliases
+        'role' => \Spatie\Permission\Middleware\RoleMiddleware::class, // Ganti dari App\Http\Middleware\RoleMiddleware::class
+        'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class, // Tambahkan ini jika perlu
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'auth.session' => \Illuminate\Session\Middleware\AuthenticateSession::class,

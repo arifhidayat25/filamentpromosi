@@ -6,28 +6,22 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Eloquent\Builder;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class Proposal extends Model
 {
-    use HasFactory;
-
-    /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
-    protected $table = 'proposals';
+    use HasFactory, LogsActivity;
 
     /**
      * The attributes that are mass assignable.
-     *
+     * Pastikan semua field dari form dan yang diisi otomatis ada di sini.
      * @var array<int, string>
      */
     protected $fillable = [
         'user_id',
         'school_id',
-        'status',
+        'status', // Penting untuk diisi otomatis
         'proposed_date',
         'notes',
         'rejection_reason',
@@ -43,9 +37,7 @@ class Proposal extends Model
     ];
 
     /**
-     * Mendapatkan data pengguna (mahasiswa/dosen) yang membuat proposal.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * Relasi ke User (pembuat proposal)
      */
     public function user(): BelongsTo
     {
@@ -53,9 +45,7 @@ class Proposal extends Model
     }
 
     /**
-     * Mendapatkan data sekolah yang dituju.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * Relasi ke School (sekolah tujuan)
      */
     public function school(): BelongsTo
     {
@@ -63,9 +53,7 @@ class Proposal extends Model
     }
 
     /**
-     * Mendapatkan data laporan yang terkait dengan proposal ini.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * Relasi ke Report
      */
     public function report(): HasOne
     {
@@ -73,9 +61,7 @@ class Proposal extends Model
     }
 
     /**
-     * Mendapatkan data pembayaran yang terkait dengan proposal ini.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * Relasi ke Payment
      */
     public function payment(): HasOne
     {
@@ -83,14 +69,18 @@ class Proposal extends Model
     }
 
     /**
-     * Scope a query to only include proposals with a specific status.
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @param  string  $status
-     * @return \Illuminate\Database\Eloquent\Builder
+     * Accessor untuk label kustom pada Select field di ReportResource.
+     * @return string
      */
-    public function scopeWhereStatus(Builder $query, string $status): Builder
+    public function getCustomLabelAttribute(): string
     {
-        return $query->where('status', $status);
+        $schoolName = $this->school->name ?? 'Nama Sekolah Tidak Ditemukan';
+        $date = $this->proposed_date ? $this->proposed_date : 'Tanggal Belum Diatur';
+        return "{$schoolName} - {$date}";
     }
-}   
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()->logAll();
+    }
+}

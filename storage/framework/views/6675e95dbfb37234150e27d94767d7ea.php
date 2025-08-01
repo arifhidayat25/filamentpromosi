@@ -8,10 +8,12 @@
     'prefix' => null,
     'prefixActions' => [],
     'prefixIcon' => null,
+    'prefixIconColor' => 'gray',
     'prefixIconAlias' => null,
     'suffix' => null,
     'suffixActions' => [],
     'suffixIcon' => null,
+    'suffixIconColor' => 'gray',
     'suffixIconAlias' => null,
     'valid' => true,
 ]) as $__key => $__value) {
@@ -26,10 +28,12 @@
     'prefix' => null,
     'prefixActions' => [],
     'prefixIcon' => null,
+    'prefixIconColor' => 'gray',
     'prefixIconAlias' => null,
     'suffix' => null,
     'suffixActions' => [],
     'suffixIcon' => null,
+    'suffixIconColor' => 'gray',
     'suffixIconAlias' => null,
     'valid' => true,
 ]); ?>
@@ -42,10 +46,12 @@
     'prefix' => null,
     'prefixActions' => [],
     'prefixIcon' => null,
+    'prefixIconColor' => 'gray',
     'prefixIconAlias' => null,
     'suffix' => null,
     'suffixActions' => [],
     'suffixIcon' => null,
+    'suffixIconColor' => 'gray',
     'suffixIconAlias' => null,
     'valid' => true,
 ]), 'is_string', ARRAY_FILTER_USE_KEY) as $__key => $__value) {
@@ -58,25 +64,6 @@
 <?php unset($__defined_vars); ?>
 
 <?php
-    $hasPrefix = count($prefixActions) || $prefixIcon || filled($prefix);
-    $hasSuffix = count($suffixActions) || $suffixIcon || filled($suffix);
-
-    $hasAlpineDisabledClasses = filled($alpineDisabled);
-    $hasAlpineValidClasses = filled($alpineValid);
-    $hasAlpineClasses = $hasAlpineDisabledClasses || $hasAlpineValidClasses;
-
-    $enabledWrapperClasses = 'bg-white focus-within:ring-2 dark:bg-white/5';
-    $disabledWrapperClasses = 'bg-gray-50 dark:bg-transparent';
-    $validWrapperClasses = 'ring-gray-950/10';
-    $invalidWrapperClasses = 'ring-danger-600 dark:ring-danger-500';
-    $enabledValidWrapperClasses = 'focus-within:ring-primary-600 dark:ring-white/20 dark:focus-within:ring-primary-500';
-    $enabledInvalidWrapperClasses = 'focus-within:ring-danger-600 dark:focus-within:ring-danger-500';
-    $disabledValidWrapperClasses = 'dark:ring-white/10';
-
-    $actionsClasses = '-mx-1.5 flex items-center';
-    $iconClasses = 'fi-input-wrapper-icon h-5 w-5 text-gray-400 dark:text-gray-500';
-    $labelClasses = 'fi-input-wrapper-label whitespace-nowrap text-sm text-gray-500 dark:text-gray-400';
-
     $prefixActions = array_filter(
         $prefixActions,
         fn (\Filament\Forms\Components\Actions\Action $prefixAction): bool => $prefixAction->isVisible(),
@@ -86,6 +73,40 @@
         $suffixActions,
         fn (\Filament\Forms\Components\Actions\Action $suffixAction): bool => $suffixAction->isVisible(),
     );
+
+    $hasPrefix = count($prefixActions) || $prefixIcon || filled($prefix);
+    $hasSuffix = count($suffixActions) || $suffixIcon || filled($suffix);
+
+    $hasAlpineDisabledClasses = filled($alpineDisabled);
+    $hasAlpineValidClasses = filled($alpineValid);
+    $hasAlpineClasses = $hasAlpineDisabledClasses || $hasAlpineValidClasses;
+
+    $enabledWrapperClasses = 'bg-white dark:bg-white/5 [&:not(:has(.fi-ac-action:focus))]:focus-within:ring-2';
+    $disabledWrapperClasses = 'fi-disabled bg-gray-50 dark:bg-transparent';
+    $validWrapperClasses = 'ring-gray-950/10';
+    $invalidWrapperClasses = 'fi-invalid ring-danger-600 dark:ring-danger-500';
+    $enabledValidWrapperClasses = 'dark:ring-white/20 [&:not(:has(.fi-ac-action:focus))]:focus-within:ring-primary-600 dark:[&:not(:has(.fi-ac-action:focus))]:focus-within:ring-primary-500';
+    $enabledInvalidWrapperClasses = '[&:not(:has(.fi-ac-action:focus))]:focus-within:ring-danger-600 dark:[&:not(:has(.fi-ac-action:focus))]:focus-within:ring-danger-500';
+    $disabledValidWrapperClasses = 'dark:ring-white/10';
+
+    $actionsClasses = 'flex items-center gap-3';
+    $labelClasses = 'fi-input-wrp-label whitespace-nowrap text-sm text-gray-500 dark:text-gray-400';
+
+    $getIconClasses = fn (string | array $color = 'gray'): string => \Illuminate\Support\Arr::toCssClasses([
+        'fi-input-wrp-icon h-5 w-5',
+        match ($color) {
+            'gray' => 'text-gray-400 dark:text-gray-500',
+            default => 'text-custom-500',
+        },
+    ]);
+
+    $getIconStyles = fn (string | array $color = 'gray'): string => \Illuminate\Support\Arr::toCssStyles([
+        \Filament\Support\get_color_css_variables(
+            $color,
+            shades: [500],
+            alias: 'input-wrapper.icon',
+        ) => $color !== 'gray',
+    ]);
 
     $wireTarget = $attributes->whereStartsWith(['wire:target'])->first();
 
@@ -116,9 +137,9 @@
         }"
     <?php endif; ?>
     <?php echo e($attributes
-            ->except(['wire:target'])
+            ->except(['wire:target', 'tabindex'])
             ->class([
-                'fi-input-wrapper flex rounded-lg shadow-sm ring-1 transition duration-75',
+                'fi-input-wrp flex rounded-lg shadow-sm ring-1 transition duration-75',
                 $enabledWrapperClasses => (! $hasAlpineClasses) && (! $disabled),
                 $disabledWrapperClasses => (! $hasAlpineClasses) && $disabled,
                 $validWrapperClasses => (! $hasAlpineClasses) && $valid,
@@ -129,40 +150,64 @@
             ])); ?>
 
 >
-    <?php if($hasPrefix || $hasLoadingIndicator): ?>
+    <!--[if BLOCK]><![endif]--><?php if($hasPrefix || $hasLoadingIndicator): ?>
         <div
             <?php if(! $hasPrefix): ?>
-                wire:loading.delay.flex
+                wire:loading.delay.<?php echo e(config('filament.livewire_loading_delay', 'default')); ?>.flex
                 wire:target="<?php echo e($loadingIndicatorTarget); ?>"
                 wire:key="<?php echo e(\Illuminate\Support\Str::random()); ?>" 
             <?php endif; ?>
             class="<?php echo \Illuminate\Support\Arr::toCssClasses([
-                'flex items-center gap-x-3 ps-3',
+                'fi-input-wrp-prefix items-center gap-x-3 ps-3',
+                'flex' => $hasPrefix,
+                'hidden' => ! $hasPrefix,
                 'pe-1' => $inlinePrefix && filled($prefix),
                 'pe-2' => $inlinePrefix && blank($prefix),
                 'border-e border-gray-200 pe-3 ps-3 dark:border-white/10' => ! $inlinePrefix,
             ]); ?>"
         >
-            <?php if(count($prefixActions)): ?>
+            <!--[if BLOCK]><![endif]--><?php if(count($prefixActions)): ?>
                 <div class="<?php echo e($actionsClasses); ?>">
-                    <?php $__currentLoopData = $prefixActions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $prefixAction): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $prefixActions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $prefixAction): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <?php echo e($prefixAction); ?>
 
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
                 </div>
-            <?php endif; ?>
+            <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
 
-            <?php if($prefixIcon): ?>
+            <!--[if BLOCK]><![endif]--><?php if($prefixIcon): ?>
                 <?php if (isset($component)) { $__componentOriginalbfc641e0710ce04e5fe02876ffc6f950 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalbfc641e0710ce04e5fe02876ffc6f950 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament::components.icon','data' => ['alias' => $prefixIconAlias,'icon' => $prefixIcon,'wire:loading.remove.delay' => $hasLoadingIndicator,'wire:target' => $hasLoadingIndicator ? $loadingIndicatorTarget : null,'class' => $iconClasses]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament::components.icon','data' => ['attributes' => 
+                        \Filament\Support\prepare_inherited_attributes(
+                            new \Illuminate\View\ComponentAttributeBag([
+                                'alias' => $prefixIconAlias,
+                                'icon' => $prefixIcon,
+                                'wire:loading.remove.delay.' . config('filament.livewire_loading_delay', 'default') => $hasLoadingIndicator,
+                                'wire:target' => $hasLoadingIndicator ? $loadingIndicatorTarget : null,
+                            ])
+                        )
+                            ->class([$getIconClasses($prefixIconColor)])
+                            ->style([$getIconStyles($prefixIconColor)])
+                    ]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('filament::icon'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['alias' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($prefixIconAlias),'icon' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($prefixIcon),'wire:loading.remove.delay' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($hasLoadingIndicator),'wire:target' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($hasLoadingIndicator ? $loadingIndicatorTarget : null),'class' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($iconClasses)]); ?>
+<?php $component->withAttributes(['attributes' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(
+                        \Filament\Support\prepare_inherited_attributes(
+                            new \Illuminate\View\ComponentAttributeBag([
+                                'alias' => $prefixIconAlias,
+                                'icon' => $prefixIcon,
+                                'wire:loading.remove.delay.' . config('filament.livewire_loading_delay', 'default') => $hasLoadingIndicator,
+                                'wire:target' => $hasLoadingIndicator ? $loadingIndicatorTarget : null,
+                            ])
+                        )
+                            ->class([$getIconClasses($prefixIconColor)])
+                            ->style([$getIconStyles($prefixIconColor)])
+                    )]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginalbfc641e0710ce04e5fe02876ffc6f950)): ?>
@@ -173,19 +218,19 @@
 <?php $component = $__componentOriginalbfc641e0710ce04e5fe02876ffc6f950; ?>
 <?php unset($__componentOriginalbfc641e0710ce04e5fe02876ffc6f950); ?>
 <?php endif; ?>
-            <?php endif; ?>
+            <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
 
-            <?php if($hasLoadingIndicator): ?>
+            <!--[if BLOCK]><![endif]--><?php if($hasLoadingIndicator): ?>
                 <?php if (isset($component)) { $__componentOriginalbef7c2371a870b1887ec3741fe311a10 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalbef7c2371a870b1887ec3741fe311a10 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament::components.loading-indicator','data' => ['attributes' => 
                         \Filament\Support\prepare_inherited_attributes(
                             new \Illuminate\View\ComponentAttributeBag([
-                                'wire:loading.delay' => $hasPrefix,
+                                'wire:loading.delay.' . config('filament.livewire_loading_delay', 'default') => $hasPrefix,
                                 'wire:target' => $hasPrefix ? $loadingIndicatorTarget : null,
                             ])
-                        )
-                    ,'class' => $iconClasses]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+                        )->class([$getIconClasses()])
+                    ]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('filament::loading-indicator'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -195,11 +240,11 @@
 <?php $component->withAttributes(['attributes' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(
                         \Filament\Support\prepare_inherited_attributes(
                             new \Illuminate\View\ComponentAttributeBag([
-                                'wire:loading.delay' => $hasPrefix,
+                                'wire:loading.delay.' . config('filament.livewire_loading_delay', 'default') => $hasPrefix,
                                 'wire:target' => $hasPrefix ? $loadingIndicatorTarget : null,
                             ])
-                        )
-                    ),'class' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($iconClasses)]); ?>
+                        )->class([$getIconClasses()])
+                    )]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginalbef7c2371a870b1887ec3741fe311a10)): ?>
@@ -210,27 +255,27 @@
 <?php $component = $__componentOriginalbef7c2371a870b1887ec3741fe311a10; ?>
 <?php unset($__componentOriginalbef7c2371a870b1887ec3741fe311a10); ?>
 <?php endif; ?>
-            <?php endif; ?>
+            <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
 
-            <?php if(filled($prefix)): ?>
+            <!--[if BLOCK]><![endif]--><?php if(filled($prefix)): ?>
                 <span class="<?php echo e($labelClasses); ?>">
                     <?php echo e($prefix); ?>
 
                 </span>
-            <?php endif; ?>
+            <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
         </div>
-    <?php endif; ?>
+    <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
 
     <div
         <?php if($hasLoadingIndicator && (! $hasPrefix)): ?>
             <?php if($inlinePrefix): ?>
-                wire:loading.delay.class.remove="ps-3"
+                wire:loading.delay.<?php echo e(config('filament.livewire_loading_delay', 'default')); ?>.class.remove="ps-3"
             <?php endif; ?>
 
             wire:target="<?php echo e($loadingIndicatorTarget); ?>"
         <?php endif; ?>
         class="<?php echo \Illuminate\Support\Arr::toCssClasses([
-            'min-w-0 flex-1',
+            'fi-input-wrp-input min-w-0 flex-1',
             'ps-3' => $hasLoadingIndicator && (! $hasPrefix) && $inlinePrefix,
         ]); ?>"
     >
@@ -238,33 +283,33 @@
 
     </div>
 
-    <?php if($hasSuffix): ?>
+    <!--[if BLOCK]><![endif]--><?php if($hasSuffix): ?>
         <div
             class="<?php echo \Illuminate\Support\Arr::toCssClasses([
-                'flex items-center gap-x-3 pe-3',
+                'fi-input-wrp-suffix flex items-center gap-x-3 pe-3',
                 'ps-1' => $inlineSuffix && filled($suffix),
                 'ps-2' => $inlineSuffix && blank($suffix),
                 'border-s border-gray-200 ps-3 dark:border-white/10' => ! $inlineSuffix,
             ]); ?>"
         >
-            <?php if(filled($suffix)): ?>
+            <!--[if BLOCK]><![endif]--><?php if(filled($suffix)): ?>
                 <span class="<?php echo e($labelClasses); ?>">
                     <?php echo e($suffix); ?>
 
                 </span>
-            <?php endif; ?>
+            <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
 
-            <?php if($suffixIcon): ?>
+            <!--[if BLOCK]><![endif]--><?php if($suffixIcon): ?>
                 <?php if (isset($component)) { $__componentOriginalbfc641e0710ce04e5fe02876ffc6f950 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalbfc641e0710ce04e5fe02876ffc6f950 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament::components.icon','data' => ['alias' => $suffixIconAlias,'icon' => $suffixIcon,'class' => $iconClasses]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament::components.icon','data' => ['alias' => $suffixIconAlias,'icon' => $suffixIcon,'class' => $getIconClasses($suffixIconColor),'style' => $getIconStyles($suffixIconColor)]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('filament::icon'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['alias' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($suffixIconAlias),'icon' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($suffixIcon),'class' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($iconClasses)]); ?>
+<?php $component->withAttributes(['alias' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($suffixIconAlias),'icon' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($suffixIcon),'class' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($getIconClasses($suffixIconColor)),'style' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($getIconStyles($suffixIconColor))]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginalbfc641e0710ce04e5fe02876ffc6f950)): ?>
@@ -275,17 +320,17 @@
 <?php $component = $__componentOriginalbfc641e0710ce04e5fe02876ffc6f950; ?>
 <?php unset($__componentOriginalbfc641e0710ce04e5fe02876ffc6f950); ?>
 <?php endif; ?>
-            <?php endif; ?>
+            <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
 
-            <?php if(count($suffixActions)): ?>
+            <!--[if BLOCK]><![endif]--><?php if(count($suffixActions)): ?>
                 <div class="<?php echo e($actionsClasses); ?>">
-                    <?php $__currentLoopData = $suffixActions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $suffixAction): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $suffixActions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $suffixAction): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <?php echo e($suffixAction); ?>
 
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
                 </div>
-            <?php endif; ?>
+            <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
         </div>
-    <?php endif; ?>
+    <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
 </div>
 <?php /**PATH C:\laragon\www\magang\laravel-filament\vendor\filament\support\resources\views/components/input/wrapper.blade.php ENDPATH**/ ?>

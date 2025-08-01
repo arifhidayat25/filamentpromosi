@@ -25,15 +25,24 @@
 <?php unset($__defined_vars); ?>
 
 <?php
-    $icon = ($alias ? \Filament\Support\Facades\FilamentIcon::resolve($alias) : null) ?: $icon;
+    $icon = ($alias ? \Filament\Support\Facades\FilamentIcon::resolve($alias) : null) ?: ($icon ?? $slot);
 ?>
 
-<?php if(is_string($icon)): ?>
-    <?php echo e(svg($icon, $class, array_filter($attributes->getAttributes()))); ?>
-<?php else: ?>
-    <div <?php echo e($attributes->class($class)); ?>>
-        <?php echo e($icon ?? $slot); ?>
+<!--[if BLOCK]><![endif]--><?php if($icon instanceof \Illuminate\Contracts\Support\Htmlable): ?>
+    <span <?php echo e($attributes->class($class)); ?>>
+        <?php echo e($icon); ?>
 
-    </div>
-<?php endif; ?>
+    </span>
+<?php elseif(str_contains($icon, '/')): ?>
+    <img
+        <?php echo e($attributes
+                ->merge(['src' => $icon])
+                ->class($class)); ?>
+
+    />
+<?php else: ?>
+    <?php echo e(svg($icon,
+        $class,
+        array_filter($attributes->getAttributes()),)); ?>
+<?php endif; ?><!--[if ENDBLOCK]><![endif]-->
 <?php /**PATH C:\laragon\www\magang\laravel-filament\vendor\filament\support\resources\views/components/icon.blade.php ENDPATH**/ ?>

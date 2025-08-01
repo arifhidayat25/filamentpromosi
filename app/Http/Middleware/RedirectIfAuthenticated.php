@@ -20,7 +20,7 @@ class RedirectIfAuthenticated
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
                 // Jika pengguna yang sudah login memiliki role 'mahasiswa'...
-                if (Auth::user()->role === 'mahasiswa') {
+                if (Auth::user()->hasRole === 'mahasiswa') {
                     // ...arahkan ke dashboard mahasiswa.
                     return redirect(route('mahasiswa.dashboard'));
                 }

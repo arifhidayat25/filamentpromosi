@@ -15,9 +15,10 @@ class SchoolResource extends Resource
 {
     protected static ?string $model = School::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-academic-cap';
+    protected static ?string $navigationIcon = 'heroicon-o-banknotes';
+    protected static ?string $navigationLabel = 'Manajemen Sekolah';
     
-    protected static ?string $navigationLabel = 'Sekolah';
+    protected static ?string $navigationGroup = 'Manajemen';
 
     public static function form(Form $form): Form
 {
