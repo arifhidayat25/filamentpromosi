@@ -16,7 +16,7 @@ class User extends Authenticatable
     /**
      * Menggunakan semua trait yang diperlukan, termasuk HasRoles dari Spatie.
      */
-    use HasApiTokens, HasFactory, Notifiable, HasRoles, LogsActivity;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, LogsActivity ;
 
     /**
      * The attributes that are mass assignable.
@@ -52,6 +52,23 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed', // Pastikan password di-hash
     ];
+    public function canAccessPanel(Panel $panel): bool
+    {
+        // Jika user mencoba mengakses panel 'admin'
+        if ($panel->getId() === 'admin') {
+            // Izinkan jika rolenya adalah Admin, Pembina, atau Staff
+            return $this->hasAnyRole(['Admin', 'Pembina', 'Staff']);
+        }
+
+        // Jika user mencoba mengakses panel 'student'
+        if ($panel->getId() === 'student') {
+            // Izinkan jika rolenya adalah Admin atau Student
+            return $this->hasAnyRole(['Admin', 'Student']);
+        }
+
+        // Jika ada panel lain, tolak secara default
+        return false;
+    }
 
     /**
      * Relasi ke tabel proposals. Ini tidak berhubungan dengan peran dan bisa tetap ada.
