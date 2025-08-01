@@ -28,17 +28,29 @@
 <button
     aria-label="<?php echo e($label); ?>"
     type="button"
+<<<<<<< HEAD
+=======
+    x-bind:class="
+        theme === <?php echo \Illuminate\Support\Js::from($theme)->toHtml() ?>
+            ? 'bg-gray-50 text-primary-500 dark:bg-white/5 dark:text-primary-400'
+            : 'text-gray-400 hover:text-gray-500 focus:text-gray-500 dark:text-gray-500 dark:hover:text-gray-400 dark:focus:text-gray-400'
+    "
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
     x-on:click="(theme = <?php echo \Illuminate\Support\Js::from($theme)->toHtml() ?>) && close()"
     x-tooltip="{
         content: <?php echo \Illuminate\Support\Js::from($label)->toHtml() ?>,
         theme: $store.theme,
     }"
+<<<<<<< HEAD
     class="fi-theme-switcher-btn flex justify-center rounded-md p-2 outline-none transition duration-75 hover:bg-gray-50 focus-visible:bg-gray-50 dark:hover:bg-white/5 dark:focus-visible:bg-white/5"
     x-bind:class="
         theme === <?php echo \Illuminate\Support\Js::from($theme)->toHtml() ?>
             ? 'fi-active bg-gray-50 text-primary-500 dark:bg-white/5 dark:text-primary-400'
             : 'text-gray-400 hover:text-gray-500 focus-visible:text-gray-500 dark:text-gray-500 dark:hover:text-gray-400 dark:focus-visible:text-gray-400'
     "
+=======
+    class="flex justify-center rounded-lg p-2 outline-none transition duration-75 hover:bg-gray-50 focus:bg-gray-50 dark:hover:bg-white/5 dark:focus:bg-white/5"
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
 >
     <?php if (isset($component)) { $__componentOriginalbfc641e0710ce04e5fe02876ffc6f950 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalbfc641e0710ce04e5fe02876ffc6f950 = $attributes; } ?>

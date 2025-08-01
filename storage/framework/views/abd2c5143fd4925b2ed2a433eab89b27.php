@@ -1,13 +1,21 @@
 <?php if (isset($component)) { $__componentOriginalf0029cce6d19fd6d472097ff06a800a1 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalf0029cce6d19fd6d472097ff06a800a1 = $attributes; } ?>
+<<<<<<< HEAD
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament::components.icon-button','data' => ['color' => 'gray','icon' => 'heroicon-m-x-mark','iconAlias' => 'notifications::notification.close-button','xOn:click' => 'close','class' => 'fi-no-notification-close-btn']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+=======
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament::components.icon-button','data' => ['color' => 'gray','icon' => 'heroicon-m-x-mark','iconAlias' => 'notifications::notification.close-button','xOn:click' => 'close','class' => 'fi-no-notification-close-btn -m-2']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
 <?php $component->withName('filament::icon-button'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
+<<<<<<< HEAD
 <?php $component->withAttributes(['color' => 'gray','icon' => 'heroicon-m-x-mark','icon-alias' => 'notifications::notification.close-button','x-on:click' => 'close','class' => 'fi-no-notification-close-btn']); ?>
+=======
+<?php $component->withAttributes(['color' => 'gray','icon' => 'heroicon-m-x-mark','icon-alias' => 'notifications::notification.close-button','x-on:click' => 'close','class' => 'fi-no-notification-close-btn -m-2']); ?>
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginalf0029cce6d19fd6d472097ff06a800a1)): ?>

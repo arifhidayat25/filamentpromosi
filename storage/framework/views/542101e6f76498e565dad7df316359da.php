@@ -25,6 +25,7 @@
 <?php unset($__defined_vars); ?>
 
 <?php
+<<<<<<< HEAD
     $icon = ($alias ? \Filament\Support\Facades\FilamentIcon::resolve($alias) : null) ?: ($icon ?? $slot);
 ?>
 
@@ -45,4 +46,17 @@
         $class,
         array_filter($attributes->getAttributes()),)); ?>
 <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+=======
+    $icon = ($alias ? \Filament\Support\Facades\FilamentIcon::resolve($alias) : null) ?: $icon;
+?>
+
+<?php if(is_string($icon)): ?>
+    <?php echo e(svg($icon, $class, array_filter($attributes->getAttributes()))); ?>
+<?php else: ?>
+    <div <?php echo e($attributes->class($class)); ?>>
+        <?php echo e($icon ?? $slot); ?>
+
+    </div>
+<?php endif; ?>
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
 <?php /**PATH C:\laragon\www\magang\laravel-filament\vendor\filament\support\resources\views/components/icon.blade.php ENDPATH**/ ?>

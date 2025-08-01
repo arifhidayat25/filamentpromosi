@@ -1,4 +1,5 @@
 <?php
+<<<<<<< HEAD
     use Filament\Notifications\Livewire\Notifications;
     use Filament\Support\Enums\Alignment;
     use Filament\Support\Enums\VerticalAlignment;
@@ -13,14 +14,27 @@
     $hasDate = filled($date);
     $body = $getBody();
     $hasBody = filled($body);
+=======
+    use Filament\Support\Enums\Alignment;
+    use Filament\Support\Enums\VerticalAlignment;
+
+    $color = $getColor() ?? 'gray';
+    $isInline = $isInline();
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
 ?>
 
 <?php if (isset($component)) { $__componentOriginal3aec810dc0b7b6031e787147bbf29c75 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal3aec810dc0b7b6031e787147bbf29c75 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament-notifications::components.notification','data' => ['notification' => $notification,'xTransition:enterStart' => 
+<<<<<<< HEAD
         Arr::toCssClasses([
             'opacity-0',
             ($this instanceof Notifications)
+=======
+        \Illuminate\Support\Arr::toCssClasses([
+            'opacity-0',
+            ($this instanceof \Filament\Notifications\Livewire\Notifications)
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
             ? match (static::$alignment) {
                 Alignment::Start, Alignment::Left => '-translate-x-12',
                 Alignment::End, Alignment::Right => 'translate-x-12',
@@ -29,25 +43,39 @@
                     VerticalAlignment::End => 'translate-y-12',
                     default => null,
                 },
+<<<<<<< HEAD
                 default => null,
+=======
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
             }
             : null,
         ])
     ,'xTransition:leaveEnd' => 
+<<<<<<< HEAD
         Arr::toCssClasses([
+=======
+        \Illuminate\Support\Arr::toCssClasses([
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
             'opacity-0',
             'scale-95' => ! $isInline,
         ])
     ,'class' => \Illuminate\Support\Arr::toCssClasses([
+<<<<<<< HEAD
         'fi-no-notification w-full overflow-hidden transition duration-300',
         ...match ($isInline) {
             true => [
                 'fi-inline',
             ],
+=======
+        'w-full transition duration-300',
+        ...match ($isInline) {
+            true => [],
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
             false => [
                 'max-w-sm rounded-xl bg-white shadow-lg ring-1 dark:bg-gray-900',
                 match ($color) {
                     'gray' => 'ring-gray-950/5 dark:ring-white/10',
+<<<<<<< HEAD
                     default => 'fi-color-custom ring-custom-600/20 dark:ring-custom-400/30',
                 },
                 is_string($color) ? 'fi-color-' . $color : null,
@@ -60,6 +88,14 @@
             shades: [50, 400, 600],
             alias: 'notifications::notification',
         ) => ! ($isInline || $color === 'gray'),
+=======
+                    default => 'ring-custom-600/20 dark:ring-custom-400/30',
+                },
+            ],
+        },
+    ]),'style' => \Illuminate\Support\Arr::toCssStyles([
+        \Filament\Support\get_color_css_variables($color, shades: [400, 600]) => ! ($isInline || $color === 'gray'),
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
     ])]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('filament-notifications::notification'); ?>
 <?php if ($component->shouldRender()): ?>
@@ -68,9 +104,15 @@
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
 <?php $component->withAttributes(['notification' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($notification),'x-transition:enter-start' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(
+<<<<<<< HEAD
         Arr::toCssClasses([
             'opacity-0',
             ($this instanceof Notifications)
+=======
+        \Illuminate\Support\Arr::toCssClasses([
+            'opacity-0',
+            ($this instanceof \Filament\Notifications\Livewire\Notifications)
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
             ? match (static::$alignment) {
                 Alignment::Start, Alignment::Left => '-translate-x-12',
                 Alignment::End, Alignment::Right => 'translate-x-12',
@@ -79,25 +121,39 @@
                     VerticalAlignment::End => 'translate-y-12',
                     default => null,
                 },
+<<<<<<< HEAD
                 default => null,
+=======
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
             }
             : null,
         ])
     ),'x-transition:leave-end' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(
+<<<<<<< HEAD
         Arr::toCssClasses([
+=======
+        \Illuminate\Support\Arr::toCssClasses([
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
             'opacity-0',
             'scale-95' => ! $isInline,
         ])
     ),'class' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(\Illuminate\Support\Arr::toCssClasses([
+<<<<<<< HEAD
         'fi-no-notification w-full overflow-hidden transition duration-300',
         ...match ($isInline) {
             true => [
                 'fi-inline',
             ],
+=======
+        'w-full transition duration-300',
+        ...match ($isInline) {
+            true => [],
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
             false => [
                 'max-w-sm rounded-xl bg-white shadow-lg ring-1 dark:bg-gray-900',
                 match ($color) {
                     'gray' => 'ring-gray-950/5 dark:ring-white/10',
+<<<<<<< HEAD
                     default => 'fi-color-custom ring-custom-600/20 dark:ring-custom-400/30',
                 },
                 is_string($color) ? 'fi-color-' . $color : null,
@@ -110,10 +166,19 @@
             shades: [50, 400, 600],
             alias: 'notifications::notification',
         ) => ! ($isInline || $color === 'gray'),
+=======
+                    default => 'ring-custom-600/20 dark:ring-custom-400/30',
+                },
+            ],
+        },
+    ])),'style' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(\Illuminate\Support\Arr::toCssStyles([
+        \Filament\Support\get_color_css_variables($color, shades: [400, 600]) => ! ($isInline || $color === 'gray'),
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
     ]))]); ?>
     <div
         class="<?php echo \Illuminate\Support\Arr::toCssClasses([
             'flex w-full gap-3 p-4',
+<<<<<<< HEAD
             match ($color) {
                 'gray' => null,
                 default => 'bg-custom-50 dark:bg-custom-400/10',
@@ -121,6 +186,24 @@
         ]); ?>"
     >
         <!--[if BLOCK]><![endif]--><?php if($icon = $getIcon()): ?>
+=======
+            ...match ($isInline) {
+                true => [],
+                false => [
+                    'rounded-xl',
+                    match ($color) {
+                        'gray' => null,
+                        default => 'bg-custom-50 dark:bg-custom-400/10',
+                    },
+                ],
+            },
+        ]); ?>"
+        style="<?php echo \Illuminate\Support\Arr::toCssStyles([
+            \Filament\Support\get_color_css_variables($color, shades: [50, 400]) => ! ($isInline || $color === 'gray'),
+        ]) ?>"
+    >
+        <?php if($icon = $getIcon()): ?>
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
             <?php if (isset($component)) { $__componentOriginalf02cb4921775e86c03ae335599adc986 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalf02cb4921775e86c03ae335599adc986 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament-notifications::components.icon','data' => ['color' => $getIconColor(),'icon' => $icon,'size' => $getIconSize()]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
@@ -141,10 +224,17 @@
 <?php $component = $__componentOriginalf02cb4921775e86c03ae335599adc986; ?>
 <?php unset($__componentOriginalf02cb4921775e86c03ae335599adc986); ?>
 <?php endif; ?>
+<<<<<<< HEAD
         <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
 
         <div class="mt-0.5 grid flex-1">
             <!--[if BLOCK]><![endif]--><?php if($hasTitle): ?>
+=======
+        <?php endif; ?>
+
+        <div class="mt-0.5 grid flex-1">
+            <?php if(filled($title = $getTitle())): ?>
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
                 <?php if (isset($component)) { $__componentOriginal7db3daa6cb21d2d6e134a68caddc4280 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal7db3daa6cb21d2d6e134a68caddc4280 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament-notifications::components.title','data' => []] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
@@ -167,19 +257,32 @@
 <?php $component = $__componentOriginal7db3daa6cb21d2d6e134a68caddc4280; ?>
 <?php unset($__componentOriginal7db3daa6cb21d2d6e134a68caddc4280); ?>
 <?php endif; ?>
+<<<<<<< HEAD
             <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
 
             <!--[if BLOCK]><![endif]--><?php if($hasDate): ?>
                 <?php if (isset($component)) { $__componentOriginal3148f3d244bda71926d7f1c92697ed87 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal3148f3d244bda71926d7f1c92697ed87 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament-notifications::components.date','data' => ['class' => \Illuminate\Support\Arr::toCssClasses(['mt-1' => $hasTitle])]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+=======
+            <?php endif; ?>
+
+            <?php if(filled($date = $getDate())): ?>
+                <?php if (isset($component)) { $__componentOriginal3148f3d244bda71926d7f1c92697ed87 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal3148f3d244bda71926d7f1c92697ed87 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament-notifications::components.date','data' => ['class' => 'mt-1']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
 <?php $component->withName('filament-notifications::date'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
+<<<<<<< HEAD
 <?php $component->withAttributes(['class' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(\Illuminate\Support\Arr::toCssClasses(['mt-1' => $hasTitle]))]); ?>
+=======
+<?php $component->withAttributes(['class' => 'mt-1']); ?>
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
                     <?php echo e($date); ?>
 
                  <?php echo $__env->renderComponent(); ?>
@@ -192,19 +295,32 @@
 <?php $component = $__componentOriginal3148f3d244bda71926d7f1c92697ed87; ?>
 <?php unset($__componentOriginal3148f3d244bda71926d7f1c92697ed87); ?>
 <?php endif; ?>
+<<<<<<< HEAD
             <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
 
             <!--[if BLOCK]><![endif]--><?php if($hasBody): ?>
                 <?php if (isset($component)) { $__componentOriginal27460770b0e710a69ee227f4482c43ef = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal27460770b0e710a69ee227f4482c43ef = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament-notifications::components.body','data' => ['class' => \Illuminate\Support\Arr::toCssClasses(['mt-1' => $hasTitle || $hasDate])]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+=======
+            <?php endif; ?>
+
+            <?php if(filled($body = $getBody())): ?>
+                <?php if (isset($component)) { $__componentOriginal27460770b0e710a69ee227f4482c43ef = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal27460770b0e710a69ee227f4482c43ef = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament-notifications::components.body','data' => ['class' => 'mt-1']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
 <?php $component->withName('filament-notifications::body'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
+<<<<<<< HEAD
 <?php $component->withAttributes(['class' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(\Illuminate\Support\Arr::toCssClasses(['mt-1' => $hasTitle || $hasDate]))]); ?>
+=======
+<?php $component->withAttributes(['class' => 'mt-1']); ?>
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
                     <?php echo e(str($body)->sanitizeHtml()->toHtmlString()); ?>
 
                  <?php echo $__env->renderComponent(); ?>
@@ -217,19 +333,32 @@
 <?php $component = $__componentOriginal27460770b0e710a69ee227f4482c43ef; ?>
 <?php unset($__componentOriginal27460770b0e710a69ee227f4482c43ef); ?>
 <?php endif; ?>
+<<<<<<< HEAD
             <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
 
             <!--[if BLOCK]><![endif]--><?php if($actions = $getActions()): ?>
                 <?php if (isset($component)) { $__componentOriginalab02eb41cb8d8c4163c985cb21a53002 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalab02eb41cb8d8c4163c985cb21a53002 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament-notifications::components.actions','data' => ['actions' => $actions,'class' => \Illuminate\Support\Arr::toCssClasses(['mt-3' => $hasTitle || $hasDate || $hasBody])]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+=======
+            <?php endif; ?>
+
+            <?php if($actions = $getActions()): ?>
+                <?php if (isset($component)) { $__componentOriginalab02eb41cb8d8c4163c985cb21a53002 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginalab02eb41cb8d8c4163c985cb21a53002 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament-notifications::components.actions','data' => ['actions' => $actions,'class' => 'mt-3']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
 <?php $component->withName('filament-notifications::actions'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
+<<<<<<< HEAD
 <?php $component->withAttributes(['actions' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($actions),'class' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(\Illuminate\Support\Arr::toCssClasses(['mt-3' => $hasTitle || $hasDate || $hasBody]))]); ?>
+=======
+<?php $component->withAttributes(['actions' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($actions),'class' => 'mt-3']); ?>
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginalab02eb41cb8d8c4163c985cb21a53002)): ?>
@@ -240,7 +369,11 @@
 <?php $component = $__componentOriginalab02eb41cb8d8c4163c985cb21a53002; ?>
 <?php unset($__componentOriginalab02eb41cb8d8c4163c985cb21a53002); ?>
 <?php endif; ?>
+<<<<<<< HEAD
             <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+=======
+            <?php endif; ?>
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
         </div>
 
         <?php if (isset($component)) { $__componentOriginal5bcde53997b77b5ac492fb6b61c26c09 = $component; } ?>

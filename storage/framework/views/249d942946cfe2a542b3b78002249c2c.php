@@ -22,9 +22,12 @@
 <?php unset($__defined_vars); ?>
 
 <div <?php echo e($attributes->class(['fi-simple-page'])); ?>>
+<<<<<<< HEAD
     <?php echo e(\Filament\Support\Facades\FilamentView::renderHook(\Filament\View\PanelsRenderHook::SIMPLE_PAGE_START, scopes: $this->getRenderHookScopes())); ?>
 
 
+=======
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
     <section class="grid auto-cols-fr gap-y-6">
         <?php if (isset($component)) { $__componentOriginal2a251355e952c89de8b30f2844a671a7 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal2a251355e952c89de8b30f2844a671a7 = $attributes; } ?>
@@ -50,6 +53,7 @@
         <?php echo e($slot); ?>
 
     </section>
+<<<<<<< HEAD
 
     <!--[if BLOCK]><![endif]--><?php if(! $this instanceof \Filament\Tables\Contracts\HasTable): ?>
         <?php if (isset($component)) { $__componentOriginal028e05680f6c5b1e293abd7fbe5f9758 = $component; } ?>
@@ -76,5 +80,7 @@
 
     <?php echo e(\Filament\Support\Facades\FilamentView::renderHook(\Filament\View\PanelsRenderHook::SIMPLE_PAGE_END, scopes: $this->getRenderHookScopes())); ?>
 
+=======
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
 </div>
 <?php /**PATH C:\laragon\www\magang\laravel-filament\vendor\filament\filament\resources\views/components/page/simple.blade.php ENDPATH**/ ?>

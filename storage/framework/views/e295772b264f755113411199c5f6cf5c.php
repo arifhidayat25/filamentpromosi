@@ -86,7 +86,11 @@
 <?php unset($__componentOriginal130fd53052f7fb96516142d5e36c3545); ?>
 <?php endif; ?>
 
+<<<<<<< HEAD
         <!--[if BLOCK]><![endif]--><?php if($description): ?>
+=======
+        <?php if($description): ?>
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
             <?php if (isset($component)) { $__componentOriginalc142a3e962e03b45ea4d798cbb1a12b4 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalc142a3e962e03b45ea4d798cbb1a12b4 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament-tables::components.empty-state.description','data' => ['class' => 'mt-1']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
@@ -109,9 +113,15 @@
 <?php $component = $__componentOriginalc142a3e962e03b45ea4d798cbb1a12b4; ?>
 <?php unset($__componentOriginalc142a3e962e03b45ea4d798cbb1a12b4); ?>
 <?php endif; ?>
+<<<<<<< HEAD
         <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
 
         <!--[if BLOCK]><![endif]--><?php if($actions): ?>
+=======
+        <?php endif; ?>
+
+        <?php if($actions): ?>
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
             <?php if (isset($component)) { $__componentOriginal32a2358b99de73a2a27625c392d6fe38 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal32a2358b99de73a2a27625c392d6fe38 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament-tables::components.actions','data' => ['actions' => $actions,'alignment' => Alignment::Center,'wrap' => true,'class' => 'mt-6']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
@@ -132,7 +142,11 @@
 <?php $component = $__componentOriginal32a2358b99de73a2a27625c392d6fe38; ?>
 <?php unset($__componentOriginal32a2358b99de73a2a27625c392d6fe38); ?>
 <?php endif; ?>
+<<<<<<< HEAD
         <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+=======
+        <?php endif; ?>
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
     </div>
 </div>
 <?php /**PATH C:\laragon\www\magang\laravel-filament\vendor\filament\tables\resources\views/components/empty-state/index.blade.php ENDPATH**/ ?>

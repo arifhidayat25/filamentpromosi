@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
     use Filament\Support\Enums\ActionSize;
     use Filament\Support\Enums\IconPosition;
@@ -24,11 +25,22 @@
     'target' => null,
     'tooltip' => null,
     'type' => 'button',
+=======
+<?php $attributes ??= new \Illuminate\View\ComponentAttributeBag; ?>
+<?php foreach($attributes->onlyProps([
+    'color' => 'primary',
+    'closeIcon' => null,
+    'deleteButton' => null,
+    'icon' => null,
+    'iconPosition' => 'before',
+    'size' => 'md',
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
 ]) as $__key => $__value) {
     $$__key = $$__key ?? $__value;
 } ?>
 <?php $attributes = $attributes->exceptProps([
     'color' => 'primary',
+<<<<<<< HEAD
     'deleteButton' => null,
     'disabled' => false,
     'form' => null,
@@ -66,6 +78,21 @@
     'target' => null,
     'tooltip' => null,
     'type' => 'button',
+=======
+    'closeIcon' => null,
+    'deleteButton' => null,
+    'icon' => null,
+    'iconPosition' => 'before',
+    'size' => 'md',
+]); ?>
+<?php foreach (array_filter(([
+    'color' => 'primary',
+    'closeIcon' => null,
+    'deleteButton' => null,
+    'icon' => null,
+    'iconPosition' => 'before',
+    'size' => 'md',
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
 ]), 'is_string', ARRAY_FILTER_USE_KEY) as $__key => $__value) {
     $$__key = $$__key ?? $__value;
 } ?>
@@ -76,6 +103,7 @@
 <?php unset($__defined_vars); ?>
 
 <?php
+<<<<<<< HEAD
     if (! $iconPosition instanceof IconPosition) {
         $iconPosition = filled($iconPosition) ? (IconPosition::tryFrom($iconPosition) ?? $iconPosition) : null;
     }
@@ -87,22 +115,29 @@
     if (! $iconSize instanceof IconSize) {
         $iconSize = filled($iconSize) ? (IconSize::tryFrom($iconSize) ?? $iconSize) : null;
     }
+=======
+    use Filament\Support\Enums\IconPosition;
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
 
     $isDeletable = count($deleteButton?->attributes->getAttributes() ?? []) > 0;
 
     $iconClasses = \Illuminate\Support\Arr::toCssClasses([
         'fi-badge-icon h-4 w-4',
+<<<<<<< HEAD
         match ($iconSize) {
             IconSize::Small => 'h-4 w-4',
             IconSize::Medium => 'h-5 w-5',
             IconSize::Large => 'h-6 w-6',
             default => $iconSize,
         },
+=======
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
         match ($color) {
             'gray' => 'text-gray-400 dark:text-gray-500',
             default => 'text-custom-500',
         },
     ]);
+<<<<<<< HEAD
 
     $iconStyles = \Illuminate\Support\Arr::toCssStyles([
         \Filament\Support\get_color_css_variables(
@@ -164,20 +199,47 @@
                     default => 'fi-color-custom bg-custom-50 text-custom-600 ring-custom-600/10 dark:bg-custom-400/10 dark:text-custom-400 dark:ring-custom-400/30',
                 },
                 is_string($color) ? "fi-color-{$color}" : null,
+=======
+?>
+
+<div
+    <?php echo e($attributes
+            ->class([
+                'fi-badge flex items-center justify-center gap-x-1 whitespace-nowrap rounded-md  text-xs font-medium ring-1 ring-inset',
+                match ($size) {
+                    'xs' => 'px-0.5 min-w-[theme(spacing.4)] tracking-tighter',
+                    'sm' => 'px-1.5 min-w-[theme(spacing.5)] py-0.5 tracking-tight',
+                    'md' => 'px-2 min-w-[theme(spacing.6)] py-1',
+                },
+                match ($color) {
+                    'gray' => 'bg-gray-50 text-gray-600 ring-gray-600/10 dark:bg-gray-400/10 dark:text-gray-400 dark:ring-gray-400/20',
+                    default => 'bg-custom-50 text-custom-600 ring-custom-600/10 dark:bg-custom-400/10 dark:text-custom-400 dark:ring-custom-400/30',
+                },
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
             ])
             ->style([
                 \Filament\Support\get_color_css_variables(
                     $color,
                     shades: [
                         50,
+<<<<<<< HEAD
                         400,
                         600,
                     ],
                     alias: 'badge',
+=======
+                        300,
+                        400,
+                        ...$icon ? [500] : [],
+                        600,
+                        ...$isDeletable ? [700] : [],
+                    ]
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
                 ) => $color !== 'gray',
             ])); ?>
 
 >
+<<<<<<< HEAD
     <!--[if BLOCK]><![endif]--><?php if($iconPosition === IconPosition::Before): ?>
         <!--[if BLOCK]><![endif]--><?php if($icon): ?>
             <?php if (isset($component)) { $__componentOriginalbfc641e0710ce04e5fe02876ffc6f950 = $component; } ?>
@@ -194,12 +256,19 @@
                         ->class([$iconClasses])
                         ->style([$iconStyles])
                 ]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+=======
+    <?php if($icon && in_array($iconPosition, [IconPosition::Before, 'before'])): ?>
+        <?php if (isset($component)) { $__componentOriginalbfc641e0710ce04e5fe02876ffc6f950 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginalbfc641e0710ce04e5fe02876ffc6f950 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament::components.icon','data' => ['icon' => $icon,'class' => $iconClasses]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
 <?php $component->withName('filament::icon'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
+<<<<<<< HEAD
 <?php $component->withAttributes(['attributes' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(
                     \Filament\Support\prepare_inherited_attributes(
                         new \Illuminate\View\ComponentAttributeBag([
@@ -212,6 +281,9 @@
                         ->class([$iconClasses])
                         ->style([$iconStyles])
                 )]); ?>
+=======
+<?php $component->withAttributes(['icon' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($icon),'class' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($iconClasses)]); ?>
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginalbfc641e0710ce04e5fe02876ffc6f950)): ?>
@@ -222,6 +294,7 @@
 <?php $component = $__componentOriginalbfc641e0710ce04e5fe02876ffc6f950; ?>
 <?php unset($__componentOriginalbfc641e0710ce04e5fe02876ffc6f950); ?>
 <?php endif; ?>
+<<<<<<< HEAD
         <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
 
         <!--[if BLOCK]><![endif]--><?php if($hasLoadingIndicator): ?>
@@ -293,6 +366,20 @@
                             alias: 'badge.delete-button',
                         ) => $color !== 'gray',
                     ])); ?>
+=======
+    <?php endif; ?>
+
+    <span>
+        <?php echo e($slot); ?>
+
+    </span>
+
+    <?php if($isDeletable): ?>
+        <button
+            type="button"
+            class="-my-1 -me-2 -ms-1 flex items-center justify-center p-1 text-custom-700/50 outline-none transition duration-75 hover:text-custom-700/75 focus:text-custom-700/75 dark:text-custom-300/50 dark:hover:text-custom-300/75 dark:focus:text-custom-300/75"
+            <?php echo e($deleteButton->attributes->except(['label'])); ?>
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
 
         >
             <?php if (isset($component)) { $__componentOriginalbfc641e0710ce04e5fe02876ffc6f950 = $component; } ?>
@@ -316,11 +403,16 @@
 <?php unset($__componentOriginalbfc641e0710ce04e5fe02876ffc6f950); ?>
 <?php endif; ?>
 
+<<<<<<< HEAD
             <!--[if BLOCK]><![endif]--><?php if(filled($label = $deleteButton->attributes->get('label'))): ?>
+=======
+            <?php if(filled($label = $deleteButton->attributes->get('label'))): ?>
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
                 <span class="sr-only">
                     <?php echo e($label); ?>
 
                 </span>
+<<<<<<< HEAD
             <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
         </button>
     <?php elseif($iconPosition === IconPosition::After): ?>
@@ -339,12 +431,21 @@
                         ->class([$iconClasses])
                         ->style([$iconStyles])
                 ]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+=======
+            <?php endif; ?>
+        </button>
+    <?php elseif($icon && in_array($iconPosition, [IconPosition::After, 'after'])): ?>
+        <?php if (isset($component)) { $__componentOriginalbfc641e0710ce04e5fe02876ffc6f950 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginalbfc641e0710ce04e5fe02876ffc6f950 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament::components.icon','data' => ['icon' => $icon,'class' => $iconClasses]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
 <?php $component->withName('filament::icon'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
+<<<<<<< HEAD
 <?php $component->withAttributes(['attributes' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(
                     \Filament\Support\prepare_inherited_attributes(
                         new \Illuminate\View\ComponentAttributeBag([
@@ -357,6 +458,9 @@
                         ->class([$iconClasses])
                         ->style([$iconStyles])
                 )]); ?>
+=======
+<?php $component->withAttributes(['icon' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($icon),'class' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($iconClasses)]); ?>
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginalbfc641e0710ce04e5fe02876ffc6f950)): ?>
@@ -367,6 +471,7 @@
 <?php $component = $__componentOriginalbfc641e0710ce04e5fe02876ffc6f950; ?>
 <?php unset($__componentOriginalbfc641e0710ce04e5fe02876ffc6f950); ?>
 <?php endif; ?>
+<<<<<<< HEAD
         <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
 
         <!--[if BLOCK]><![endif]--><?php if($hasLoadingIndicator): ?>
@@ -411,4 +516,8 @@
         <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
     <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
 </<?php echo e($tag); ?>>
+=======
+    <?php endif; ?>
+</div>
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
 <?php /**PATH C:\laragon\www\magang\laravel-filament\vendor\filament\support\resources\views/components/badge.blade.php ENDPATH**/ ?>

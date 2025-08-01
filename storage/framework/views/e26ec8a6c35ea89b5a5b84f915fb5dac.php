@@ -6,7 +6,10 @@
     'recordAction' => null,
     'recordKey' => null,
     'recordUrl' => null,
+<<<<<<< HEAD
     'shouldOpenRecordUrlInNewTab' => false,
+=======
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
 ]) as $__key => $__value) {
     $$__key = $$__key ?? $__value;
 } ?>
@@ -17,7 +20,10 @@
     'recordAction' => null,
     'recordKey' => null,
     'recordUrl' => null,
+<<<<<<< HEAD
     'shouldOpenRecordUrlInNewTab' => false,
+=======
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
 ]); ?>
 <?php foreach (array_filter(([
     'column',
@@ -26,7 +32,10 @@
     'recordAction' => null,
     'recordKey' => null,
     'recordUrl' => null,
+<<<<<<< HEAD
     'shouldOpenRecordUrlInNewTab' => false,
+=======
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
 ]), 'is_string', ARRAY_FILTER_USE_KEY) as $__key => $__value) {
     $$__key = $$__key ?? $__value;
 } ?>
@@ -40,12 +49,16 @@
     use Filament\Support\Enums\Alignment;
 
     $action = $column->getAction();
+<<<<<<< HEAD
     $alignment = $column->getAlignment() ?? Alignment::Start;
+=======
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
     $name = $column->getName();
     $shouldOpenUrlInNewTab = $column->shouldOpenUrlInNewTab();
     $tooltip = $column->getTooltip();
     $url = $column->getUrl();
 
+<<<<<<< HEAD
     if (! $alignment instanceof Alignment) {
         $alignment = filled($alignment) ? (Alignment::tryFrom($alignment) ?? $alignment) : null;
     }
@@ -60,6 +73,17 @@
             Alignment::Right => 'justify-end text-right',
             Alignment::Justify, Alignment::Between => 'justify-between text-justify',
             default => $alignment,
+=======
+    $columnClasses = \Illuminate\Support\Arr::toCssClasses([
+        'flex w-full disabled:pointer-events-none',
+        match ($column->getAlignment()) {
+            Alignment::Center, 'center' => 'justify-center text-center',
+            Alignment::End, 'end' => 'justify-end text-end',
+            Alignment::Left, 'left' => 'justify-start text-left',
+            Alignment::Right, 'right' => 'justify-end text-right',
+            Alignment::Justify, 'justify' => 'justify-between text-justify',
+            default => 'justify-start text-start',
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
         },
     ]);
 
@@ -67,7 +91,11 @@
 ?>
 
 <div
+<<<<<<< HEAD
     <?php if(filled($tooltip)): ?>
+=======
+    <?php if($tooltip): ?>
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
         x-data="{}"
         x-tooltip="{
             content: <?php echo \Illuminate\Support\Js::from($tooltip)->toHtml() ?>,
@@ -77,10 +105,17 @@
     <?php echo e($attributes->class(['fi-ta-col-wrp'])); ?>
 
 >
+<<<<<<< HEAD
     <!--[if BLOCK]><![endif]--><?php if(($url || ($recordUrl && $action === null)) && (! $isClickDisabled)): ?>
         <a
             <?php echo e(\Filament\Support\generate_href_html($url ?: $recordUrl, $url ? $shouldOpenUrlInNewTab : $shouldOpenRecordUrlInNewTab)); ?>
 
+=======
+    <?php if(($url || ($recordUrl && $action === null)) && (! $isClickDisabled)): ?>
+        <a
+            href="<?php echo e($url ?: $recordUrl); ?>"
+            <?php if($shouldOpenUrlInNewTab): ?> target="_blank" <?php endif; ?>
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
             class="<?php echo e($columnClasses); ?>"
         >
             <?php echo e($slot); ?>
@@ -103,7 +138,11 @@
 
         <button
             type="button"
+<<<<<<< HEAD
             wire:click.stop.prevent="<?php echo e($wireClickAction); ?>"
+=======
+            wire:click="<?php echo e($wireClickAction); ?>"
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
             wire:loading.attr="disabled"
             wire:target="<?php echo e($wireClickAction); ?>"
             class="<?php echo e($columnClasses); ?>"
@@ -116,6 +155,10 @@
             <?php echo e($slot); ?>
 
         </div>
+<<<<<<< HEAD
     <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+=======
+    <?php endif; ?>
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
 </div>
 <?php /**PATH C:\laragon\www\magang\laravel-filament\vendor\filament\tables\resources\views/components/columns/column.blade.php ENDPATH**/ ?>

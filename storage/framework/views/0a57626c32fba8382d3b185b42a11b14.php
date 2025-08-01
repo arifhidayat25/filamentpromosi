@@ -1,7 +1,10 @@
+<<<<<<< HEAD
 <?php
     use Filament\Support\Enums\MaxWidth;
 ?>
 
+=======
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
 <?php if (isset($component)) { $__componentOriginale960ae7ad1b1ce9e3596e483505fadc9 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginale960ae7ad1b1ce9e3596e483505fadc9 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament-panels::components.layout.base','data' => ['livewire' => $livewire]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
@@ -38,8 +41,13 @@
 } ?>
 <?php unset($__defined_vars); ?>
 
+<<<<<<< HEAD
     <div class="fi-simple-layout flex min-h-screen flex-col items-center">
         <?php if(($hasTopbar ?? true) && filament()->auth()->check()): ?>
+=======
+    <div class="fi-simple-layout flex min-h-screen items-center">
+        <?php if(filament()->auth()->check()): ?>
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
             <div
                 class="absolute end-0 top-0 flex h-16 items-center gap-x-4 pe-4 md:pe-6 lg:pe-8"
             >
@@ -48,9 +56,13 @@
 $__split = function ($name, $params = []) {
     return [$name, $params];
 };
+<<<<<<< HEAD
 [$__name, $__params] = $__split(Filament\Livewire\DatabaseNotifications::class, [
                         'lazy' => filament()->hasLazyLoadedDatabaseNotifications()
                     ]);
+=======
+[$__name, $__params] = $__split(Filament\Livewire\DatabaseNotifications::class, ['lazy' => true]);
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
 
 $__html = app('livewire')->mount($__name, $__params, 'lw-3479032295-0', $__slots ?? [], get_defined_vars());
 
@@ -87,6 +99,7 @@ if (isset($__slots)) unset($__slots);
             </div>
         <?php endif; ?>
 
+<<<<<<< HEAD
         <div
             class="fi-simple-main-ctn flex w-full flex-grow items-center justify-center"
         >
@@ -118,13 +131,22 @@ if (isset($__slots)) unset($__slots);
                         default => $maxWidth,
                     },
                 ]); ?>"
+=======
+        <div class="fi-simple-main-ctn w-full">
+            <main
+                class="fi-simple-main mx-auto my-16 w-full bg-white px-6 py-12 shadow-sm ring-1 ring-gray-950/5 dark:bg-gray-900 dark:ring-white/10 sm:max-w-lg sm:rounded-xl sm:px-12"
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
             >
                 <?php echo e($slot); ?>
 
             </main>
         </div>
 
+<<<<<<< HEAD
         <?php echo e(\Filament\Support\Facades\FilamentView::renderHook(\Filament\View\PanelsRenderHook::FOOTER, scopes: $livewire->getRenderHookScopes())); ?>
+=======
+        <?php echo e(\Filament\Support\Facades\FilamentView::renderHook('panels::footer')); ?>
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
 
     </div>
  <?php echo $__env->renderComponent(); ?>

@@ -2,7 +2,11 @@
 <?php if (isset($attributes)) { $__attributesOriginal0582040fe960eff09c1461f7f86a8187 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament-tables::components.cell','data' => ['attributes' => 
         \Filament\Support\prepare_inherited_attributes($attributes)
+<<<<<<< HEAD
             ->class(['fi-ta-selection-cell w-1'])
+=======
+            ->class(['w-1'])
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
     ]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('filament-tables::cell'); ?>
 <?php if ($component->shouldRender()): ?>
@@ -12,7 +16,11 @@
 <?php endif; ?>
 <?php $component->withAttributes(['attributes' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(
         \Filament\Support\prepare_inherited_attributes($attributes)
+<<<<<<< HEAD
             ->class(['fi-ta-selection-cell w-1'])
+=======
+            ->class(['w-1'])
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
     )]); ?>
     <div class="px-3 py-4">
         <?php echo e($slot); ?>

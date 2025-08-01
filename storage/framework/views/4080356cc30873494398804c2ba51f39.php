@@ -19,6 +19,7 @@
 <?php unset($__defined_vars); ?>
 
 <?php
+<<<<<<< HEAD
     $iconClasses = 'fi-breadcrumbs-item-separator flex h-5 w-5 text-gray-400 dark:text-gray-500';
     $itemLabelClasses = 'fi-breadcrumbs-item-label text-sm font-medium text-gray-500 dark:text-gray-400';
 ?>
@@ -31,6 +32,20 @@
                     <?php if (isset($component)) { $__componentOriginalbfc641e0710ce04e5fe02876ffc6f950 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalbfc641e0710ce04e5fe02876ffc6f950 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament::components.icon','data' => ['alias' => 'breadcrumbs.separator','icon' => 'heroicon-m-chevron-right','class' => \Illuminate\Support\Arr::toCssClasses([
+=======
+    $iconAlias = 'breadcrumbs.separator';
+    $iconClasses = 'h-5 w-5 text-gray-400 dark:text-gray-500';
+?>
+
+<nav <?php echo e($attributes->class(['fi-breadcrumbs'])); ?>>
+    <ol class="flex flex-wrap items-center gap-x-2">
+        <?php $__currentLoopData = $breadcrumbs; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $url => $label): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <li class="flex gap-x-2">
+                <?php if(! $loop->first): ?>
+                    <?php if (isset($component)) { $__componentOriginalbfc641e0710ce04e5fe02876ffc6f950 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginalbfc641e0710ce04e5fe02876ffc6f950 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament::components.icon','data' => ['alias' => $iconAlias,'icon' => 'heroicon-m-chevron-right','class' => \Illuminate\Support\Arr::toCssClasses([
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
                             $iconClasses,
                             'rtl:hidden',
                         ])]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
@@ -40,7 +55,11 @@
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
+<<<<<<< HEAD
 <?php $component->withAttributes(['alias' => 'breadcrumbs.separator','icon' => 'heroicon-m-chevron-right','class' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(\Illuminate\Support\Arr::toCssClasses([
+=======
+<?php $component->withAttributes(['alias' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($iconAlias),'icon' => 'heroicon-m-chevron-right','class' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(\Illuminate\Support\Arr::toCssClasses([
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
                             $iconClasses,
                             'rtl:hidden',
                         ]))]); ?>
@@ -57,7 +76,11 @@
 
                     <?php if (isset($component)) { $__componentOriginalbfc641e0710ce04e5fe02876ffc6f950 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalbfc641e0710ce04e5fe02876ffc6f950 = $attributes; } ?>
+<<<<<<< HEAD
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament::components.icon','data' => ['alias' => ['breadcrumbs.separator.rtl', 'breadcrumbs.separator'],'icon' => 'heroicon-m-chevron-left','class' => \Illuminate\Support\Arr::toCssClasses([
+=======
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament::components.icon','data' => ['alias' => $iconAlias,'icon' => 'heroicon-m-chevron-left','class' => \Illuminate\Support\Arr::toCssClasses([
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
                             $iconClasses,
                             'ltr:hidden',
                         ])]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
@@ -67,7 +90,11 @@
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
+<<<<<<< HEAD
 <?php $component->withAttributes(['alias' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(['breadcrumbs.separator.rtl', 'breadcrumbs.separator']),'icon' => 'heroicon-m-chevron-left','class' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(\Illuminate\Support\Arr::toCssClasses([
+=======
+<?php $component->withAttributes(['alias' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($iconAlias),'icon' => 'heroicon-m-chevron-left','class' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(\Illuminate\Support\Arr::toCssClasses([
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
                             $iconClasses,
                             'ltr:hidden',
                         ]))]); ?>
@@ -81,6 +108,7 @@
 <?php $component = $__componentOriginalbfc641e0710ce04e5fe02876ffc6f950; ?>
 <?php unset($__componentOriginalbfc641e0710ce04e5fe02876ffc6f950); ?>
 <?php endif; ?>
+<<<<<<< HEAD
                 <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
 
                 <!--[if BLOCK]><![endif]--><?php if(is_int($url)): ?>
@@ -100,6 +128,20 @@
                 <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
             </li>
         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
+=======
+                <?php endif; ?>
+
+                <a
+                    href="<?php echo e(is_int($url) ? '#' : $url); ?>"
+                    
+                    class="text-sm font-medium text-gray-500 outline-none transition duration-75 hover:text-gray-700 focus:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 dark:focus:text-gray-200"
+                >
+                    <?php echo e($label); ?>
+
+                </a>
+            </li>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
     </ol>
 </nav>
 <?php /**PATH C:\laragon\www\magang\laravel-filament\vendor\filament\support\resources\views/components/breadcrumbs.blade.php ENDPATH**/ ?>

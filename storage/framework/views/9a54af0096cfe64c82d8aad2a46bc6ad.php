@@ -8,7 +8,11 @@
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
 <?php $component->withAttributes([]); ?>
+<<<<<<< HEAD
     <!--[if BLOCK]><![endif]--><?php if(filament()->hasRegistration()): ?>
+=======
+    <?php if(filament()->hasRegistration()): ?>
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
          <?php $__env->slot('subheading', null, []); ?> 
             <?php echo e(__('filament-panels::pages/auth/login.actions.register.before')); ?>
 
@@ -16,6 +20,7 @@
             <?php echo e($this->registerAction); ?>
 
          <?php $__env->endSlot(); ?>
+<<<<<<< HEAD
     <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
 
     <?php echo e(\Filament\Support\Facades\FilamentView::renderHook(\Filament\View\PanelsRenderHook::AUTH_LOGIN_FORM_BEFORE, scopes: $this->getRenderHookScopes())); ?>
@@ -24,13 +29,24 @@
     <?php if (isset($component)) { $__componentOriginald09a0ea6d62fc9155b01d885c3fdffb3 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginald09a0ea6d62fc9155b01d885c3fdffb3 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament-panels::components.form.index','data' => ['id' => 'form','wire:submit' => 'authenticate']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+=======
+    <?php endif; ?>
+
+    <?php if (isset($component)) { $__componentOriginald09a0ea6d62fc9155b01d885c3fdffb3 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginald09a0ea6d62fc9155b01d885c3fdffb3 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament-panels::components.form.index','data' => ['wire:submit' => 'authenticate']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
 <?php $component->withName('filament-panels::form'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
+<<<<<<< HEAD
 <?php $component->withAttributes(['id' => 'form','wire:submit' => 'authenticate']); ?>
+=======
+<?php $component->withAttributes(['wire:submit' => 'authenticate']); ?>
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
         <?php echo e($this->form); ?>
 
 
@@ -64,9 +80,12 @@
 <?php $component = $__componentOriginald09a0ea6d62fc9155b01d885c3fdffb3; ?>
 <?php unset($__componentOriginald09a0ea6d62fc9155b01d885c3fdffb3); ?>
 <?php endif; ?>
+<<<<<<< HEAD
 
     <?php echo e(\Filament\Support\Facades\FilamentView::renderHook(\Filament\View\PanelsRenderHook::AUTH_LOGIN_FORM_AFTER, scopes: $this->getRenderHookScopes())); ?>
 
+=======
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
  <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginalf45da69382bf4ac45a50b496dc82aa9a)): ?>

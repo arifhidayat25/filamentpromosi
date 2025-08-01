@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
     $brandName = filament()->getBrandName();
     $brandLogo = filament()->getBrandLogo();
@@ -63,5 +64,17 @@
 <?php if($hasDarkModeBrandLogo): ?>
     <?php echo e($content($darkModeBrandLogo, isDarkMode: true)); ?>
 
+=======
+<?php if(filled($brand = filament()->getBrandName())): ?>
+    <div
+        <?php echo e($attributes->class([
+                'fi-logo text-xl font-bold leading-5 tracking-tight text-gray-950 dark:text-white',
+            ])); ?>
+
+    >
+        <?php echo e($brand); ?>
+
+    </div>
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
 <?php endif; ?>
 <?php /**PATH C:\laragon\www\magang\laravel-filament\vendor\filament\filament\resources\views/components/logo.blade.php ENDPATH**/ ?>

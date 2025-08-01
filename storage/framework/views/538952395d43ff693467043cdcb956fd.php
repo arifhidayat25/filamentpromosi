@@ -33,12 +33,16 @@
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament::components.icon','data' => ['icon' => $icon,'attributes' => 
         $attributes
             ->class([
+<<<<<<< HEAD
                 'fi-no-notification-icon',
                 match ($color) {
                     'gray' => 'text-gray-400',
                     default => 'fi-color-custom text-custom-400',
                 },
                 is_string($color) ? 'fi-color-' . $color : null,
+=======
+                'fi-no-notification-icon text-custom-400',
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
                 match ($size) {
                     IconSize::Small, 'sm' => 'h-4 w-4',
                     IconSize::Medium, 'md' => 'h-5 w-5',
@@ -47,11 +51,15 @@
                 },
             ])
             ->style([
+<<<<<<< HEAD
                 \Filament\Support\get_color_css_variables(
                     $color,
                     shades: [400],
                     alias: 'notifications::notification.icon',
                 ),
+=======
+                \Filament\Support\get_color_css_variables($color, shades: [400]),
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
             ])
     ]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('filament::icon'); ?>
@@ -63,12 +71,16 @@
 <?php $component->withAttributes(['icon' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($icon),'attributes' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(
         $attributes
             ->class([
+<<<<<<< HEAD
                 'fi-no-notification-icon',
                 match ($color) {
                     'gray' => 'text-gray-400',
                     default => 'fi-color-custom text-custom-400',
                 },
                 is_string($color) ? 'fi-color-' . $color : null,
+=======
+                'fi-no-notification-icon text-custom-400',
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
                 match ($size) {
                     IconSize::Small, 'sm' => 'h-4 w-4',
                     IconSize::Medium, 'md' => 'h-5 w-5',
@@ -77,11 +89,15 @@
                 },
             ])
             ->style([
+<<<<<<< HEAD
                 \Filament\Support\get_color_css_variables(
                     $color,
                     shades: [400],
                     alias: 'notifications::notification.icon',
                 ),
+=======
+                \Filament\Support\get_color_css_variables($color, shades: [400]),
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
             ])
     )]); ?>
 <?php echo $__env->renderComponent(); ?>

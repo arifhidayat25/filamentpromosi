@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php $attributes ??= new \Illuminate\View\ComponentAttributeBag; ?>
 <?php foreach($attributes->onlyProps([
     'method' => 'post',
@@ -24,6 +25,13 @@
     x-on:submit="if (isProcessing) $event.preventDefault()"
     x-on:form-processing-started="isProcessing = true"
     x-on:form-processing-finished="isProcessing = false"
+=======
+<form
+    x-data="{ isUploadingFile: false }"
+    x-on:submit="if (isUploadingFile) $event.preventDefault()"
+    x-on:file-upload-started="isUploadingFile = true"
+    x-on:file-upload-finished="isUploadingFile = false"
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
     <?php echo e($attributes->class(['fi-form grid gap-y-6'])); ?>
 
 >

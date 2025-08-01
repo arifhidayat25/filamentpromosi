@@ -1,6 +1,7 @@
 <?php $attributes ??= new \Illuminate\View\ComponentAttributeBag; ?>
 <?php foreach($attributes->onlyProps([
     'active' => false,
+<<<<<<< HEAD
     'activeChildItems' => false,
     'activeIcon' => null,
     'badge' => null,
@@ -14,12 +15,23 @@
     'shouldOpenUrlInNewTab' => false,
     'sidebarCollapsible' => true,
     'subGrouped' => false,
+=======
+    'activeIcon' => null,
+    'badge' => null,
+    'badgeColor' => null,
+    'grouped' => false,
+    'last' => false,
+    'first' => false,
+    'icon' => null,
+    'shouldOpenUrlInNewTab' => false,
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
     'url',
 ]) as $__key => $__value) {
     $$__key = $$__key ?? $__value;
 } ?>
 <?php $attributes = $attributes->exceptProps([
     'active' => false,
+<<<<<<< HEAD
     'activeChildItems' => false,
     'activeIcon' => null,
     'badge' => null,
@@ -33,10 +45,21 @@
     'shouldOpenUrlInNewTab' => false,
     'sidebarCollapsible' => true,
     'subGrouped' => false,
+=======
+    'activeIcon' => null,
+    'badge' => null,
+    'badgeColor' => null,
+    'grouped' => false,
+    'last' => false,
+    'first' => false,
+    'icon' => null,
+    'shouldOpenUrlInNewTab' => false,
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
     'url',
 ]); ?>
 <?php foreach (array_filter(([
     'active' => false,
+<<<<<<< HEAD
     'activeChildItems' => false,
     'activeIcon' => null,
     'badge' => null,
@@ -50,6 +73,16 @@
     'shouldOpenUrlInNewTab' => false,
     'sidebarCollapsible' => true,
     'subGrouped' => false,
+=======
+    'activeIcon' => null,
+    'badge' => null,
+    'badgeColor' => null,
+    'grouped' => false,
+    'last' => false,
+    'first' => false,
+    'icon' => null,
+    'shouldOpenUrlInNewTab' => false,
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
     'url',
 ]), 'is_string', ARRAY_FILTER_USE_KEY) as $__key => $__value) {
     $$__key = $$__key ?? $__value;
@@ -60,6 +93,7 @@
 } ?>
 <?php unset($__defined_vars); ?>
 
+<<<<<<< HEAD
 <?php
     $sidebarCollapsible = $sidebarCollapsible && filament()->isSidebarCollapsibleOnDesktop();
 ?>
@@ -78,6 +112,23 @@
 
         x-on:click="window.matchMedia(`(max-width: 1024px)`).matches && $store.sidebar.close()"
         <?php if($sidebarCollapsible): ?>
+=======
+<li
+    class="<?php echo \Illuminate\Support\Arr::toCssClasses([
+        'fi-sidebar-item',
+        'fi-sidebar-item-active' => $active,
+    ]); ?>"
+>
+    <a
+        href="<?php echo e($url); ?>"
+        <?php if($shouldOpenUrlInNewTab): ?>
+            target="_blank"
+        <?php else: ?>
+            
+        <?php endif; ?>
+        x-on:click="window.matchMedia(`(max-width: 1024px)`).matches && $store.sidebar.close()"
+        <?php if(filament()->isSidebarCollapsibleOnDesktop()): ?>
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
             x-data="{ tooltip: false }"
             x-effect="
                 tooltip = $store.sidebar.isOpen
@@ -91,6 +142,7 @@
             x-tooltip.html="tooltip"
         <?php endif; ?>
         class="<?php echo \Illuminate\Support\Arr::toCssClasses([
+<<<<<<< HEAD
             'fi-sidebar-item-button relative flex items-center justify-center gap-x-3 rounded-lg px-2 py-2 outline-none transition duration-75',
             'hover:bg-gray-100 focus-visible:bg-gray-100 dark:hover:bg-white/5 dark:focus-visible:bg-white/5' => filled($url),
             'bg-gray-100 dark:bg-white/5' => $active,
@@ -100,6 +152,18 @@
             <?php if (isset($component)) { $__componentOriginalbfc641e0710ce04e5fe02876ffc6f950 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalbfc641e0710ce04e5fe02876ffc6f950 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament::components.icon','data' => ['icon' => ($active && $activeIcon) ? $activeIcon : $icon,'xShow' => ($subGrouped && $sidebarCollapsible) ? '! $store.sidebar.isOpen' : false,'class' => \Illuminate\Support\Arr::toCssClasses([
+=======
+            'relative flex items-center justify-center gap-x-3 rounded-lg px-2 py-2 text-sm text-gray-700 outline-none transition duration-75 hover:bg-gray-100 focus:bg-gray-100 dark:text-gray-200 dark:hover:bg-white/5 dark:focus:bg-white/5',
+            'font-semibold' => ! $grouped,
+            'font-medium' => $grouped,
+            'bg-gray-100 text-primary-600 dark:bg-white/5 dark:text-primary-400' => $active,
+        ]); ?>"
+    >
+        <?php if(filled($icon)): ?>
+            <?php if (isset($component)) { $__componentOriginalbfc641e0710ce04e5fe02876ffc6f950 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginalbfc641e0710ce04e5fe02876ffc6f950 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament::components.icon','data' => ['icon' => ($active && $activeIcon) ? $activeIcon : $icon,'class' => \Illuminate\Support\Arr::toCssClasses([
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
                     'fi-sidebar-item-icon h-6 w-6',
                     'text-gray-400 dark:text-gray-500' => ! $active,
                     'text-primary-600 dark:text-primary-400' => $active,
@@ -110,7 +174,11 @@
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
+<<<<<<< HEAD
 <?php $component->withAttributes(['icon' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(($active && $activeIcon) ? $activeIcon : $icon),'x-show' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(($subGrouped && $sidebarCollapsible) ? '! $store.sidebar.isOpen' : false),'class' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(\Illuminate\Support\Arr::toCssClasses([
+=======
+<?php $component->withAttributes(['icon' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(($active && $activeIcon) ? $activeIcon : $icon),'class' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(\Illuminate\Support\Arr::toCssClasses([
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
                     'fi-sidebar-item-icon h-6 w-6',
                     'text-gray-400 dark:text-gray-500' => ! $active,
                     'text-primary-600 dark:text-primary-400' => $active,
@@ -125,6 +193,7 @@
 <?php $component = $__componentOriginalbfc641e0710ce04e5fe02876ffc6f950; ?>
 <?php unset($__componentOriginalbfc641e0710ce04e5fe02876ffc6f950); ?>
 <?php endif; ?>
+<<<<<<< HEAD
         <?php endif; ?>
 
         <?php if((blank($icon) && $grouped) || $subGrouped): ?>
@@ -132,6 +201,10 @@
                 <?php if(filled($icon) && $subGrouped && $sidebarCollapsible): ?>
                     x-show="$store.sidebar.isOpen"
                 <?php endif; ?>
+=======
+        <?php elseif($grouped): ?>
+            <div
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
                 class="fi-sidebar-item-grouped-border relative flex h-6 w-6 items-center justify-center"
             >
                 <?php if(! $first): ?>
@@ -157,17 +230,25 @@
         <?php endif; ?>
 
         <span
+<<<<<<< HEAD
             <?php if($sidebarCollapsible): ?>
+=======
+            <?php if(filament()->isSidebarCollapsibleOnDesktop()): ?>
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
                 x-show="$store.sidebar.isOpen"
                 x-transition:enter="lg:transition lg:delay-100"
                 x-transition:enter-start="opacity-0"
                 x-transition:enter-end="opacity-100"
             <?php endif; ?>
+<<<<<<< HEAD
             class="<?php echo \Illuminate\Support\Arr::toCssClasses([
                 'fi-sidebar-item-label flex-1 truncate text-sm font-medium',
                 'text-gray-700 dark:text-gray-200' => ! $active,
                 'text-primary-600 dark:text-primary-400' => $active,
             ]); ?>"
+=======
+            class="flex-1 truncate"
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
         >
             <?php echo e($slot); ?>
 
@@ -175,7 +256,11 @@
 
         <?php if(filled($badge)): ?>
             <span
+<<<<<<< HEAD
                 <?php if($sidebarCollapsible): ?>
+=======
+                <?php if(filament()->isSidebarCollapsibleOnDesktop()): ?>
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
                     x-show="$store.sidebar.isOpen"
                     x-transition:enter="lg:transition lg:delay-100"
                     x-transition:enter-start="opacity-0"
@@ -184,14 +269,22 @@
             >
                 <?php if (isset($component)) { $__componentOriginal986dce9114ddce94a270ab00ce6c273d = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal986dce9114ddce94a270ab00ce6c273d = $attributes; } ?>
+<<<<<<< HEAD
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament::components.badge','data' => ['color' => $badgeColor,'tooltip' => $badgeTooltip]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+=======
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament::components.badge','data' => ['color' => $badgeColor]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
 <?php $component->withName('filament::badge'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
+<<<<<<< HEAD
 <?php $component->withAttributes(['color' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($badgeColor),'tooltip' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($badgeTooltip)]); ?>
+=======
+<?php $component->withAttributes(['color' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($badgeColor)]); ?>
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
                     <?php echo e($badge); ?>
 
                  <?php echo $__env->renderComponent(); ?>
@@ -207,6 +300,7 @@
             </span>
         <?php endif; ?>
     </a>
+<<<<<<< HEAD
 
     <?php if(($active || $activeChildItems) && $childItems): ?>
         <ul class="fi-sidebar-sub-group-items flex flex-col gap-y-1">
@@ -236,5 +330,7 @@
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </ul>
     <?php endif; ?>
+=======
+>>>>>>> 40ba94650047b47ec683394909f249e12f029589
 </li>
 <?php /**PATH C:\laragon\www\magang\laravel-filament\vendor\filament\filament\resources\views/components/sidebar/item.blade.php ENDPATH**/ ?>
