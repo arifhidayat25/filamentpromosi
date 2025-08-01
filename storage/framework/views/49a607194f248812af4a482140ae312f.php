@@ -10,7 +10,7 @@
 <?php $component->withAttributes(['class' => 'fi-filament-info-widget']); ?>
     <?php if (isset($component)) { $__componentOriginalee08b1367eba38734199cf7829b1d1e9 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalee08b1367eba38734199cf7829b1d1e9 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament::components.section','data' => []] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament::components.section.index','data' => []] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('filament::section'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -43,7 +43,7 @@
                 </a>
 
                 <p class="mt-2 text-xs text-gray-500 dark:text-gray-400">
-                    v<?php echo e(\Composer\InstalledVersions::getVersion('filament/filament')); ?>
+                    <?php echo e(\Composer\InstalledVersions::getPrettyVersion('filament/filament')); ?>
 
                 </p>
             </div>

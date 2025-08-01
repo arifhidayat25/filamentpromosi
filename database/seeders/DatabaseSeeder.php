@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Spatie\Permission\Models\Role;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,30 +13,38 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $role = ['mahasiswa', 'pembina', 'staff', 'admin'];
+
+        foreach ($role as $roleName) {
+            Role::create([
+                'name' => $roleName,
+            ]);
+        }
         // Seeder untuk 4 user dengan role berbeda
-        \App\Models\User::create([
+        $admin = \App\Models\User::create([
             'name' => 'Admin',
             'email' => 'admin@kampus.test',
             'password' => bcrypt('password'),
-            'role' => \App\Models\User::ROLE_ADMIN,
         ]);
-        \App\Models\User::create([
+        //set role admin
+        $admin->assignRole('admin');
+        $staff = \App\Models\User::create([
             'name' => 'Staff Promosi Kampus',
             'email' => 'staff@kampus.test',
             'password' => bcrypt('password'),
-            'role' => \App\Models\User::ROLE_STAFF,
         ]);
-        \App\Models\User::create([
+        $staff->assignRole('staff');
+        $pembina = \App\Models\User::create([
             'name' => 'Dosen Pembimbing',
             'email' => 'pembina@kampus.test',
             'password' => bcrypt('password'),
-            'role' => \App\Models\User::ROLE_PEMBINA,
         ]);
-        \App\Models\User::create([
+        $pembina->assignRole('pembina');
+        $mahasiswa = \App\Models\User::create([
             'name' => 'Mahasiswa',
             'email' => 'mahasiswa@kampus.test',
             'password' => bcrypt('password'),
-            'role' => \App\Models\User::ROLE_MAHASISWA,
         ]);
+        $mahasiswa->assignRole('mahasiswa');
     }
 }

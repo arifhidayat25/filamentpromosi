@@ -2,33 +2,36 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-
+use Spatie\Permission\Traits\HasRoles; // Menggunakan trait dari Spatie
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    /**
+     * Menggunakan semua trait yang diperlukan, termasuk HasRoles dari Spatie.
+     */
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, LogsActivity;
 
     /**
      * The attributes that are mass assignable.
+     * Kolom 'role' sudah tidak diperlukan lagi di sini karena peran disimpan di tabel lain.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-    'name',
-    'email',
-    'password',
-    'nim', // <-- Tambahkan
-    'prodi', // <-- Tambahkan
-    'no_telepon', // <-- Tambahkan
-    'role',
-];
+        'name',
+        'email',
+        'password',
+        'nim',
+        'prodi',
+        'no_telepon',
+    ];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -47,65 +50,26 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'password' => 'hashed', // Pastikan password di-hash
     ];
 
     /**
-     * Role constants
-     */
-    public const ROLE_MAHASISWA = 'mahasiswa';
-    public const ROLE_PEMBINA = 'pembina';
-    public const ROLE_STAFF = 'staff';
-    public const ROLE_ADMIN = 'admin';
-
-    /**
-     * Get available roles
-     */
-    public static function roles(): array
-    {
-        return [
-            self::ROLE_MAHASISWA,
-            self::ROLE_PEMBINA,
-            self::ROLE_STAFF,
-            self::ROLE_ADMIN,
-        ];
-    }
-    
-    /**
-     * Check if user has a specific role
-     *
-     * @param string $role
-     * @return bool
-     */
-    public function hasRole(string $role): bool
-    {
-        return $this->role === $role;
-    }
-    /**
-     * Relasi ke tabel proposals.
+     * Relasi ke tabel proposals. Ini tidak berhubungan dengan peran dan bisa tetap ada.
      */
     public function proposals(): HasMany
     {
         return $this->hasMany(Proposal::class);
     }
 
-    /**
-     * Accessor untuk memeriksa apakah user adalah admin.
-     */
-    protected function isAdmin(): Attribute
+    public function getActivitylogOptions(): LogOptions
     {
-        return Attribute::make(
-            get: fn () => $this->role === 'admin',
-        );
+        return LogOptions::defaults()->logAll();
     }
 
-    /**
-     * Accessor untuk memeriksa apakah user adalah mahasiswa.
-     */
-    protected function isMahasiswa(): Attribute
-    {
-        return Attribute::make(
-            get: fn () => $this->role === 'mahasiswa',
-        );
-    }
-
+    // SEMUA KODE LAMA TERKAIT PERAN (ROLE) SEPERTI:
+    // - public const ROLE_...
+    // - public function hasRole(...)
+    // - protected function isAdmin()
+    // - protected function isMahasiswa()
+    // TELAH DIHAPUS KARENA SUDAH DITANGANI OLEH TRAIT 'HasRoles'.
 }

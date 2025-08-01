@@ -52,11 +52,11 @@
 <?php unset($__componentOriginal087b30d649cc1cfb7e9ea8930c92d47d); ?>
 <?php endif; ?>
 
-    <?php if(filled($label)): ?>
+    <!--[if BLOCK]><![endif]--><?php if(filled($label)): ?>
         <span class="sr-only">
             <?php echo e($label); ?>
 
         </span>
-    <?php endif; ?>
+    <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
 </label>
 <?php /**PATH C:\laragon\www\magang\laravel-filament\vendor\filament\tables\resources\views/components/selection/checkbox.blade.php ENDPATH**/ ?>

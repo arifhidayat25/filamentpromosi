@@ -6,10 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class Report extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
     protected $fillable = ['proposal_id', 'event_date', 'attendees_count', 'qualitative_notes', 'documentation_path'];
 
     public function proposal(): BelongsTo
@@ -20,5 +22,10 @@ class Report extends Model
     public function interestedStudents(): HasMany
     {
         return $this->hasMany(InterestedStudent::class);
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()->logAll();
     }
 }

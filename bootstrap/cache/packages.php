@@ -1,4 +1,33 @@
 <?php return array (
+  'althinect/filament-spatie-roles-permissions' => 
+  array (
+    'aliases' => 
+    array (
+      'FilamentSpatieRolesPermissions' => 'Althinect\\FilamentSpatieRolesPermissions\\FilamentSpatieRolesPermissionsFacade',
+    ),
+    'providers' => 
+    array (
+      0 => 'Althinect\\FilamentSpatieRolesPermissions\\FilamentSpatieRolesPermissionsServiceProvider',
+    ),
+  ),
+  'anourvalar/eloquent-serialize' => 
+  array (
+    'aliases' => 
+    array (
+      'EloquentSerialize' => 'AnourValar\\EloquentSerialize\\Facades\\EloquentSerializeFacade',
+    ),
+  ),
+  'bezhansalleh/filament-shield' => 
+  array (
+    'aliases' => 
+    array (
+      'FilamentShield' => 'BezhanSalleh\\FilamentShield\\Facades\\FilamentShield',
+    ),
+    'providers' => 
+    array (
+      0 => 'BezhanSalleh\\FilamentShield\\FilamentShieldServiceProvider',
+    ),
+  ),
   'blade-ui-kit/blade-heroicons' => 
   array (
     'providers' => 
@@ -11,6 +40,13 @@
     'providers' => 
     array (
       0 => 'BladeUI\\Icons\\BladeIconsServiceProvider',
+    ),
+  ),
+  'dutchcodingcompany/filament-developer-logins' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'DutchCodingCompany\\FilamentDeveloperLogins\\FilamentDeveloperLoginsServiceProvider',
     ),
   ),
   'filament/actions' => 
@@ -67,6 +103,17 @@
     'providers' => 
     array (
       0 => 'Filament\\Widgets\\WidgetsServiceProvider',
+    ),
+  ),
+  'filipfonal/filament-log-manager' => 
+  array (
+    'aliases' => 
+    array (
+      'FilamentLogManager' => 'FilipFonal\\FilamentLogManager\\Facades\\FilamentLogManager',
+    ),
+    'providers' => 
+    array (
+      0 => 'FilipFonal\\FilamentLogManager\\FilamentLogManagerServiceProvider',
     ),
   ),
   'kirschbaum-development/eloquent-power-joins' => 
@@ -129,6 +176,17 @@
       0 => 'Termwind\\Laravel\\TermwindServiceProvider',
     ),
   ),
+  'rmsramos/activitylog' => 
+  array (
+    'aliases' => 
+    array (
+      'Activitylog' => 'Rmsramos\\Activitylog\\Facades\\Activitylog',
+    ),
+    'providers' => 
+    array (
+      0 => 'Rmsramos\\Activitylog\\ActivitylogServiceProvider',
+    ),
+  ),
   'ryangjchandler/blade-capture-directive' => 
   array (
     'aliases' => 
@@ -140,6 +198,13 @@
       0 => 'RyanChandler\\BladeCaptureDirective\\BladeCaptureDirectiveServiceProvider',
     ),
   ),
+  'spatie/laravel-activitylog' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Spatie\\Activitylog\\ActivitylogServiceProvider',
+    ),
+  ),
   'spatie/laravel-ignition' => 
   array (
     'aliases' => 
@@ -149,6 +214,20 @@
     'providers' => 
     array (
       0 => 'Spatie\\LaravelIgnition\\IgnitionServiceProvider',
+    ),
+  ),
+  'spatie/laravel-medialibrary' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Spatie\\MediaLibrary\\MediaLibraryServiceProvider',
+    ),
+  ),
+  'spatie/laravel-permission' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Spatie\\Permission\\PermissionServiceProvider',
     ),
   ),
 );

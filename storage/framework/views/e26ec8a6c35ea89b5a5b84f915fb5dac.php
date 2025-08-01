@@ -6,6 +6,7 @@
     'recordAction' => null,
     'recordKey' => null,
     'recordUrl' => null,
+    'shouldOpenRecordUrlInNewTab' => false,
 ]) as $__key => $__value) {
     $$__key = $$__key ?? $__value;
 } ?>
@@ -16,6 +17,7 @@
     'recordAction' => null,
     'recordKey' => null,
     'recordUrl' => null,
+    'shouldOpenRecordUrlInNewTab' => false,
 ]); ?>
 <?php foreach (array_filter(([
     'column',
@@ -24,6 +26,7 @@
     'recordAction' => null,
     'recordKey' => null,
     'recordUrl' => null,
+    'shouldOpenRecordUrlInNewTab' => false,
 ]), 'is_string', ARRAY_FILTER_USE_KEY) as $__key => $__value) {
     $$__key = $$__key ?? $__value;
 } ?>
@@ -37,20 +40,26 @@
     use Filament\Support\Enums\Alignment;
 
     $action = $column->getAction();
+    $alignment = $column->getAlignment() ?? Alignment::Start;
     $name = $column->getName();
     $shouldOpenUrlInNewTab = $column->shouldOpenUrlInNewTab();
     $tooltip = $column->getTooltip();
     $url = $column->getUrl();
 
+    if (! $alignment instanceof Alignment) {
+        $alignment = filled($alignment) ? (Alignment::tryFrom($alignment) ?? $alignment) : null;
+    }
+
     $columnClasses = \Illuminate\Support\Arr::toCssClasses([
         'flex w-full disabled:pointer-events-none',
-        match ($column->getAlignment()) {
-            Alignment::Center, 'center' => 'justify-center text-center',
-            Alignment::End, 'end' => 'justify-end text-end',
-            Alignment::Left, 'left' => 'justify-start text-left',
-            Alignment::Right, 'right' => 'justify-end text-right',
-            Alignment::Justify, 'justify' => 'justify-between text-justify',
-            default => 'justify-start text-start',
+        match ($alignment) {
+            Alignment::Start => 'justify-start text-start',
+            Alignment::Center => 'justify-center text-center',
+            Alignment::End => 'justify-end text-end',
+            Alignment::Left => 'justify-start text-left',
+            Alignment::Right => 'justify-end text-right',
+            Alignment::Justify, Alignment::Between => 'justify-between text-justify',
+            default => $alignment,
         },
     ]);
 
@@ -58,7 +67,7 @@
 ?>
 
 <div
-    <?php if($tooltip): ?>
+    <?php if(filled($tooltip)): ?>
         x-data="{}"
         x-tooltip="{
             content: <?php echo \Illuminate\Support\Js::from($tooltip)->toHtml() ?>,
@@ -68,10 +77,10 @@
     <?php echo e($attributes->class(['fi-ta-col-wrp'])); ?>
 
 >
-    <?php if(($url || ($recordUrl && $action === null)) && (! $isClickDisabled)): ?>
+    <!--[if BLOCK]><![endif]--><?php if(($url || ($recordUrl && $action === null)) && (! $isClickDisabled)): ?>
         <a
-            href="<?php echo e($url ?: $recordUrl); ?>"
-            <?php if($shouldOpenUrlInNewTab): ?> target="_blank" <?php endif; ?>
+            <?php echo e(\Filament\Support\generate_href_html($url ?: $recordUrl, $url ? $shouldOpenUrlInNewTab : $shouldOpenRecordUrlInNewTab)); ?>
+
             class="<?php echo e($columnClasses); ?>"
         >
             <?php echo e($slot); ?>
@@ -94,7 +103,7 @@
 
         <button
             type="button"
-            wire:click="<?php echo e($wireClickAction); ?>"
+            wire:click.stop.prevent="<?php echo e($wireClickAction); ?>"
             wire:loading.attr="disabled"
             wire:target="<?php echo e($wireClickAction); ?>"
             class="<?php echo e($columnClasses); ?>"
@@ -107,6 +116,6 @@
             <?php echo e($slot); ?>
 
         </div>
-    <?php endif; ?>
+    <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
 </div>
 <?php /**PATH C:\laragon\www\magang\laravel-filament\vendor\filament\tables\resources\views/components/columns/column.blade.php ENDPATH**/ ?>

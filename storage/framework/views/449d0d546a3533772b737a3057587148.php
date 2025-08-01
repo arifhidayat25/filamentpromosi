@@ -1,16 +1,21 @@
+<?php
+    use Filament\Support\Enums\VerticalAlignment;
+?>
+
 <?php $attributes ??= new \Illuminate\View\ComponentAttributeBag; ?>
 <?php foreach($attributes->onlyProps([
     'field' => null,
     'hasInlineLabel' => null,
-    'hasNestedRecursiveValidationRules' => false,
+    'hasNestedRecursiveValidationRules' => null,
     'helperText' => null,
     'hint' => null,
     'hintActions' => null,
     'hintColor' => null,
     'hintIcon' => null,
+    'hintIconTooltip' => null,
     'id' => null,
+    'inlineLabelVerticalAlignment' => VerticalAlignment::Start,
     'isDisabled' => null,
-    'isMarkedAsRequired' => null,
     'label' => null,
     'labelPrefix' => null,
     'labelSrOnly' => null,
@@ -23,15 +28,16 @@
 <?php $attributes = $attributes->exceptProps([
     'field' => null,
     'hasInlineLabel' => null,
-    'hasNestedRecursiveValidationRules' => false,
+    'hasNestedRecursiveValidationRules' => null,
     'helperText' => null,
     'hint' => null,
     'hintActions' => null,
     'hintColor' => null,
     'hintIcon' => null,
+    'hintIconTooltip' => null,
     'id' => null,
+    'inlineLabelVerticalAlignment' => VerticalAlignment::Start,
     'isDisabled' => null,
-    'isMarkedAsRequired' => null,
     'label' => null,
     'labelPrefix' => null,
     'labelSrOnly' => null,
@@ -42,15 +48,16 @@
 <?php foreach (array_filter(([
     'field' => null,
     'hasInlineLabel' => null,
-    'hasNestedRecursiveValidationRules' => false,
+    'hasNestedRecursiveValidationRules' => null,
     'helperText' => null,
     'hint' => null,
     'hintActions' => null,
     'hintColor' => null,
     'hintIcon' => null,
+    'hintIconTooltip' => null,
     'id' => null,
+    'inlineLabelVerticalAlignment' => VerticalAlignment::Start,
     'isDisabled' => null,
-    'isMarkedAsRequired' => null,
     'label' => null,
     'labelPrefix' => null,
     'labelSrOnly' => null,
@@ -75,12 +82,12 @@
         $hintActions ??= $field->getHintActions();
         $hintColor ??= $field->getHintColor();
         $hintIcon ??= $field->getHintIcon();
+        $hintIconTooltip ??= $field->getHintIconTooltip();
         $id ??= $field->getId();
         $isDisabled ??= $field->isDisabled();
-        $isMarkedAsRequired ??= $field->isMarkedAsRequired();
         $label ??= $field->getLabel();
         $labelSrOnly ??= $field->isLabelHidden();
-        $required ??= $field->isRequired();
+        $required ??= $field->isMarkedAsRequired();
         $statePath ??= $field->getStatePath();
     }
 
@@ -89,41 +96,54 @@
         fn (\Filament\Forms\Components\Actions\Action $hintAction): bool => $hintAction->isVisible(),
     );
 
-    $hasError = $errors->has($statePath) || ($hasNestedRecursiveValidationRules && $errors->has("{$statePath}.*"));
+    $hasError = filled($statePath) && ($errors->has($statePath) || ($hasNestedRecursiveValidationRules && $errors->has("{$statePath}.*")));
 ?>
 
-<div <?php echo e($attributes->class(['fi-fo-field-wrp'])); ?>>
-    <?php if($label && $labelSrOnly): ?>
+<div
+    data-field-wrapper
+    <?php echo e($attributes
+            ->merge($field?->getExtraFieldWrapperAttributes() ?? [])
+            ->class(['fi-fo-field-wrp'])); ?>
+
+>
+    <!--[if BLOCK]><![endif]--><?php if($label && $labelSrOnly): ?>
         <label for="<?php echo e($id); ?>" class="sr-only">
             <?php echo e($label); ?>
 
         </label>
-    <?php endif; ?>
+    <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
 
     <div
         class="<?php echo \Illuminate\Support\Arr::toCssClasses([
             'grid gap-y-2',
-            'sm:grid-cols-3 sm:items-start sm:gap-x-4' => $hasInlineLabel,
+            'sm:grid-cols-3 sm:gap-x-4' => $hasInlineLabel,
+            match ($inlineLabelVerticalAlignment) {
+                VerticalAlignment::Start => 'sm:items-start',
+                VerticalAlignment::Center => 'sm:items-center',
+                VerticalAlignment::End => 'sm:items-end',
+            } => $hasInlineLabel,
         ]); ?>"
     >
-        <?php if(($label && (! $labelSrOnly)) || $labelPrefix || $labelSuffix || filled($hint) || $hintIcon || count($hintActions)): ?>
+        <!--[if BLOCK]><![endif]--><?php if(($label && (! $labelSrOnly)) || $labelPrefix || $labelSuffix || filled($hint) || $hintIcon || count($hintActions)): ?>
             <div
                 class="<?php echo \Illuminate\Support\Arr::toCssClasses([
-                    'flex items-center justify-between gap-x-3',
-                    'sm:pt-1.5' => $hasInlineLabel,
+                    'flex items-center gap-x-3',
+                    'justify-between' => (! $labelSrOnly) || $labelPrefix || $labelSuffix,
+                    'justify-end' => $labelSrOnly && ! ($labelPrefix || $labelSuffix),
+                    ($label instanceof \Illuminate\View\ComponentSlot) ? $label->attributes->get('class') : null,
                 ]); ?>"
             >
-                <?php if($label && (! $labelSrOnly)): ?>
+                <!--[if BLOCK]><![endif]--><?php if($label && (! $labelSrOnly)): ?>
                     <?php if (isset($component)) { $__componentOriginalce0c3abfe32d61e042620ba43c1aa075 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalce0c3abfe32d61e042620ba43c1aa075 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament-forms::components.field-wrapper.label','data' => ['for' => $id,'error' => $errors->has($statePath),'isDisabled' => $isDisabled,'isMarkedAsRequired' => $isMarkedAsRequired,'prefix' => $labelPrefix,'suffix' => $labelSuffix,'required' => $required]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament-forms::components.field-wrapper.label','data' => ['for' => $id,'disabled' => $isDisabled,'prefix' => $labelPrefix,'required' => $required,'suffix' => $labelSuffix]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('filament-forms::field-wrapper.label'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['for' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($id),'error' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($errors->has($statePath)),'is-disabled' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($isDisabled),'is-marked-as-required' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($isMarkedAsRequired),'prefix' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($labelPrefix),'suffix' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($labelSuffix),'required' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($required)]); ?>
+<?php $component->withAttributes(['for' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($id),'disabled' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($isDisabled),'prefix' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($labelPrefix),'required' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($required),'suffix' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($labelSuffix)]); ?>
                         <?php echo e($label); ?>
 
                      <?php echo $__env->renderComponent(); ?>
@@ -142,19 +162,19 @@
                 <?php elseif($labelSuffix): ?>
                     <?php echo e($labelSuffix); ?>
 
-                <?php endif; ?>
+                <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
 
-                <?php if(filled($hint) || $hintIcon || count($hintActions)): ?>
+                <!--[if BLOCK]><![endif]--><?php if(filled($hint) || $hintIcon || count($hintActions)): ?>
                     <?php if (isset($component)) { $__componentOriginal1e15ea267b589d7e7cb0450949a7b403 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal1e15ea267b589d7e7cb0450949a7b403 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament-forms::components.field-wrapper.hint','data' => ['actions' => $hintActions,'color' => $hintColor,'icon' => $hintIcon]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament-forms::components.field-wrapper.hint','data' => ['actions' => $hintActions,'color' => $hintColor,'icon' => $hintIcon,'tooltip' => $hintIconTooltip]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('filament-forms::field-wrapper.hint'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['actions' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($hintActions),'color' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($hintColor),'icon' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($hintIcon)]); ?>
+<?php $component->withAttributes(['actions' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($hintActions),'color' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($hintColor),'icon' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($hintIcon),'tooltip' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($hintIconTooltip)]); ?>
                         <?php echo e($hint); ?>
 
                      <?php echo $__env->renderComponent(); ?>
@@ -167,21 +187,21 @@
 <?php $component = $__componentOriginal1e15ea267b589d7e7cb0450949a7b403; ?>
 <?php unset($__componentOriginal1e15ea267b589d7e7cb0450949a7b403); ?>
 <?php endif; ?>
-                <?php endif; ?>
+                <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
             </div>
-        <?php endif; ?>
+        <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
 
-        <?php if((! \Filament\Support\is_slot_empty($slot)) || $hasError || filled($helperText)): ?>
+        <!--[if BLOCK]><![endif]--><?php if((! \Filament\Support\is_slot_empty($slot)) || $hasError || filled($helperText)): ?>
             <div
                 class="<?php echo \Illuminate\Support\Arr::toCssClasses([
-                    'grid gap-y-2',
+                    'grid auto-cols-fr gap-y-2',
                     'sm:col-span-2' => $hasInlineLabel,
                 ]); ?>"
             >
                 <?php echo e($slot); ?>
 
 
-                <?php if($hasError): ?>
+                <!--[if BLOCK]><![endif]--><?php if($hasError): ?>
                     <?php if (isset($component)) { $__componentOriginal22095ede46a88c291ad3a78cf084ef04 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal22095ede46a88c291ad3a78cf084ef04 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament-forms::components.field-wrapper.error-message','data' => []] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
@@ -192,7 +212,7 @@
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
 <?php $component->withAttributes([]); ?>
-                        <?php echo e($errors->first($statePath) ?? ($hasNestedRecursiveValidationRules ? $errors->first("{$statePath}.*") : null)); ?>
+                        <?php echo e($errors->has($statePath) ? $errors->first($statePath) : ($hasNestedRecursiveValidationRules ? $errors->first("{$statePath}.*") : null)); ?>
 
                      <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
@@ -204,9 +224,9 @@
 <?php $component = $__componentOriginal22095ede46a88c291ad3a78cf084ef04; ?>
 <?php unset($__componentOriginal22095ede46a88c291ad3a78cf084ef04); ?>
 <?php endif; ?>
-                <?php endif; ?>
+                <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
 
-                <?php if(filled($helperText)): ?>
+                <!--[if BLOCK]><![endif]--><?php if(filled($helperText)): ?>
                     <?php if (isset($component)) { $__componentOriginal8530e05d59f2cbc21adf63528d237ef3 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal8530e05d59f2cbc21adf63528d237ef3 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament-forms::components.field-wrapper.helper-text','data' => []] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
@@ -229,9 +249,9 @@
 <?php $component = $__componentOriginal8530e05d59f2cbc21adf63528d237ef3; ?>
 <?php unset($__componentOriginal8530e05d59f2cbc21adf63528d237ef3); ?>
 <?php endif; ?>
-                <?php endif; ?>
+                <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
             </div>
-        <?php endif; ?>
+        <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
     </div>
 </div>
 <?php /**PATH C:\laragon\www\magang\laravel-filament\vendor\filament\forms\resources\views/components/field-wrapper/index.blade.php ENDPATH**/ ?>
