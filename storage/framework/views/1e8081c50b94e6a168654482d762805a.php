@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?php
     $brandName = filament()->getBrandName();
     $brandLogo = filament()->getBrandLogo();
@@ -22,7 +21,7 @@
                     extract($args, EXTR_SKIP);
                     ob_start(); ?>
         
-    <?php if($logo instanceof \Illuminate\Contracts\Support\Htmlable): ?>
+    <!--[if BLOCK]><![endif]--><?php if($logo instanceof \Illuminate\Contracts\Support\Htmlable): ?>
         <div
             <?php echo e($attributes
                     ->class([$getLogoClasses($isDarkMode)])
@@ -52,7 +51,7 @@
             <?php echo e($brandName); ?>
 
         </div>
-    <?php endif; ?>
+    <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
 
             <?php return new \Illuminate\Support\HtmlString(ob_get_clean()); };
                 })(get_defined_vars()); ?>
@@ -61,20 +60,8 @@
 <?php echo e($content($brandLogo)); ?>
 
 
-<?php if($hasDarkModeBrandLogo): ?>
+<!--[if BLOCK]><![endif]--><?php if($hasDarkModeBrandLogo): ?>
     <?php echo e($content($darkModeBrandLogo, isDarkMode: true)); ?>
 
-=======
-<?php if(filled($brand = filament()->getBrandName())): ?>
-    <div
-        <?php echo e($attributes->class([
-                'fi-logo text-xl font-bold leading-5 tracking-tight text-gray-950 dark:text-white',
-            ])); ?>
-
-    >
-        <?php echo e($brand); ?>
-
-    </div>
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
-<?php endif; ?>
+<?php endif; ?><!--[if ENDBLOCK]><![endif]-->
 <?php /**PATH C:\laragon\www\magang\laravel-filament\vendor\filament\filament\resources\views/components/logo.blade.php ENDPATH**/ ?>

@@ -20,15 +20,9 @@
 
 <?php if (isset($component)) { $__componentOriginal7aa0b6b1aa4a6b63824d7be5e541d1cb = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal7aa0b6b1aa4a6b63824d7be5e541d1cb = $attributes; } ?>
-<<<<<<< HEAD
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament::components.avatar','data' => ['src' => filament()->getUserAvatarUrl($user),'alt' => __('filament-panels::layout.avatar.alt', ['name' => filament()->getUserName($user)]),'attributes' => 
         \Filament\Support\prepare_inherited_attributes($attributes)
             ->class(['fi-user-avatar'])
-=======
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament::components.avatar','data' => ['src' => filament()->getUserAvatarUrl($user),'attributes' => 
-        \Filament\Support\prepare_inherited_attributes($attributes)
-            ->class(['fi-user-avatar rounded-full'])
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
     ]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('filament::avatar'); ?>
 <?php if ($component->shouldRender()): ?>
@@ -36,15 +30,9 @@
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
-<<<<<<< HEAD
 <?php $component->withAttributes(['src' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(filament()->getUserAvatarUrl($user)),'alt' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(__('filament-panels::layout.avatar.alt', ['name' => filament()->getUserName($user)])),'attributes' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(
         \Filament\Support\prepare_inherited_attributes($attributes)
             ->class(['fi-user-avatar'])
-=======
-<?php $component->withAttributes(['src' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(filament()->getUserAvatarUrl($user)),'attributes' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(
-        \Filament\Support\prepare_inherited_attributes($attributes)
-            ->class(['fi-user-avatar rounded-full'])
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
     )]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>

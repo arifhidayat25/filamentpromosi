@@ -49,11 +49,7 @@
         }"
     <?php endif; ?>
     <?php echo e($attributes->class([
-<<<<<<< HEAD
             'fi-ta-row [@media(hover:hover)]:transition [@media(hover:hover)]:duration-75',
-=======
-            'fi-ta-row transition duration-75',
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
             'hover:bg-gray-50 dark:hover:bg-white/5' => $recordAction || $recordUrl,
             $stripedClasses => $striped,
         ])); ?>

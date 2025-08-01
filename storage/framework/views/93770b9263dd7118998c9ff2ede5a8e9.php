@@ -1,20 +1,13 @@
 <?php $attributes ??= new \Illuminate\View\ComponentAttributeBag; ?>
 <?php foreach($attributes->onlyProps([
-<<<<<<< HEAD
     'currentPageOptionProperty' => 'tableRecordsPerPage',
     'extremeLinks' => false,
     'paginator',
     'pageOptions' => [],
-=======
-    'paginator',
-    'pageOptions' => [],
-    'currentPageOptionProperty' => 'tableRecordsPerPage',
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
 ]) as $__key => $__value) {
     $$__key = $$__key ?? $__value;
 } ?>
 <?php $attributes = $attributes->exceptProps([
-<<<<<<< HEAD
     'currentPageOptionProperty' => 'tableRecordsPerPage',
     'extremeLinks' => false,
     'paginator',
@@ -25,16 +18,6 @@
     'extremeLinks' => false,
     'paginator',
     'pageOptions' => [],
-=======
-    'paginator',
-    'pageOptions' => [],
-    'currentPageOptionProperty' => 'tableRecordsPerPage',
-]); ?>
-<?php foreach (array_filter(([
-    'paginator',
-    'pageOptions' => [],
-    'currentPageOptionProperty' => 'tableRecordsPerPage',
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
 ]), 'is_string', ARRAY_FILTER_USE_KEY) as $__key => $__value) {
     $$__key = $$__key ?? $__value;
 } ?>
@@ -45,11 +28,8 @@
 <?php unset($__defined_vars); ?>
 
 <?php
-<<<<<<< HEAD
     use Illuminate\Contracts\Pagination\CursorPaginator;
 
-=======
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
     $isRtl = __('filament-panels::layout.direction') === 'rtl';
     $isSimple = ! $paginator instanceof \Illuminate\Pagination\LengthAwarePaginator;
 ?>
@@ -57,7 +37,6 @@
 <nav
     aria-label="<?php echo e(__('filament::components/pagination.label')); ?>"
     role="navigation"
-<<<<<<< HEAD
     <?php echo e($attributes->class([
             'fi-pagination grid grid-cols-[1fr_auto_1fr] items-center gap-x-3',
             'fi-simple' => $isSimple,
@@ -76,32 +55,13 @@
         <?php if (isset($component)) { $__componentOriginal6330f08526bbb3ce2a0da37da512a11f = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal6330f08526bbb3ce2a0da37da512a11f = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament::components.button.index','data' => ['color' => 'gray','rel' => 'prev','wire:click' => $wireClickAction,'wire:key' => $this->getId() . '.pagination.previous','class' => 'fi-pagination-previous-btn justify-self-start']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
-=======
-    <?php echo e($attributes->class(['fi-pagination grid grid-cols-3 items-center'])); ?>
-
->
-    <?php if(! $paginator->onFirstPage()): ?>
-        <?php if (isset($component)) { $__componentOriginal6330f08526bbb3ce2a0da37da512a11f = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginal6330f08526bbb3ce2a0da37da512a11f = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament::components.button.index','data' => ['color' => 'gray','rel' => 'prev','wire:click' => 'previousPage(\'' . $paginator->getPageName() . '\')','class' => \Illuminate\Support\Arr::toCssClasses([
-                'justify-self-start',
-                'inline-grid md:hidden' => ! $isSimple,
-            ]),'wire:key' => $this->getId() . '.pagination.previous']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
 <?php $component->withName('filament::button'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
-<<<<<<< HEAD
 <?php $component->withAttributes(['color' => 'gray','rel' => 'prev','wire:click' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($wireClickAction),'wire:key' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($this->getId() . '.pagination.previous'),'class' => 'fi-pagination-previous-btn justify-self-start']); ?>
-=======
-<?php $component->withAttributes(['color' => 'gray','rel' => 'prev','wire:click' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute('previousPage(\'' . $paginator->getPageName() . '\')'),'class' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(\Illuminate\Support\Arr::toCssClasses([
-                'justify-self-start',
-                'inline-grid md:hidden' => ! $isSimple,
-            ])),'wire:key' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($this->getId() . '.pagination.previous')]); ?>
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
             <?php echo e(__('filament::components/pagination.actions.previous.label')); ?>
 
          <?php echo $__env->renderComponent(); ?>
@@ -114,50 +74,28 @@
 <?php $component = $__componentOriginal6330f08526bbb3ce2a0da37da512a11f; ?>
 <?php unset($__componentOriginal6330f08526bbb3ce2a0da37da512a11f); ?>
 <?php endif; ?>
-<<<<<<< HEAD
     <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
 
     <!--[if BLOCK]><![endif]--><?php if(! $isSimple): ?>
         <span
             class="fi-pagination-overview text-sm font-medium text-gray-700 dark:text-gray-200"
-=======
-    <?php endif; ?>
-
-    <?php if(! $isSimple): ?>
-        <span
-            class="hidden text-sm font-medium text-gray-700 dark:text-gray-200 md:inline"
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
         >
             <?php echo e(trans_choice(
                     'filament::components/pagination.overview',
                     $paginator->total(),
                     [
-<<<<<<< HEAD
                         'first' => \Illuminate\Support\Number::format($paginator->firstItem() ?? 0),
                         'last' => \Illuminate\Support\Number::format($paginator->lastItem() ?? 0),
                         'total' => \Illuminate\Support\Number::format($paginator->total()),
-=======
-                        'first' => \Filament\Support\format_number($paginator->firstItem() ?? 0),
-                        'last' => \Filament\Support\format_number($paginator->lastItem() ?? 0),
-                        'total' => \Filament\Support\format_number($paginator->total()),
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
                     ],
                 )); ?>
 
         </span>
-<<<<<<< HEAD
     <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
 
     <!--[if BLOCK]><![endif]--><?php if(count($pageOptions) > 1): ?>
         <div class="col-start-2 justify-self-center">
             <label class="fi-pagination-records-per-page-select fi-compact">
-=======
-    <?php endif; ?>
-
-    <?php if(count($pageOptions) > 1): ?>
-        <div class="col-start-2 justify-self-center">
-            <label class="sm:hidden">
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
                 <?php if (isset($component)) { $__componentOriginal505efd9768415fdb4543e8c564dad437 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal505efd9768415fdb4543e8c564dad437 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament::components.input.wrapper','data' => []] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
@@ -178,20 +116,12 @@
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
 <?php $component->withAttributes(['wire:model.live' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($currentPageOptionProperty)]); ?>
-<<<<<<< HEAD
                         <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $pageOptions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $option): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-=======
-                        <?php $__currentLoopData = $pageOptions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $option): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
                             <option value="<?php echo e($option); ?>">
                                 <?php echo e($option === 'all' ? __('filament::components/pagination.fields.records_per_page.options.all') : $option); ?>
 
                             </option>
-<<<<<<< HEAD
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
-=======
-                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
                      <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal97dc683fe4ff7acce9e296503563dd85)): ?>
@@ -214,20 +144,12 @@
 <?php endif; ?>
 
                 <span class="sr-only">
-<<<<<<< HEAD
                     <?php echo e(__('filament::components/pagination.fields.records_per_page.label')); ?>
 
                 </span>
             </label>
 
             <label class="fi-pagination-records-per-page-select">
-=======
-                    __('filament::components/pagination.fields.records_per_page.label')
-                </span>
-            </label>
-
-            <label class="hidden sm:inline">
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
                 <?php if (isset($component)) { $__componentOriginal505efd9768415fdb4543e8c564dad437 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal505efd9768415fdb4543e8c564dad437 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament::components.input.wrapper','data' => ['prefix' => __('filament::components/pagination.fields.records_per_page.label')]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
@@ -248,20 +170,12 @@
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
 <?php $component->withAttributes(['wire:model.live' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($currentPageOptionProperty)]); ?>
-<<<<<<< HEAD
                         <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $pageOptions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $option): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-=======
-                        <?php $__currentLoopData = $pageOptions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $option): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
                             <option value="<?php echo e($option); ?>">
                                 <?php echo e($option === 'all' ? __('filament::components/pagination.fields.records_per_page.options.all') : $option); ?>
 
                             </option>
-<<<<<<< HEAD
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
-=======
-                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
                      <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal97dc683fe4ff7acce9e296503563dd85)): ?>
@@ -284,7 +198,6 @@
 <?php endif; ?>
             </label>
         </div>
-<<<<<<< HEAD
     <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
 
     <!--[if BLOCK]><![endif]--><?php if($paginator->hasMorePages()): ?>
@@ -299,31 +212,13 @@
         <?php if (isset($component)) { $__componentOriginal6330f08526bbb3ce2a0da37da512a11f = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal6330f08526bbb3ce2a0da37da512a11f = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament::components.button.index','data' => ['color' => 'gray','rel' => 'next','wire:click' => $wireClickAction,'wire:key' => $this->getId() . '.pagination.next','class' => 'fi-pagination-next-btn col-start-3 justify-self-end']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
-=======
-    <?php endif; ?>
-
-    <?php if($paginator->hasMorePages()): ?>
-        <?php if (isset($component)) { $__componentOriginal6330f08526bbb3ce2a0da37da512a11f = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginal6330f08526bbb3ce2a0da37da512a11f = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament::components.button.index','data' => ['color' => 'gray','rel' => 'next','wire:click' => 'nextPage(\'' . $paginator->getPageName() . '\')','wire:key' => $this->getId() . '.pagination.next','class' => \Illuminate\Support\Arr::toCssClasses([
-                'col-start-3 justify-self-end',
-                'inline-grid md:hidden' => ! $isSimple,
-            ])]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
 <?php $component->withName('filament::button'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
-<<<<<<< HEAD
 <?php $component->withAttributes(['color' => 'gray','rel' => 'next','wire:click' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($wireClickAction),'wire:key' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($this->getId() . '.pagination.next'),'class' => 'fi-pagination-next-btn col-start-3 justify-self-end']); ?>
-=======
-<?php $component->withAttributes(['color' => 'gray','rel' => 'next','wire:click' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute('nextPage(\'' . $paginator->getPageName() . '\')'),'wire:key' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($this->getId() . '.pagination.next'),'class' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(\Illuminate\Support\Arr::toCssClasses([
-                'col-start-3 justify-self-end',
-                'inline-grid md:hidden' => ! $isSimple,
-            ]))]); ?>
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
             <?php echo e(__('filament::components/pagination.actions.next.label')); ?>
 
          <?php echo $__env->renderComponent(); ?>
@@ -336,7 +231,6 @@
 <?php $component = $__componentOriginal6330f08526bbb3ce2a0da37da512a11f; ?>
 <?php unset($__componentOriginal6330f08526bbb3ce2a0da37da512a11f); ?>
 <?php endif; ?>
-<<<<<<< HEAD
     <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
 
     <!--[if BLOCK]><![endif]--><?php if((! $isSimple) && $paginator->hasPages()): ?>
@@ -370,29 +264,13 @@
                 <?php if (isset($component)) { $__componentOriginalec17467508bb249fe632a72f94ddd47a = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalec17467508bb249fe632a72f94ddd47a = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament::components.pagination.item','data' => ['ariaLabel' => __('filament::components/pagination.actions.previous.label'),'icon' => $isRtl ? 'heroicon-m-chevron-right' : 'heroicon-m-chevron-left','iconAlias' => $isRtl ? ['pagination.previous-button.rtl', 'pagination.previous-button'] : 'pagination.previous-button','rel' => 'prev','wire:click' => 'previousPage(\'' . $paginator->getPageName() . '\')','wire:key' => $this->getId() . '.pagination.previous']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
-=======
-    <?php endif; ?>
-
-    <?php if((! $isSimple) && $paginator->hasPages()): ?>
-        <ol
-            class="hidden justify-self-end rounded-lg bg-white shadow-sm ring-1 ring-gray-950/10 dark:bg-white/5 dark:ring-white/20 md:flex"
-        >
-            <?php if(! $paginator->onFirstPage()): ?>
-                <?php if (isset($component)) { $__componentOriginalec17467508bb249fe632a72f94ddd47a = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginalec17467508bb249fe632a72f94ddd47a = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament::components.pagination.item','data' => ['ariaLabel' => __('filament::components/pagination.actions.previous.label'),'icon' => $isRtl ? 'heroicon-m-chevron-right' : 'heroicon-m-chevron-left','iconAlias' => 'pagination.previous-button','rel' => 'prev','wire:click' => 'previousPage(\'' . $paginator->getPageName() . '\')','wire:key' => $this->getId() . '.pagination.previous']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
 <?php $component->withName('filament::pagination.item'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
-<<<<<<< HEAD
 <?php $component->withAttributes(['aria-label' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(__('filament::components/pagination.actions.previous.label')),'icon' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($isRtl ? 'heroicon-m-chevron-right' : 'heroicon-m-chevron-left'),'icon-alias' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($isRtl ? ['pagination.previous-button.rtl', 'pagination.previous-button'] : 'pagination.previous-button'),'rel' => 'prev','wire:click' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute('previousPage(\'' . $paginator->getPageName() . '\')'),'wire:key' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($this->getId() . '.pagination.previous')]); ?>
-=======
-<?php $component->withAttributes(['aria-label' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(__('filament::components/pagination.actions.previous.label')),'icon' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($isRtl ? 'heroicon-m-chevron-right' : 'heroicon-m-chevron-left'),'icon-alias' => 'pagination.previous-button','rel' => 'prev','wire:click' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute('previousPage(\'' . $paginator->getPageName() . '\')'),'wire:key' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($this->getId() . '.pagination.previous')]); ?>
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginalec17467508bb249fe632a72f94ddd47a)): ?>
@@ -403,17 +281,10 @@
 <?php $component = $__componentOriginalec17467508bb249fe632a72f94ddd47a; ?>
 <?php unset($__componentOriginalec17467508bb249fe632a72f94ddd47a); ?>
 <?php endif; ?>
-<<<<<<< HEAD
             <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
 
             <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $paginator->render()->offsetGet('elements'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $element): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <!--[if BLOCK]><![endif]--><?php if(is_string($element)): ?>
-=======
-            <?php endif; ?>
-
-            <?php $__currentLoopData = $paginator->render()->offsetGet('elements'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $element): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <?php if(is_string($element)): ?>
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
                     <?php if (isset($component)) { $__componentOriginalec17467508bb249fe632a72f94ddd47a = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalec17467508bb249fe632a72f94ddd47a = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament::components.pagination.item','data' => ['disabled' => true,'label' => $element]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
@@ -434,7 +305,6 @@
 <?php $component = $__componentOriginalec17467508bb249fe632a72f94ddd47a; ?>
 <?php unset($__componentOriginalec17467508bb249fe632a72f94ddd47a); ?>
 <?php endif; ?>
-<<<<<<< HEAD
                 <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
 
                 <!--[if BLOCK]><![endif]--><?php if(is_array($element)): ?>
@@ -442,26 +312,13 @@
                         <?php if (isset($component)) { $__componentOriginalec17467508bb249fe632a72f94ddd47a = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalec17467508bb249fe632a72f94ddd47a = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament::components.pagination.item','data' => ['active' => $page === $paginator->currentPage(),'ariaLabel' => trans_choice('filament::components/pagination.actions.go_to_page.label', $page, ['page' => $page]),'label' => $page,'wire:click' => 'gotoPage(' . $page . ', \'' . $paginator->getPageName() . '\')','wire:key' => $this->getId() . '.pagination.' . $paginator->getPageName() . '.' . $page]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
-=======
-                <?php endif; ?>
-
-                <?php if(is_array($element)): ?>
-                    <?php $__currentLoopData = $element; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $page => $url): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <?php if (isset($component)) { $__componentOriginalec17467508bb249fe632a72f94ddd47a = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginalec17467508bb249fe632a72f94ddd47a = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament::components.pagination.item','data' => ['active' => $page === $paginator->currentPage(),'ariaLabel' => trans_choice('filament::components.pagination.actions.go_to_page.label', $page, ['page' => $page]),'label' => $page,'wire:click' => 'gotoPage(' . $page . ', \'' . $paginator->getPageName() . '\')','wire:key' => $this->getId() . '.pagination.' . $paginator->getPageName() . '.' . $page]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
 <?php $component->withName('filament::pagination.item'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
-<<<<<<< HEAD
 <?php $component->withAttributes(['active' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($page === $paginator->currentPage()),'aria-label' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(trans_choice('filament::components/pagination.actions.go_to_page.label', $page, ['page' => $page])),'label' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($page),'wire:click' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute('gotoPage(' . $page . ', \'' . $paginator->getPageName() . '\')'),'wire:key' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($this->getId() . '.pagination.' . $paginator->getPageName() . '.' . $page)]); ?>
-=======
-<?php $component->withAttributes(['active' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($page === $paginator->currentPage()),'aria-label' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(trans_choice('filament::components.pagination.actions.go_to_page.label', $page, ['page' => $page])),'label' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($page),'wire:click' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute('gotoPage(' . $page . ', \'' . $paginator->getPageName() . '\')'),'wire:key' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($this->getId() . '.pagination.' . $paginator->getPageName() . '.' . $page)]); ?>
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginalec17467508bb249fe632a72f94ddd47a)): ?>
@@ -472,7 +329,6 @@
 <?php $component = $__componentOriginalec17467508bb249fe632a72f94ddd47a; ?>
 <?php unset($__componentOriginalec17467508bb249fe632a72f94ddd47a); ?>
 <?php endif; ?>
-<<<<<<< HEAD
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
                 <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
@@ -481,27 +337,13 @@
                 <?php if (isset($component)) { $__componentOriginalec17467508bb249fe632a72f94ddd47a = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalec17467508bb249fe632a72f94ddd47a = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament::components.pagination.item','data' => ['ariaLabel' => __('filament::components/pagination.actions.next.label'),'icon' => $isRtl ? 'heroicon-m-chevron-left' : 'heroicon-m-chevron-right','iconAlias' => $isRtl ? ['pagination.next-button.rtl', 'pagination.next-button'] : 'pagination.next-button','rel' => 'next','wire:click' => 'nextPage(\'' . $paginator->getPageName() . '\')','wire:key' => $this->getId() . '.pagination.next']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
-=======
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                <?php endif; ?>
-            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-
-            <?php if($paginator->hasMorePages()): ?>
-                <?php if (isset($component)) { $__componentOriginalec17467508bb249fe632a72f94ddd47a = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginalec17467508bb249fe632a72f94ddd47a = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament::components.pagination.item','data' => ['ariaLabel' => __('filament::components/pagination.actions.next.label'),'icon' => $isRtl ? 'heroicon-m-chevron-left' : 'heroicon-m-chevron-right','iconAlias' => 'pagination.next-button','rel' => 'next','wire:click' => 'nextPage(\'' . $paginator->getPageName() . '\')','wire:key' => $this->getId() . '.pagination.next']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
 <?php $component->withName('filament::pagination.item'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
-<<<<<<< HEAD
 <?php $component->withAttributes(['aria-label' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(__('filament::components/pagination.actions.next.label')),'icon' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($isRtl ? 'heroicon-m-chevron-left' : 'heroicon-m-chevron-right'),'icon-alias' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($isRtl ? ['pagination.next-button.rtl', 'pagination.next-button'] : 'pagination.next-button'),'rel' => 'next','wire:click' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute('nextPage(\'' . $paginator->getPageName() . '\')'),'wire:key' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($this->getId() . '.pagination.next')]); ?>
-=======
-<?php $component->withAttributes(['aria-label' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(__('filament::components/pagination.actions.next.label')),'icon' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($isRtl ? 'heroicon-m-chevron-left' : 'heroicon-m-chevron-right'),'icon-alias' => 'pagination.next-button','rel' => 'next','wire:click' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute('nextPage(\'' . $paginator->getPageName() . '\')'),'wire:key' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($this->getId() . '.pagination.next')]); ?>
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginalec17467508bb249fe632a72f94ddd47a)): ?>
@@ -512,7 +354,6 @@
 <?php $component = $__componentOriginalec17467508bb249fe632a72f94ddd47a; ?>
 <?php unset($__componentOriginalec17467508bb249fe632a72f94ddd47a); ?>
 <?php endif; ?>
-<<<<<<< HEAD
 
                 <!--[if BLOCK]><![endif]--><?php if($extremeLinks): ?>
                     <?php if (isset($component)) { $__componentOriginalec17467508bb249fe632a72f94ddd47a = $component; } ?>
@@ -539,10 +380,5 @@
             <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
         </ol>
     <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
-=======
-            <?php endif; ?>
-        </ol>
-    <?php endif; ?>
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
 </nav>
 <?php /**PATH C:\laragon\www\magang\laravel-filament\vendor\filament\support\resources\views/components/pagination/index.blade.php ENDPATH**/ ?>

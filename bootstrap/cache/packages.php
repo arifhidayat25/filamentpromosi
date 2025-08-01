@@ -1,5 +1,4 @@
 <?php return array (
-<<<<<<< HEAD
   'althinect/filament-spatie-roles-permissions' => 
   array (
     'aliases' => 
@@ -29,8 +28,6 @@
       0 => 'BezhanSalleh\\FilamentShield\\FilamentShieldServiceProvider',
     ),
   ),
-=======
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
   'blade-ui-kit/blade-heroicons' => 
   array (
     'providers' => 
@@ -45,7 +42,6 @@
       0 => 'BladeUI\\Icons\\BladeIconsServiceProvider',
     ),
   ),
-<<<<<<< HEAD
   'dutchcodingcompany/filament-developer-logins' => 
   array (
     'providers' => 
@@ -53,8 +49,6 @@
       0 => 'DutchCodingCompany\\FilamentDeveloperLogins\\FilamentDeveloperLoginsServiceProvider',
     ),
   ),
-=======
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
   'filament/actions' => 
   array (
     'providers' => 
@@ -111,7 +105,6 @@
       0 => 'Filament\\Widgets\\WidgetsServiceProvider',
     ),
   ),
-<<<<<<< HEAD
   'filipfonal/filament-log-manager' => 
   array (
     'aliases' => 
@@ -123,8 +116,6 @@
       0 => 'FilipFonal\\FilamentLogManager\\FilamentLogManagerServiceProvider',
     ),
   ),
-=======
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
   'kirschbaum-development/eloquent-power-joins' => 
   array (
     'providers' => 
@@ -185,7 +176,6 @@
       0 => 'Termwind\\Laravel\\TermwindServiceProvider',
     ),
   ),
-<<<<<<< HEAD
   'rmsramos/activitylog' => 
   array (
     'aliases' => 
@@ -197,8 +187,6 @@
       0 => 'Rmsramos\\Activitylog\\ActivitylogServiceProvider',
     ),
   ),
-=======
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
   'ryangjchandler/blade-capture-directive' => 
   array (
     'aliases' => 
@@ -210,7 +198,6 @@
       0 => 'RyanChandler\\BladeCaptureDirective\\BladeCaptureDirectiveServiceProvider',
     ),
   ),
-<<<<<<< HEAD
   'spatie/laravel-activitylog' => 
   array (
     'providers' => 
@@ -218,8 +205,6 @@
       0 => 'Spatie\\Activitylog\\ActivitylogServiceProvider',
     ),
   ),
-=======
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
   'spatie/laravel-ignition' => 
   array (
     'aliases' => 
@@ -231,7 +216,6 @@
       0 => 'Spatie\\LaravelIgnition\\IgnitionServiceProvider',
     ),
   ),
-<<<<<<< HEAD
   'spatie/laravel-medialibrary' => 
   array (
     'providers' => 
@@ -246,6 +230,4 @@
       0 => 'Spatie\\Permission\\PermissionServiceProvider',
     ),
   ),
-=======
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
 );

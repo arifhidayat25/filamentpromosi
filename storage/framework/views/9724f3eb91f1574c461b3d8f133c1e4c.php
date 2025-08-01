@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?php
     use Filament\Support\Enums\MaxWidth;
     use Illuminate\Support\Js;
@@ -42,18 +41,12 @@
         \Filament\Support\prepare_inherited_attributes($getExtraAttributeBag())
             ->class(['fi-fo-component-ctn gap-6'])
     ]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
-=======
-<?php if (isset($component)) { $__componentOriginal30dbd75eb120a380110a2b340cd88f46 = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginal30dbd75eb120a380110a2b340cd88f46 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament::components.grid.index','data' => ['default' => $getColumns('default'),'sm' => $getColumns('sm'),'md' => $getColumns('md'),'lg' => $getColumns('lg'),'xl' => $getColumns('xl'),'twoXl' => $getColumns('2xl'),'class' => 'fi-fo-component-ctn gap-6']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
 <?php $component->withName('filament::grid'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
-<<<<<<< HEAD
 <?php $component->withAttributes(['x-data' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($isRoot ? '{}' : null),'x-on:form-validation-error.window' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(
         $isRoot ? ('if ($event.detail.livewireId !== ' . Js::from($this->getId()) . ') {
                 return
@@ -89,10 +82,6 @@
             ->class(['fi-fo-component-ctn gap-6'])
     )]); ?>
     <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $getComponents(withHidden: true); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $formComponent): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-=======
-<?php $component->withAttributes(['default' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($getColumns('default')),'sm' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($getColumns('sm')),'md' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($getColumns('md')),'lg' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($getColumns('lg')),'xl' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($getColumns('xl')),'two-xl' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($getColumns('2xl')),'class' => 'fi-fo-component-ctn gap-6']); ?>
-    <?php $__currentLoopData = $getComponents(withHidden: true); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $formComponent): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
         <?php
             /**
              * Instead of only rendering the hidden components, we should
@@ -111,7 +100,6 @@
 <?php if (isset($attributes)) { $__attributesOriginal6f9d0ad23f77111c926012ad6ce09333 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament::components.grid.column','data' => ['wire:key' => $formComponent instanceof \Filament\Forms\Components\Field ? $this->getId() . '.' . $formComponent->getStatePath() . '.' . $formComponent::class : null,'hidden' => $isHidden,'default' => $formComponent->getColumnSpan('default'),'sm' => $formComponent->getColumnSpan('sm'),'md' => $formComponent->getColumnSpan('md'),'lg' => $formComponent->getColumnSpan('lg'),'xl' => $formComponent->getColumnSpan('xl'),'twoXl' => $formComponent->getColumnSpan('2xl'),'defaultStart' => $formComponent->getColumnStart('default'),'smStart' => $formComponent->getColumnStart('sm'),'mdStart' => $formComponent->getColumnStart('md'),'lgStart' => $formComponent->getColumnStart('lg'),'xlStart' => $formComponent->getColumnStart('xl'),'twoXlStart' => $formComponent->getColumnStart('2xl'),'class' => \Illuminate\Support\Arr::toCssClasses([
                 match ($maxWidth = $formComponent->getMaxWidth()) {
-<<<<<<< HEAD
                     MaxWidth::ExtraSmall, 'xs' => 'max-w-xs',
                     MaxWidth::Small, 'sm' => 'max-w-sm',
                     MaxWidth::Medium, 'md' => 'max-w-md',
@@ -123,19 +111,6 @@
                     MaxWidth::FiveExtraLarge, '5xl' => 'max-w-5xl',
                     MaxWidth::SixExtraLarge, '6xl' => 'max-w-6xl',
                     MaxWidth::SevenExtraLarge, '7xl' => 'max-w-7xl',
-=======
-                    'xs' => 'max-w-xs',
-                    'sm' => 'max-w-sm',
-                    'md' => 'max-w-md',
-                    'lg' => 'max-w-lg',
-                    'xl' => 'max-w-xl',
-                    '2xl' => 'max-w-2xl',
-                    '3xl' => 'max-w-3xl',
-                    '4xl' => 'max-w-4xl',
-                    '5xl' => 'max-w-5xl',
-                    '6xl' => 'max-w-6xl',
-                    '7xl' => 'max-w-7xl',
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
                     default => $maxWidth,
                 },
             ])]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
@@ -147,7 +122,6 @@
 <?php endif; ?>
 <?php $component->withAttributes(['wire:key' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($formComponent instanceof \Filament\Forms\Components\Field ? $this->getId() . '.' . $formComponent->getStatePath() . '.' . $formComponent::class : null),'hidden' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($isHidden),'default' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($formComponent->getColumnSpan('default')),'sm' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($formComponent->getColumnSpan('sm')),'md' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($formComponent->getColumnSpan('md')),'lg' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($formComponent->getColumnSpan('lg')),'xl' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($formComponent->getColumnSpan('xl')),'twoXl' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($formComponent->getColumnSpan('2xl')),'defaultStart' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($formComponent->getColumnStart('default')),'smStart' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($formComponent->getColumnStart('sm')),'mdStart' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($formComponent->getColumnStart('md')),'lgStart' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($formComponent->getColumnStart('lg')),'xlStart' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($formComponent->getColumnStart('xl')),'twoXlStart' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($formComponent->getColumnStart('2xl')),'class' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(\Illuminate\Support\Arr::toCssClasses([
                 match ($maxWidth = $formComponent->getMaxWidth()) {
-<<<<<<< HEAD
                     MaxWidth::ExtraSmall, 'xs' => 'max-w-xs',
                     MaxWidth::Small, 'sm' => 'max-w-sm',
                     MaxWidth::Medium, 'md' => 'max-w-md',
@@ -166,26 +140,6 @@
                 <?php echo e($formComponent); ?>
 
             <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
-=======
-                    'xs' => 'max-w-xs',
-                    'sm' => 'max-w-sm',
-                    'md' => 'max-w-md',
-                    'lg' => 'max-w-lg',
-                    'xl' => 'max-w-xl',
-                    '2xl' => 'max-w-2xl',
-                    '3xl' => 'max-w-3xl',
-                    '4xl' => 'max-w-4xl',
-                    '5xl' => 'max-w-5xl',
-                    '6xl' => 'max-w-6xl',
-                    '7xl' => 'max-w-7xl',
-                    default => $maxWidth,
-                },
-            ]))]); ?>
-            <?php if(! $isHidden): ?>
-                <?php echo e($formComponent); ?>
-
-            <?php endif; ?>
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
          <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal6f9d0ad23f77111c926012ad6ce09333)): ?>
@@ -196,11 +150,7 @@
 <?php $component = $__componentOriginal6f9d0ad23f77111c926012ad6ce09333; ?>
 <?php unset($__componentOriginal6f9d0ad23f77111c926012ad6ce09333); ?>
 <?php endif; ?>
-<<<<<<< HEAD
     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
-=======
-    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
  <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal30dbd75eb120a380110a2b340cd88f46)): ?>

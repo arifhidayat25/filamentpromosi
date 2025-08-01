@@ -36,7 +36,6 @@
     <?php echo e($attributes
             ->class([
                 'fi-dropdown-header flex w-full gap-2 p-3 text-sm',
-<<<<<<< HEAD
                 match ($color) {
                     'gray' => null,
                     default => 'fi-color-custom',
@@ -44,19 +43,6 @@
                 // @deprecated `fi-dropdown-header-color-*` has been replaced by `fi-color-*` and `fi-color-custom`.
                 is_string($color) ? "fi-dropdown-header-color-{$color}" : null,
                 is_string($color) ? "fi-color-{$color}" : null,
-=======
-                is_string($color) ? "fi-dropdown-header-color-{$color}" : null,
-            ])
-            ->style([
-                \Filament\Support\get_color_css_variables(
-                    $color,
-                    shades: [
-                        400,
-                        ...(filled($icon) ? [500] : []),
-                        600,
-                    ],
-                ) => $color !== 'gray',
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
             ])); ?>
 
 >
@@ -75,15 +61,12 @@
                     'gray' => 'text-gray-400 dark:text-gray-500',
                     default => 'text-custom-500 dark:text-custom-400',
                 },
-<<<<<<< HEAD
             ]),'style' => \Illuminate\Support\Arr::toCssStyles([
                 \Filament\Support\get_color_css_variables(
                     $color,
                     shades: [400, 500],
                     alias: 'dropdown.header.icon',
                 ) => $color !== 'gray',
-=======
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
             ])]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('filament::icon'); ?>
 <?php if ($component->shouldRender()): ?>
@@ -103,15 +86,12 @@
                     'gray' => 'text-gray-400 dark:text-gray-500',
                     default => 'text-custom-500 dark:text-custom-400',
                 },
-<<<<<<< HEAD
             ])),'style' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(\Illuminate\Support\Arr::toCssStyles([
                 \Filament\Support\get_color_css_variables(
                     $color,
                     shades: [400, 500],
                     alias: 'dropdown.header.icon',
                 ) => $color !== 'gray',
-=======
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
             ]))]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
@@ -133,7 +113,6 @@
                 default => 'text-custom-600 dark:text-custom-400',
             },
         ]); ?>"
-<<<<<<< HEAD
         style="<?php echo \Illuminate\Support\Arr::toCssStyles([
             \Filament\Support\get_color_css_variables(
                 $color,
@@ -141,8 +120,6 @@
                 alias: 'dropdown.header.label',
             ) => $color !== 'gray',
         ]) ?>"
-=======
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
     >
         <?php echo e($slot); ?>
 

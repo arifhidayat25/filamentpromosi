@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?php $attributes ??= new \Illuminate\View\ComponentAttributeBag; ?>
 <?php foreach($attributes->onlyProps([
     'fullHeight' => false,
@@ -54,33 +53,12 @@
             <?php if (isset($component)) { $__componentOriginal4af1e0a8ab5c0dda93279f6800da3911 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal4af1e0a8ab5c0dda93279f6800da3911 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament-panels::components.header.index','data' => ['actions' => $this->getCachedHeaderActions(),'breadcrumbs' => filament()->hasBreadcrumbs() ? $this->getBreadcrumbs() : [],'heading' => $heading,'subheading' => $subheading]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
-=======
-<?php
-    use phpDocumentor\Reflection\Types\Context;
-
-    $widgetData = $this->getWidgetData();
-?>
-
-<div <?php echo e($attributes->class(['fi-page'])); ?>>
-    <?php echo e(\Filament\Support\Facades\FilamentView::renderHook('panels::page.start', scopes: $this->getRenderHookScopes())); ?>
-
-
-    <section class="grid auto-cols-fr gap-y-8 py-8">
-        <?php if($header = $this->getHeader()): ?>
-            <?php echo e($header); ?>
-
-        <?php elseif($heading = $this->getHeading()): ?>
-            <?php if (isset($component)) { $__componentOriginal4af1e0a8ab5c0dda93279f6800da3911 = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginal4af1e0a8ab5c0dda93279f6800da3911 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament-panels::components.header.index','data' => ['actions' => $this->getCachedHeaderActions(),'breadcrumbs' => filament()->hasBreadcrumbs() ? $this->getBreadcrumbs() : [],'heading' => $heading,'subheading' => $this->getSubheading()]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
 <?php $component->withName('filament-panels::header'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
-<<<<<<< HEAD
 <?php $component->withAttributes(['actions' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($this->getCachedHeaderActions()),'breadcrumbs' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(filament()->hasBreadcrumbs() ? $this->getBreadcrumbs() : []),'heading' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($heading),'subheading' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($subheading)]); ?>
                 <!--[if BLOCK]><![endif]--><?php if($heading instanceof \Illuminate\Contracts\Support\Htmlable): ?>
                      <?php $__env->slot('heading', null, []); ?> 
@@ -96,10 +74,6 @@
                      <?php $__env->endSlot(); ?>
                 <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
              <?php echo $__env->renderComponent(); ?>
-=======
-<?php $component->withAttributes(['actions' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($this->getCachedHeaderActions()),'breadcrumbs' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(filament()->hasBreadcrumbs() ? $this->getBreadcrumbs() : []),'heading' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($heading),'subheading' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($this->getSubheading())]); ?>
-<?php echo $__env->renderComponent(); ?>
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
 <?php endif; ?>
 <?php if (isset($__attributesOriginal4af1e0a8ab5c0dda93279f6800da3911)): ?>
 <?php $attributes = $__attributesOriginal4af1e0a8ab5c0dda93279f6800da3911; ?>
@@ -109,7 +83,6 @@
 <?php $component = $__componentOriginal4af1e0a8ab5c0dda93279f6800da3911; ?>
 <?php unset($__componentOriginal4af1e0a8ab5c0dda93279f6800da3911); ?>
 <?php endif; ?>
-<<<<<<< HEAD
         <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
 
         <div
@@ -226,28 +199,13 @@
                     <?php if (isset($component)) { $__componentOriginal7259e9ea993f43cfa75aaa166dfee38d = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal7259e9ea993f43cfa75aaa166dfee38d = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament-widgets::components.widgets','data' => ['columns' => $this->getHeaderWidgetsColumns(),'data' => $widgetData,'widgets' => $headerWidgets,'class' => 'fi-page-header-widgets']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
-=======
-        <?php endif; ?>
-
-        <?php echo e(\Filament\Support\Facades\FilamentView::renderHook('panels::page.header-widgets.before', scopes: $this->getRenderHookScopes())); ?>
-
-
-        <?php if($headerWidgets = $this->getVisibleHeaderWidgets()): ?>
-            <?php if (isset($component)) { $__componentOriginal7259e9ea993f43cfa75aaa166dfee38d = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginal7259e9ea993f43cfa75aaa166dfee38d = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament-widgets::components.widgets','data' => ['columns' => $this->getHeaderWidgetsColumns(),'data' => $widgetData,'widgets' => $headerWidgets]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
 <?php $component->withName('filament-widgets::widgets'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
-<<<<<<< HEAD
 <?php $component->withAttributes(['columns' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($this->getHeaderWidgetsColumns()),'data' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($widgetData),'widgets' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($headerWidgets),'class' => 'fi-page-header-widgets']); ?>
-=======
-<?php $component->withAttributes(['columns' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($this->getHeaderWidgetsColumns()),'data' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($widgetData),'widgets' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($headerWidgets)]); ?>
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal7259e9ea993f43cfa75aaa166dfee38d)): ?>
@@ -258,7 +216,6 @@
 <?php $component = $__componentOriginal7259e9ea993f43cfa75aaa166dfee38d; ?>
 <?php unset($__componentOriginal7259e9ea993f43cfa75aaa166dfee38d); ?>
 <?php endif; ?>
-<<<<<<< HEAD
                 <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
 
                 <?php echo e(\Filament\Support\Facades\FilamentView::renderHook(\Filament\View\PanelsRenderHook::PAGE_HEADER_WIDGETS_AFTER, scopes: $this->getRenderHookScopes())); ?>
@@ -274,34 +231,13 @@
                     <?php if (isset($component)) { $__componentOriginal7259e9ea993f43cfa75aaa166dfee38d = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal7259e9ea993f43cfa75aaa166dfee38d = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament-widgets::components.widgets','data' => ['columns' => $this->getFooterWidgetsColumns(),'data' => $widgetData,'widgets' => $footerWidgets,'class' => 'fi-page-footer-widgets']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
-=======
-        <?php endif; ?>
-
-        <?php echo e(\Filament\Support\Facades\FilamentView::renderHook('panels::page.header-widgets.after', scopes: $this->getRenderHookScopes())); ?>
-
-
-        <?php echo e($slot); ?>
-
-
-        <?php echo e(\Filament\Support\Facades\FilamentView::renderHook('panels::page.footer-widgets.before', scopes: $this->getRenderHookScopes())); ?>
-
-
-        <?php if($footerWidgets = $this->getVisibleFooterWidgets()): ?>
-            <?php if (isset($component)) { $__componentOriginal7259e9ea993f43cfa75aaa166dfee38d = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginal7259e9ea993f43cfa75aaa166dfee38d = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament-widgets::components.widgets','data' => ['columns' => $this->getFooterWidgetsColumns(),'data' => $widgetData,'widgets' => $footerWidgets]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
 <?php $component->withName('filament-widgets::widgets'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
-<<<<<<< HEAD
 <?php $component->withAttributes(['columns' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($this->getFooterWidgetsColumns()),'data' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($widgetData),'widgets' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($footerWidgets),'class' => 'fi-page-footer-widgets']); ?>
-=======
-<?php $component->withAttributes(['columns' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($this->getFooterWidgetsColumns()),'data' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($widgetData),'widgets' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($footerWidgets)]); ?>
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal7259e9ea993f43cfa75aaa166dfee38d)): ?>
@@ -312,7 +248,6 @@
 <?php $component = $__componentOriginal7259e9ea993f43cfa75aaa166dfee38d; ?>
 <?php unset($__componentOriginal7259e9ea993f43cfa75aaa166dfee38d); ?>
 <?php endif; ?>
-<<<<<<< HEAD
                 <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
 
                 <?php echo e(\Filament\Support\Facades\FilamentView::renderHook(\Filament\View\PanelsRenderHook::PAGE_FOOTER_WIDGETS_AFTER, scopes: $this->getRenderHookScopes())); ?>
@@ -356,20 +291,6 @@
     </section>
 
     <!--[if BLOCK]><![endif]--><?php if(! ($this instanceof \Filament\Tables\Contracts\HasTable)): ?>
-=======
-        <?php endif; ?>
-
-        <?php echo e(\Filament\Support\Facades\FilamentView::renderHook('panels::page.footer-widgets.after', scopes: $this->getRenderHookScopes())); ?>
-
-
-        <?php if($footer = $this->getFooter()): ?>
-            <?php echo e($footer); ?>
-
-        <?php endif; ?>
-    </section>
-
-    <?php if(! $this instanceof \Filament\Tables\Contracts\HasTable): ?>
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
         <?php if (isset($component)) { $__componentOriginal028e05680f6c5b1e293abd7fbe5f9758 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal028e05680f6c5b1e293abd7fbe5f9758 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament-actions::components.modals','data' => []] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
@@ -390,7 +311,6 @@
 <?php $component = $__componentOriginal028e05680f6c5b1e293abd7fbe5f9758; ?>
 <?php unset($__componentOriginal028e05680f6c5b1e293abd7fbe5f9758); ?>
 <?php endif; ?>
-<<<<<<< HEAD
     <?php elseif($this->isTableLoaded() && filled($this->defaultTableAction)): ?>
         <div
             wire:init="mountTableAction(<?php echo \Illuminate\Support\Js::from($this->defaultTableAction)->toHtml() ?>, <?php if(filled($this->defaultTableActionRecord)): ?> <?php echo \Illuminate\Support\Js::from($this->defaultTableActionRecord)->toHtml() ?> <?php else: ?> <?php echo e('null'); ?> <?php endif; ?> <?php if(filled($this->defaultTableActionArguments)): ?> , <?php echo \Illuminate\Support\Js::from($this->defaultTableActionArguments)->toHtml() ?> <?php endif; ?>)"
@@ -426,11 +346,5 @@
 <?php $component = $__componentOriginal29f738301ffa464f2646caa32428c50f; ?>
 <?php unset($__componentOriginal29f738301ffa464f2646caa32428c50f); ?>
 <?php endif; ?>
-=======
-    <?php endif; ?>
-
-    <?php echo e(\Filament\Support\Facades\FilamentView::renderHook('panels::page.end', scopes: $this->getRenderHookScopes())); ?>
-
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
 </div>
 <?php /**PATH C:\laragon\www\magang\laravel-filament\vendor\filament\filament\resources\views/components/page/index.blade.php ENDPATH**/ ?>

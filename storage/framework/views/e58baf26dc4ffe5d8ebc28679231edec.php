@@ -1,49 +1,32 @@
 <?php $attributes ??= new \Illuminate\View\ComponentAttributeBag; ?>
 <?php foreach($attributes->onlyProps([
-<<<<<<< HEAD
     'active' => false,
-=======
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
     'collapsible' => true,
     'icon' => null,
     'items' => [],
     'label' => null,
-<<<<<<< HEAD
     'sidebarCollapsible' => true,
     'subNavigation' => false,
-=======
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
 ]) as $__key => $__value) {
     $$__key = $$__key ?? $__value;
 } ?>
 <?php $attributes = $attributes->exceptProps([
-<<<<<<< HEAD
     'active' => false,
-=======
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
     'collapsible' => true,
     'icon' => null,
     'items' => [],
     'label' => null,
-<<<<<<< HEAD
     'sidebarCollapsible' => true,
     'subNavigation' => false,
 ]); ?>
 <?php foreach (array_filter(([
     'active' => false,
-=======
-]); ?>
-<?php foreach (array_filter(([
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
     'collapsible' => true,
     'icon' => null,
     'items' => [],
     'label' => null,
-<<<<<<< HEAD
     'sidebarCollapsible' => true,
     'subNavigation' => false,
-=======
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
 ]), 'is_string', ARRAY_FILTER_USE_KEY) as $__key => $__value) {
     $$__key = $$__key ?? $__value;
 } ?>
@@ -53,7 +36,6 @@
 } ?>
 <?php unset($__defined_vars); ?>
 
-<<<<<<< HEAD
 <?php
     $sidebarCollapsible = $sidebarCollapsible && filament()->isSidebarCollapsibleOnDesktop();
     $hasDropdown = filled($label) && filled($icon) && $sidebarCollapsible;
@@ -67,36 +49,20 @@
             'fi-active' => $active,
         ])); ?>
 
-=======
-<li
-    x-data="{ label: <?php echo \Illuminate\Support\Js::from($label)->toHtml() ?> }"
-    data-group-label="<?php echo e($label); ?>"
-    class="<?php echo \Illuminate\Support\Arr::toCssClasses([
-        'fi-sidebar-group grid gap-y-1',
-    ]); ?>"
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
 >
     <?php if($label): ?>
         <div
             <?php if($collapsible): ?>
                 x-on:click="$store.sidebar.toggleCollapsedGroup(label)"
             <?php endif; ?>
-<<<<<<< HEAD
             <?php if($sidebarCollapsible): ?>
-=======
-            <?php if(filament()->isSidebarCollapsibleOnDesktop()): ?>
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
                 x-show="$store.sidebar.isOpen"
                 x-transition:enter="delay-100 lg:transition"
                 x-transition:enter-start="opacity-0"
                 x-transition:enter-end="opacity-100"
             <?php endif; ?>
             class="<?php echo \Illuminate\Support\Arr::toCssClasses([
-<<<<<<< HEAD
                 'fi-sidebar-group-button flex items-center gap-x-3 px-2 py-2',
-=======
-                'flex items-center gap-x-3 px-2 py-2',
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
                 'cursor-pointer' => $collapsible,
             ]); ?>"
         >
@@ -124,11 +90,7 @@
             <?php endif; ?>
 
             <span
-<<<<<<< HEAD
                 class="fi-sidebar-group-label flex-1 text-sm font-medium leading-6 text-gray-500 dark:text-gray-400"
-=======
-                class="flex-1 text-sm font-semibold text-gray-700 dark:text-gray-200"
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
             >
                 <?php echo e($label); ?>
 
@@ -137,22 +99,14 @@
             <?php if($collapsible): ?>
                 <?php if (isset($component)) { $__componentOriginalf0029cce6d19fd6d472097ff06a800a1 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalf0029cce6d19fd6d472097ff06a800a1 = $attributes; } ?>
-<<<<<<< HEAD
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament::components.icon-button','data' => ['color' => 'gray','icon' => 'heroicon-m-chevron-up','iconAlias' => 'panels::sidebar.group.collapse-button','label' => $label,'xBind:ariaExpanded' => '! $store.sidebar.groupIsCollapsed(label)','xOn:click.stop' => '$store.sidebar.toggleCollapsedGroup(label)','class' => 'fi-sidebar-group-collapse-button','xBind:class' => '{ \'-rotate-180\': $store.sidebar.groupIsCollapsed(label) }']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
-=======
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament::components.icon-button','data' => ['color' => 'gray','icon' => 'heroicon-m-chevron-up','iconAlias' => 'panels::sidebar.group.collapse-button','xOn:click.stop' => '$store.sidebar.toggleCollapsedGroup(label)','xBind:class' => '{ \'rotate-180\': $store.sidebar.groupIsCollapsed(label) }','class' => 'fi-sidebar-group-collapse-button -my-2 -me-2']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
 <?php $component->withName('filament::icon-button'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
-<<<<<<< HEAD
 <?php $component->withAttributes(['color' => 'gray','icon' => 'heroicon-m-chevron-up','icon-alias' => 'panels::sidebar.group.collapse-button','label' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($label),'x-bind:aria-expanded' => '! $store.sidebar.groupIsCollapsed(label)','x-on:click.stop' => '$store.sidebar.toggleCollapsedGroup(label)','class' => 'fi-sidebar-group-collapse-button','x-bind:class' => '{ \'-rotate-180\': $store.sidebar.groupIsCollapsed(label) }']); ?>
-=======
-<?php $component->withAttributes(['color' => 'gray','icon' => 'heroicon-m-chevron-up','icon-alias' => 'panels::sidebar.group.collapse-button','x-on:click.stop' => '$store.sidebar.toggleCollapsedGroup(label)','x-bind:class' => '{ \'rotate-180\': $store.sidebar.groupIsCollapsed(label) }','class' => 'fi-sidebar-group-collapse-button -my-2 -me-2']); ?>
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginalf0029cce6d19fd6d472097ff06a800a1)): ?>
@@ -167,7 +121,6 @@
         </div>
     <?php endif; ?>
 
-<<<<<<< HEAD
     <?php if($hasDropdown): ?>
         <?php if (isset($component)) { $__componentOriginal22ab0dbc2c6619d5954111bba06f01db = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal22ab0dbc2c6619d5954111bba06f01db = $attributes; } ?>
@@ -350,16 +303,10 @@
             x-collapse.duration.200ms
         <?php endif; ?>
         <?php if($sidebarCollapsible): ?>
-=======
-    <ul
-        x-show="! ($store.sidebar.groupIsCollapsed(label) && ($store.sidebar.isOpen || <?php echo \Illuminate\Support\Js::from(! filament()->isSidebarCollapsibleOnDesktop())->toHtml() ?>))"
-        <?php if(filament()->isSidebarCollapsibleOnDesktop()): ?>
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
             x-transition:enter="delay-100 lg:transition"
             x-transition:enter-start="opacity-0"
             x-transition:enter-end="opacity-100"
         <?php endif; ?>
-<<<<<<< HEAD
         class="fi-sidebar-group-items flex flex-col gap-y-1"
     >
         <?php $__currentLoopData = $items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -380,23 +327,12 @@
             <?php if (isset($component)) { $__componentOriginal7edbc33aaa546e1feb86647dcd0e4eb8 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal7edbc33aaa546e1feb86647dcd0e4eb8 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament-panels::components.sidebar.item','data' => ['active' => $item->isActive(),'activeChildItems' => $item->isChildItemsActive(),'activeIcon' => $itemActiveIcon,'badge' => $item->getBadge(),'badgeColor' => $item->getBadgeColor(),'badgeTooltip' => $item->getBadgeTooltip(),'childItems' => $item->getChildItems(),'first' => $loop->first,'grouped' => filled($label),'icon' => $itemIcon,'last' => $loop->last,'shouldOpenUrlInNewTab' => $item->shouldOpenUrlInNewTab(),'sidebarCollapsible' => $sidebarCollapsible,'url' => $item->getUrl()]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
-=======
-        x-collapse.duration.200ms
-        class="fi-sidebar-group-items grid gap-y-1"
-    >
-        <?php $__currentLoopData = $items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-            <?php if($item->isVisible()): ?>
-                <?php if (isset($component)) { $__componentOriginal7edbc33aaa546e1feb86647dcd0e4eb8 = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginal7edbc33aaa546e1feb86647dcd0e4eb8 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament-panels::components.sidebar.item','data' => ['activeIcon' => $item->getActiveIcon(),'active' => $item->isActive(),'badgeColor' => $item->getBadgeColor(),'badge' => $item->getBadge(),'first' => $loop->first,'grouped' => filled($label),'icon' => $item->getIcon(),'last' => $loop->last,'shouldOpenUrlInNewTab' => $item->shouldOpenUrlInNewTab(),'url' => $item->getUrl()]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
 <?php $component->withName('filament-panels::sidebar.item'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
-<<<<<<< HEAD
 <?php $component->withAttributes(['active' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($item->isActive()),'active-child-items' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($item->isChildItemsActive()),'active-icon' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($itemActiveIcon),'badge' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($item->getBadge()),'badge-color' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($item->getBadgeColor()),'badge-tooltip' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($item->getBadgeTooltip()),'child-items' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($item->getChildItems()),'first' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($loop->first),'grouped' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(filled($label)),'icon' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($itemIcon),'last' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($loop->last),'should-open-url-in-new-tab' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($item->shouldOpenUrlInNewTab()),'sidebar-collapsible' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sidebarCollapsible),'url' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($item->getUrl())]); ?>
                 <?php echo e($item->getLabel()); ?>
 
@@ -415,12 +351,6 @@
                      <?php $__env->endSlot(); ?>
                 <?php endif; ?>
              <?php echo $__env->renderComponent(); ?>
-=======
-<?php $component->withAttributes(['active-icon' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($item->getActiveIcon()),'active' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($item->isActive()),'badge-color' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($item->getBadgeColor()),'badge' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($item->getBadge()),'first' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($loop->first),'grouped' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(filled($label)),'icon' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($item->getIcon()),'last' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($loop->last),'should-open-url-in-new-tab' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($item->shouldOpenUrlInNewTab()),'url' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($item->getUrl())]); ?>
-                    <?php echo e($item->getLabel()); ?>
-
-                 <?php echo $__env->renderComponent(); ?>
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
 <?php endif; ?>
 <?php if (isset($__attributesOriginal7edbc33aaa546e1feb86647dcd0e4eb8)): ?>
 <?php $attributes = $__attributesOriginal7edbc33aaa546e1feb86647dcd0e4eb8; ?>
@@ -430,10 +360,6 @@
 <?php $component = $__componentOriginal7edbc33aaa546e1feb86647dcd0e4eb8; ?>
 <?php unset($__componentOriginal7edbc33aaa546e1feb86647dcd0e4eb8); ?>
 <?php endif; ?>
-<<<<<<< HEAD
-=======
-            <?php endif; ?>
->>>>>>> 40ba94650047b47ec683394909f249e12f029589
         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     </ul>
 </li>
