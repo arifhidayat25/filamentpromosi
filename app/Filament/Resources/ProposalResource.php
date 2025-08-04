@@ -25,7 +25,12 @@ class ProposalResource extends Resource
                 Forms\Components\Section::make('Informasi Pengajuan')->schema([
                     Forms\Components\Select::make('user_id')
                         ->label('Pengaju (Mahasiswa/Dosen)')
-                        ->options(User::whereIn('role', ['mahasiswa', 'dosen'])->pluck('name', 'id'))
+                        // INI BAGIAN YANG DIPERBAIKI: Menggunakan whereHas untuk filter berdasarkan role
+                        ->options(
+                            User::whereHas('roles', function ($query) {
+                                $query->whereIn('name', ['mahasiswa', 'dosen']);
+                            })->pluck('name', 'id')
+                        )
                         ->searchable()
                         ->required(),
                     Forms\Components\Select::make('school_id')

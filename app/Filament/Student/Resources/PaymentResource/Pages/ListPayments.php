@@ -12,7 +12,8 @@ class ListPayments extends ListRecords
 
     protected function getHeaderActions(): array
     {
-        // Mahasiswa tidak bisa membuat data pembayaran, jadi tombol create dihilangkan.
-        return [];
+        return [
+            Actions\CreateAction::make(),
+        ];
     }
 }

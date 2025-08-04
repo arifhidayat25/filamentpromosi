@@ -19,6 +19,10 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Althinect\FilamentSpatieRolesPermissions\FilamentSpatieRolesPermissionsPlugin;
+use App\Http\Middleware\AdminPanelAccessMiddleware;
+use App\Filament\Auth\AdminLogin;
+use Filament\Navigation\NavigationItem; // <-- Jangan lupa tambahkan ini di atas
+
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -28,8 +32,7 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
-            ->login()
-            ->plugin(FilamentSpatieRolesPermissionsPlugin::make())
+            ->login(AdminLogin::class)
             ->colors([
                 'primary' => Color::Indigo,
             ])
@@ -43,6 +46,7 @@ class AdminPanelProvider extends PanelProvider
                 Widgets\AccountWidget::class,
                 Widgets\FilamentInfoWidget::class,
             ])
+            
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
@@ -53,6 +57,7 @@ class AdminPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
+                AdminPanelAccessMiddleware::class,
             ])
             ->plugins([
                 FilamentShieldPlugin::make(),
@@ -60,7 +65,6 @@ class AdminPanelProvider extends PanelProvider
                     ->enabled(app()->environment('local'))
                     ->users(fn () => \App\Models\User::pluck('email', 'name')->toArray()),
                 \Rmsramos\Activitylog\ActivitylogPlugin::make(),
-                \FilipFonal\FilamentLogManager\FilamentLogManager::make(),
             ])
             ->authMiddleware([
                 Authenticate::class,

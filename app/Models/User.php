@@ -16,7 +16,7 @@ class User extends Authenticatable
     /**
      * Menggunakan semua trait yang diperlukan, termasuk HasRoles dari Spatie.
      */
-    use HasApiTokens, HasFactory, Notifiable, HasRoles, LogsActivity;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, LogsActivity ;
 
     /**
      * The attributes that are mass assignable.
@@ -52,6 +52,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed', // Pastikan password di-hash
     ];
+    
 
     /**
      * Relasi ke tabel proposals. Ini tidak berhubungan dengan peran dan bisa tetap ada.

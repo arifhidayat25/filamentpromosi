@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Providers;
+use Spatie\Activitylog\Models\Activity;
+use App\Policies\ActivityPolicy;
 
 // use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -14,6 +16,8 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+            Activity::class => ActivityPolicy::class, // <-- TAMBAHKAN BARIS INI
+
     ];
 
     /**
@@ -23,6 +27,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+        
         //
     }
 }

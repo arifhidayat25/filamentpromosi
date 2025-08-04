@@ -17,6 +17,8 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use App\Http\Middleware\StudentPanelAccessMiddleware;
+use App\Filament\Auth\StudentLogin;
 
 class StudentPanelProvider extends PanelProvider
 {
@@ -28,6 +30,7 @@ class StudentPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Amber,
             ])
+                        ->login(StudentLogin::class) // <-- Terapkan di sini
             ->discoverResources(in: app_path('Filament/Student/Resources'), for: 'App\\Filament\\Student\\Resources')
             ->discoverPages(in: app_path('Filament/Student/Pages'), for: 'App\\Filament\\Student\\Pages')
             ->pages([
@@ -48,6 +51,7 @@ class StudentPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
+                StudentPanelAccessMiddleware::class,
             ])
             ->authMiddleware([
                 Authenticate::class,

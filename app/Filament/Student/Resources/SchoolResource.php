@@ -16,6 +16,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class SchoolResource extends Resource
 {
     protected static ?string $model = School::class;
+        protected static ?string $recordTitleAttribute = 'name'; // <-- TAMBAHKAN BARIS INI
+
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -23,7 +25,18 @@ class SchoolResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('name')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\Textarea::make('address')
+                    ->columnSpanFull(),
+                Forms\Components\TextInput::make('city')
+                    ->maxLength(100),
+                Forms\Components\TextInput::make('contact_person')
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('contact_phone')
+                    ->tel()
+                    ->maxLength(25),
             ]);
     }
 
@@ -31,7 +44,22 @@ class SchoolResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('name')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('city')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('contact_person')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('contact_phone')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //

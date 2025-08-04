@@ -5,82 +5,57 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOne;
-use Spatie\Activitylog\Traits\LogsActivity;
-use Spatie\Activitylog\LogOptions;
+use Illuminate\Database\Eloquent\Relations\HasOne; // <-- Tambahkan ini
+use Illuminate\Support\Facades\Auth;
 
 class Proposal extends Model
 {
-    use HasFactory, LogsActivity;
+    use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     * Pastikan semua field dari form dan yang diisi otomatis ada di sini.
-     * @var array<int, string>
-     */
     protected $fillable = [
         'user_id',
         'school_id',
-        'status', // Penting untuk diisi otomatis
+        'status',
         'proposed_date',
-        'notes',
+        'deskripsi',
         'rejection_reason',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
         'proposed_date' => 'date',
     ];
 
-    /**
-     * Relasi ke User (pembuat proposal)
-     */
+    protected static function booted(): void
+    {
+        static::creating(function (Proposal $proposal) {
+            if (Auth::check()) {
+                $proposal->user_id = Auth::id();
+                $proposal->status = 'diajukan';
+            }
+        });
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    /**
-     * Relasi ke School (sekolah tujuan)
-     */
     public function school(): BelongsTo
     {
         return $this->belongsTo(School::class);
     }
 
-    /**
-     * Relasi ke Report
-     */
-    public function report(): HasOne
-    {
-        return $this->hasOne(Report::class);
-    }
-
-    /**
-     * Relasi ke Payment
-     */
     public function payment(): HasOne
     {
         return $this->hasOne(Payment::class);
     }
 
     /**
-     * Accessor untuk label kustom pada Select field di ReportResource.
-     * @return string
+     * PERBAIKAN: Mendefinisikan relasi "hasOne" ke model Report.
+     * Sebuah proposal hanya memiliki satu laporan.
      */
-    public function getCustomLabelAttribute(): string
+    public function report(): HasOne
     {
-        $schoolName = $this->school->name ?? 'Nama Sekolah Tidak Ditemukan';
-        $date = $this->proposed_date ? $this->proposed_date : 'Tanggal Belum Diatur';
-        return "{$schoolName} - {$date}";
-    }
-
-    public function getActivitylogOptions(): LogOptions
-    {
-        return LogOptions::defaults()->logAll();
+        return $this->hasOne(Report::class);
     }
 }
