@@ -21,11 +21,8 @@ use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Althinect\FilamentSpatieRolesPermissions\FilamentSpatieRolesPermissionsPlugin;
 use App\Http\Middleware\AdminPanelAccessMiddleware;
 use App\Filament\Auth\AdminLogin;
-<<<<<<< HEAD
 use Filament\Navigation\NavigationItem; // <-- Jangan lupa tambahkan ini di atas
 
-=======
->>>>>>> 75f03d02081b0e60cd3f0d9a73fdcfbc57311c19
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -36,10 +33,6 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login(AdminLogin::class)
-<<<<<<< HEAD
-=======
-            ->plugin(FilamentSpatieRolesPermissionsPlugin::make())
->>>>>>> 75f03d02081b0e60cd3f0d9a73fdcfbc57311c19
             ->colors([
                 'primary' => Color::Indigo,
             ])
