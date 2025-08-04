@@ -2,9 +2,9 @@
 
 namespace App\Filament\Student\Resources;
 
-use App\Filament\Student\Resources\SchoolResource\Pages;
-use App\Filament\Student\Resources\SchoolResource\RelationManagers;
-use App\Models\School;
+use App\Filament\Student\Resources\SekolahResource\Pages;
+use App\Filament\Student\Resources\SekolahResource\RelationManagers;
+use App\Models\Sekolah;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,9 +13,9 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class SchoolResource extends Resource
+class SekolahResource extends Resource
 {
-    protected static ?string $model = School::class;
+    protected static ?string $model = Sekolah::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -56,9 +56,9 @@ class SchoolResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListSchools::route('/'),
-            'create' => Pages\CreateSchool::route('/create'),
-            'edit' => Pages\EditSchool::route('/{record}/edit'),
+            'index' => Pages\ListSekolahs::route('/'),
+            'create' => Pages\CreateSekolah::route('/create'),
+            'edit' => Pages\EditSekolah::route('/{record}/edit'),
         ];
     }
 }

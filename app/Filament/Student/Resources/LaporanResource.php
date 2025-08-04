@@ -2,9 +2,9 @@
 
 namespace App\Filament\Student\Resources;
 
-use App\Filament\Student\Resources\PaymentResource\Pages;
-use App\Filament\Student\Resources\PaymentResource\RelationManagers;
-use App\Models\Payment;
+use App\Filament\Student\Resources\LaporanResource\Pages;
+use App\Filament\Student\Resources\LaporanResource\RelationManagers;
+use App\Models\Laporan;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,9 +13,9 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class PaymentResource extends Resource
+class LaporanResource extends Resource
 {
-    protected static ?string $model = Payment::class;
+    protected static ?string $model = Laporan::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -56,9 +56,9 @@ class PaymentResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListPayments::route('/'),
-            'create' => Pages\CreatePayment::route('/create'),
-            'edit' => Pages\EditPayment::route('/{record}/edit'),
+            'index' => Pages\ListLaporans::route('/'),
+            'create' => Pages\CreateLaporan::route('/create'),
+            'edit' => Pages\EditLaporan::route('/{record}/edit'),
         ];
     }
 }
