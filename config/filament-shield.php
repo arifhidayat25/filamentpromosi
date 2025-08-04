@@ -20,11 +20,19 @@ return [
         'fqcn' => 'App\\Models\\User',
     ],
 
+<<<<<<< HEAD
  'super_admin' => [
     'enabled' => false, // <--- Ubah ini menjadi false
     'name' => 'super-admin',
     'define_via_gate' => false,
     'intercept_gate' => false, // after
+=======
+    'super_admin' => [
+        'enabled' => true,
+        'name' => 'super_admin',
+        'define_via_gate' => false,
+        'intercept_gate' => 'true', // after
+>>>>>>> 75f03d02081b0e60cd3f0d9a73fdcfbc57311c19
     ],
 
     'panel_user' => [

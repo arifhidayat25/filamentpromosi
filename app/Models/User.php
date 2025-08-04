@@ -52,7 +52,27 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed', // Pastikan password di-hash
     ];
+<<<<<<< HEAD
     
+=======
+    public function canAccessPanel(Panel $panel): bool
+    {
+        // Jika user mencoba mengakses panel 'admin'
+        if ($panel->getId() === 'admin') {
+            // Izinkan jika rolenya adalah Admin, Pembina, atau Staff
+            return $this->hasAnyRole(['Admin', 'Pembina', 'Staff']);
+        }
+
+        // Jika user mencoba mengakses panel 'student'
+        if ($panel->getId() === 'student') {
+            // Izinkan jika rolenya adalah Admin atau Student
+            return $this->hasAnyRole(['Admin', 'Student']);
+        }
+
+        // Jika ada panel lain, tolak secara default
+        return false;
+    }
+>>>>>>> 75f03d02081b0e60cd3f0d9a73fdcfbc57311c19
 
     /**
      * Relasi ke tabel proposals. Ini tidak berhubungan dengan peran dan bisa tetap ada.
