@@ -10,6 +10,10 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles; // Menggunakan trait dari Spatie
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
+use App\Models\BankAccount;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+
+
 
 class User extends Authenticatable
 {
@@ -53,7 +57,10 @@ class User extends Authenticatable
         'password' => 'hashed', // Pastikan password di-hash
     ];
     
-
+    public function bankAccount(): HasOne
+{
+    return $this->hasOne(BankAccount::class);
+}
     /**
      * Relasi ke tabel proposals. Ini tidak berhubungan dengan peran dan bisa tetap ada.
      */

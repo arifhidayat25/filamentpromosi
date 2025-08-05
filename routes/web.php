@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CertificateController; // Tambahkan ini di atas
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\MahasiswaController; // Pastikan namespace ini benar
@@ -65,6 +66,14 @@ Route::prefix('mahasiswa')->name('mahasiswa.')->middleware('auth')->group(functi
     Route::get('/proposal/{proposal}/report/create', [MahasiswaController::class, 'createReport'])->name('mahasiswa.report.create');
 Route::post('/proposal/{proposal}/report', [MahasiswaController::class, 'storeReport'])->name('mahasiswa.report.store');
     
+        Route::get('/proposal/{proposal}/sertifikat', [CertificateController::class, 'generate'])->name('sertifikat.generate');
+
+
+// Rute baru untuk generate sertifikat
+Route::get('/mahasiswa/proposal/{proposal}/sertifikat', [CertificateController::class, 'generate'])
+    ->middleware('auth') // Pastikan hanya user yang login bisa akses
+    ->name('mahasiswa.sertifikat.generate'); // Kita beri nama yang jelas
+
     // Logout
     Route::post('/logout', [MahasiswaController::class, 'logout'])->name('logout');
 });

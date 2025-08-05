@@ -10,6 +10,8 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Filament\Tables\Actions\Action; // <-- PERBAIKAN 1: Tambahkan ini
+use Filament\Notifications\Notification; // <-- PERBAIKAN 2: Tambahkan ini
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 

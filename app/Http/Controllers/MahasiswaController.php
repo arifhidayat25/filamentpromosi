@@ -13,6 +13,7 @@ use App\Models\School;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 
+
 class MahasiswaController extends Controller
 {
     public function showRegisterForm()
@@ -38,8 +39,9 @@ class MahasiswaController extends Controller
             'no_telepon' => $request->no_telepon,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => 'mahasiswa',
         ]);
+
+            $user->assignRole('mahasiswa');
 
         Auth::login($user);
 
@@ -60,7 +62,7 @@ class MahasiswaController extends Controller
 
         if (Auth::attempt(['nim' => $credentials['nim'], 'password' => $credentials['password'], 'role' => 'mahasiswa'], $request->boolean('remember'))) {
             $request->session()->regenerate();
-            return redirect()->intended(route('mahasiswa.dashboard'));
+            return redirect()->route('filament.student.pages.dashboard');
         }
 
         return back()->withErrors([

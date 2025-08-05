@@ -2,10 +2,11 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Auth\StudentLogin;
+use App\Http\Middleware\StudentPanelAccessMiddleware;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
-use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
@@ -16,9 +17,9 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
+use App\Filament\Auth\StudentRegistration;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-use App\Http\Middleware\StudentPanelAccessMiddleware;
-use App\Filament\Auth\StudentLogin;
+use App\Filament\Student\Pages\Dashboard;
 
 class StudentPanelProvider extends PanelProvider
 {
@@ -30,11 +31,14 @@ class StudentPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Amber,
             ])
-                        ->login(StudentLogin::class) // <-- Terapkan di sini
+            ->login(StudentLogin::class)
+            // --- PERBAIKAN DI SINI ---
+            ->registration(StudentRegistration::class) // Menggunakan 'registration' bukan 'register'
+            // -------------------------
             ->discoverResources(in: app_path('Filament/Student/Resources'), for: 'App\\Filament\\Student\\Resources')
             ->discoverPages(in: app_path('Filament/Student/Pages'), for: 'App\\Filament\\Student\\Pages')
             ->pages([
-                Pages\Dashboard::class,
+                Dashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Student/Widgets'), for: 'App\\Filament\\Student\\Widgets')
             ->widgets([

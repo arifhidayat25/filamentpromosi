@@ -8,6 +8,7 @@ use App\Models\Proposal;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Tables\Actions\Action;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\BadgeColumn;
@@ -87,6 +88,13 @@ class ProposalResource extends Resource
                 Tables\Actions\EditAction::make()
                     ->visible(fn (Proposal $record) => $record->status === 'diajukan'),
 
+       Action::make('cetak_sertifikat')
+                ->label('Cetak Sertifikat')
+                ->icon('heroicon-o-document-arrow-down')
+                ->color('success')
+                ->visible(fn (Proposal $record): bool => $record->status === 'selesai')
+                // Arahkan ke rute baru yang sudah kita buat
+                ->url(fn (Proposal $record) => route('mahasiswa.sertifikat.generate', $record), shouldOpenInNewTab: true),
                 // Tombol Bayar tidak relevan di panel mahasiswa
                 /*
                 Tables\Actions\Action::make('proses_pembayaran')
