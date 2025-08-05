@@ -10,13 +10,38 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Filament\Tables\Columns\BadgeColumn;
+use Illuminate\Database\Eloquent\Builder; // <-- Tambahkan ini
+use Illuminate\Support\Facades\Auth;     // <-- Tambahkan ini
 
 class ProposalResource extends Resource
 {
     protected static ?string $model = Proposal::class;
     protected static ?string $navigationIcon = 'heroicon-o-document-plus';
-    protected static ?string $navigationLabel = 'Ajuan Promosi';
-    protected static ?string $modelLabel = 'Ajuan';
+    protected static ?string $navigationLabel = 'Manajemen Ajuan';
+    protected static ?string $modelLabel = 'Ajuan Promosi';
+    protected static ?string $navigationGroup = 'Manajemen';
+
+    /**
+     * INI ADALAH SOLUSI UTAMA:
+     * Memfilter data yang ditampilkan berdasarkan peran pengguna.
+     */
+    public static function getEloquentQuery(): Builder
+    {
+        $query = parent::getEloquentQuery();
+
+        // Jika user yang login adalah 'pembina',
+        if (Auth::user()->hasRole('pembina')) {
+            $pembinaProdiId = Auth::user()->program_studi_id;
+            // maka hanya tampilkan proposal dari mahasiswa yang satu prodi dengannya.
+            return $query->whereHas('user', function ($q) use ($pembinaProdiId) {
+                $q->where('program_studi_id', $pembinaProdiId);
+            });
+        }
+
+        // Jika bukan pembina (admin/staff), tampilkan semua data.
+        return $query;
+    }
 
     public static function form(Form $form): Form
     {
@@ -24,45 +49,32 @@ class ProposalResource extends Resource
             ->schema([
                 Forms\Components\Section::make('Informasi Pengajuan')->schema([
                     Forms\Components\Select::make('user_id')
-                        ->label('Pengaju (Mahasiswa/Dosen)')
-                        // INI BAGIAN YANG DIPERBAIKI: Menggunakan whereHas untuk filter berdasarkan role
-                        ->options(
-                            User::whereHas('roles', function ($query) {
-                                $query->whereIn('name', ['mahasiswa', 'dosen']);
-                            })->pluck('name', 'id')
-                        )
-                        ->searchable()
-                        ->required(),
-                    Forms\Components\Select::make('school_id')
-                        ->label('Sekolah Tujuan')
-                        ->relationship('school', 'name')
-                        ->searchable()
-                        ->preload()
-                        ->required(),
-                    Forms\Components\DatePicker::make('proposed_date')
-                        ->label('Tanggal Usulan')
-                        ->required(),
-                    Forms\Components\RichEditor::make('notes')
-                        ->label('Catatan Tambahan')
-                        ->columnSpanFull(),
+                        ->label('Pengaju (Mahasiswa)')
+                        ->options(User::whereHas('roles', fn($q) => $q->where('name', 'mahasiswa'))->pluck('name', 'id'))
+                        ->searchable()->required(),
+                    
+                    Forms\Components\Select::make('school_id')->label('Sekolah Tujuan')->relationship('school', 'name')->searchable()->preload()->required(),
+
+                    Forms\Components\Select::make('dosen_pembina_id')
+                        ->label('Dosen Pembina')
+                        ->options(User::whereHas('roles', fn($q) => $q->where('name', 'pembina'))->pluck('name', 'id'))
+                        ->searchable()->required(),
+
+                    Forms\Components\DatePicker::make('proposed_date')->label('Tanggal Usulan')->required(),
+                    Forms\Components\RichEditor::make('notes')->label('Catatan Tambahan')->columnSpanFull(),
                 ])->columns(2),
+                
                 Forms\Components\Section::make('Status & Persetujuan')->schema([
                     Forms\Components\Select::make('status')
                         ->options([
                             'diajukan' => 'Diajukan',
                             'disetujui_pembina' => 'Disetujui Pembina',
                             'ditolak_pembina' => 'Ditolak Pembina',
-                            'disetujui_staf' => 'Disetujui Staf',
-                            'ditolak_staf' => 'Ditolak Staf',
-                            'siap_dilaksanakan' => 'Siap Dilaksanakan',
-                            'laporan_disubmit' => 'Laporan Disubmit',
-                            'laporan_diverifikasi' => 'Laporan Diverifikasi',
+                            'Menunggu Pembayaran' => 'Menunggu Pembayaran',
                             'selesai' => 'Selesai',
-                        ])
-                        ->required(),
-                    Forms\Components\Textarea::make('rejection_reason')
-                        ->label('Alasan Penolakan')
-                        ->visible(fn ($get) => in_array($get('status'), ['ditolak_pembina', 'ditolak_staf'])),
+                        ])->required(),
+                    
+                    Forms\Components\Textarea::make('rejection_reason')->label('Alasan Penolakan')->visible(fn ($get) => in_array($get('status'), ['ditolak_pembina', 'ditolak_staff'])),
                 ])
             ]);
     }
@@ -72,23 +84,18 @@ class ProposalResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('user.name')->label('Pengaju')->searchable()->sortable(),
-                Tables\Columns\TextColumn::make('school.name')->label('Sekolah Tujuan')->searchable()->sortable(),
-                Tables\Columns\TextColumn::make('proposed_date')->label('Tgl Usulan')->date('d M Y')->sortable(),
-                Tables\Columns\BadgeColumn::make('status')->colors([
-                    'primary' => 'diajukan',
-                    'warning' => fn ($state) => in_array($state, ['disetujui_pembina', 'laporan_disubmit']),
-                    'success' => fn ($state) => in_array($state, ['disetujui_staf', 'laporan_diverifikasi', 'selesai', 'siap_dilaksanakan']),
-                    'danger' => fn ($state) => in_array($state, ['ditolak_pembina', 'ditolak_staf'])
+                Tables\Columns\TextColumn::make('dosenPembina.name')->label('Pembina')->searchable()->sortable(),
+                Tables\Columns\TextColumn::make('school.name')->label('Sekolah')->searchable()->sortable(),
+                BadgeColumn::make('status')->colors([
+                    'primary'   => 'diajukan',
+                    'warning'   => fn ($state) => in_array($state, ['diproses', 'Menunggu Pembayaran']),
+                    'success'   => fn ($state) => in_array($state, ['disetujui_pembina', 'disetujui_staff', 'selesai']),
+                    'danger'    => fn ($state) => in_array($state, ['ditolak_pembina', 'ditolak_staff']),
                 ])
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(), // Menambahkan aksi hapus
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(), // Menambahkan hapus massal
-                ]),
+                Tables\Actions\DeleteAction::make(),
             ]);
     }
     

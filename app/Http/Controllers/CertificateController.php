@@ -4,52 +4,52 @@ namespace App\Http\Controllers;
 
 use App\Models\Proposal;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use setasign\Fpdi\Fpdi;
 
 class CertificateController extends Controller
 {
-    /**
-     * Fungsi utama untuk membuat dan mengirimkan PDF sertifikat.
-     */
     public function generate(Proposal $proposal)
     {
-        // Keamanan 1: Pastikan hanya pemilik proposal yang bisa mengunduh
-        if ($proposal->user_id !== Auth::id()) {
-            abort(403, 'Akses Ditolak');
+        if ($proposal->user_id !== Auth::id() || $proposal->status !== 'selesai') {
+            abort(403, 'Akses Ditolak atau Sertifikat Belum Tersedia.');
         }
 
-        // Keamanan 2: Pastikan proposal statusnya sudah 'selesai'
-        if ($proposal->status !== 'selesai') {
-            abort(403, 'Sertifikat untuk pengajuan ini belum tersedia.');
+        // --- LOGIKA BARU DENGAN TABEL TERPISAH ---
+
+        // 1. Cek apakah sertifikat sudah ada di tabel 'certificates'
+        if ($proposal->certificate && Storage::disk('public')->exists($proposal->certificate->file_path)) {
+            // Jika ada, langsung unduh dari path yang tersimpan
+            return Storage::disk('public')->download($proposal->certificate->file_path);
         }
 
-        // Mengambil data yang diperlukan dari relasi model Anda
+        // 2. Jika belum ada, buat PDF baru
         $namaMahasiswa = $proposal->user->name;
-        $namaSekolah = $proposal->school->name;
+        $namaKetuaPelaksana = 'Rufus Hewart';
+        $templatePath = public_path('sertifikat_template/sertifikat.pdf');
         
-        // Anda bisa mengganti "Rufus Hewart" dengan nama yang dinamis jika perlu
-        $namaKetuaPelaksana = 'Rufus Hewart'; 
+        $fileName = 'sertifikat/' . uniqid() . '-' . $proposal->id . '.pdf';
+        $outputFile = storage_path('app/public/' . $fileName);
 
-        // Tentukan lokasi template dan file output
-        $templatePath = public_path('sertifikat_template/sertifikat.pdf'); // Pastikan file template ada di sini
-        $outputFile = storage_path('app/public/sertifikat/sertifikat-' . $proposal->id . '.pdf');
-
-        // Pastikan folder output ada, jika tidak, buat baru
-        if (!is_dir(storage_path('app/public/sertifikat'))) {
-            mkdir(storage_path('app/public/sertifikat'), 0755, true);
+        if (!Storage::disk('public')->exists('sertifikat')) {
+            Storage::disk('public')->makeDirectory('sertifikat');
         }
         
-        // Panggil fungsi untuk mengisi PDF
-        $this->fillPdfTemplate($templatePath, $namaMahasiswa, $namaSekolah, $namaKetuaPelaksana, $outputFile);
+        $this->fillPdfTemplate($templatePath, $namaMahasiswa, $namaKetuaPelaksana, $outputFile);
 
-        // Kirim file PDF yang sudah jadi ke browser untuk diunduh
-        return response()->file($outputFile);
+        // 3. Simpan record baru di tabel 'certificates'
+        $proposal->certificate()->create([
+            'file_path' => $fileName,
+        ]);
+
+        // 4. Kirim file yang baru dibuat untuk diunduh
+        return Storage::disk('public')->download($fileName);
     }
 
     /**
-     * Fungsi ini bertugas mengisi template PDF dengan posisi yang sudah disesuaikan.
+     * Fungsi ini tidak perlu diubah.
      */
-    private function fillPdfTemplate($file, $nama, $skl, $ketua, $outputfile)
+    private function fillPdfTemplate($file, $nama, $ketua, $outputfile)
     {
         $fpdi = new Fpdi();
         $fpdi->setSourceFile($file);
@@ -58,9 +58,8 @@ class CertificateController extends Controller
         $fpdi->addPage($size['orientation'], [$size['width'], $size['height']]);
         $fpdi->useTemplate($template);
 
-        // Helper function untuk menempatkan teks di tengah halaman
         $centerText = function ($fpdi, $text, $y, $fontSize) {
-            $fpdi->SetFont("Helvetica", "B", $fontSize); // Font Bold
+            $fpdi->SetFont("Helvetica", "B", $fontSize);
             $textWidth = $fpdi->GetStringWidth($text);
             $pageWidth = $fpdi->GetPageWidth();
             $x = ($pageWidth - $textWidth) / 2;
@@ -68,18 +67,15 @@ class CertificateController extends Controller
             $fpdi->Write(0, $text);
         };
 
-        $fpdi->SetTextColor(0, 0, 0); // Warna teks hitam
-
-        // Menulis Nama Mahasiswa (posisi diturunkan sedikit, font diperbesar)
+        $fpdi->SetTextColor(0, 0, 0);
         $centerText($fpdi, $nama, 85, 42);
 
-        // Menulis Nama Sekolah (posisi diturunkan, font disesuaikan)
-        $centerText($fpdi, $skl, 142, 22);
+        $fpdi->SetFont("Helvetica", "", 12);
+        $textWidthKetua = $fpdi->GetStringWidth($ketua);
+        $xKetua = (297 - $textWidthKetua) / 2;
+        $fpdi->SetXY($xKetua, 184);
+        $fpdi->Write(0, $ketua);
 
-        // Menulis Nama Ketua Pelaksana
-        
-
-        // Simpan file PDF yang sudah diisi
         $fpdi->output($outputfile, 'F');
     }
 }

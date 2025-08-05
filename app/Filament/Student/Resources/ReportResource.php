@@ -10,7 +10,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Filament\Tables\Columns\BadgeColumn; // <-- Pastikan ini ada
+use Filament\Tables\Columns\BadgeColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 
@@ -68,15 +68,28 @@ class ReportResource extends Resource
             ]);
     }
 
+    // ==========================================================
+    // == PERUBAHAN UTAMA ADA DI DALAM FUNGSI INI ==
+    // ==========================================================
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('proposal.id')
-                    ->label('Terkait Pengajuan #')
-                    ->sortable(),
+                // KOLOM BARU: Menampilkan nama mahasiswa (dirinya sendiri)
+                Tables\Columns\TextColumn::make('proposal.user.name')
+                    ->label('Nama Mahasiswa')
+                    ->searchable(),
 
-                // --- INI PERBAIKAN UTAMANYA ---
+                // KOLOM BARU: Menampilkan nama sekolah
+                Tables\Columns\TextColumn::make('proposal.school.name')
+                    ->label('Sekolah Tujuan')
+                    ->searchable(),
+
+                // KOLOM BARU: Menampilkan nama pembina
+                Tables\Columns\TextColumn::make('proposal.dosenPembina.name')
+                    ->label('Dosen Pembina')
+                    ->searchable(),
+                
                 BadgeColumn::make('status')
                     ->label('Status Laporan')
                     ->colors([
@@ -84,16 +97,9 @@ class ReportResource extends Resource
                         'success' => 'disetujui_staff',
                         'danger'  => 'ditolak_staff',
                     ]),
-
-                Tables\Columns\TextColumn::make('created_at')
-                    ->label('Tanggal Dibuat')
-                    ->dateTime()
-                    ->sortable(),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
-                // Mahasiswa tidak bisa mengedit laporan yang sudah diajukan
-                // Tables\Actions\EditAction::make(), 
             ]);
     }
 

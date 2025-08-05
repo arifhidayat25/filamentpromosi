@@ -1,25 +1,22 @@
 <?php
 
-// app/Models/BankAccount.php
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class BankAccount extends Model
+class Certificate extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
-        'bank_name',
-        'account_holder_name',
-        'account_number',
+        'proposal_id',
+        'file_path',
     ];
 
-    public function user(): BelongsTo
+    public function proposal(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Proposal::class);
     }
 }

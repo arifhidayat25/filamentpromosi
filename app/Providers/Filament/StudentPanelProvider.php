@@ -28,22 +28,19 @@ class StudentPanelProvider extends PanelProvider
         return $panel
             ->id('student')
             ->path('student')
-            ->colors([
-                'primary' => Color::Amber,
-            ])
+            ->colors(['primary' => Color::Amber])
             ->login(StudentLogin::class)
-            // --- PERBAIKAN DI SINI ---
-            ->registration(StudentRegistration::class) // Menggunakan 'registration' bukan 'register'
-            // -------------------------
+            ->registration(StudentRegistration::class)
+            ->profile() // <-- CUKUP TAMBAHKAN BARIS INI
             ->discoverResources(in: app_path('Filament/Student/Resources'), for: 'App\\Filament\\Student\\Resources')
-            ->discoverPages(in: app_path('Filament/Student/Pages'), for: 'App\\Filament\\Student\\Pages')
+            ->discoverPages(in: app_path(path: 'Filament/Student/Pages'), for: 'App\\Filament\\Student\\Pages')
             ->pages([
+                // Daftarkan halaman dashboard kustom di sini
                 Dashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Student/Widgets'), for: 'App\\Filament\\Student\\Widgets')
             ->widgets([
                 Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,

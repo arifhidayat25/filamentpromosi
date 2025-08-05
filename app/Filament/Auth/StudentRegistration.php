@@ -4,9 +4,10 @@ namespace App\Filament\Auth;
 
 use Filament\Forms\Form;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Select; // <-- 1. Tambahkan ini
 use Filament\Pages\Auth\Register as BaseRegister;
-use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\ProgramStudi; // <-- 2. Tambahkan ini
 
 class StudentRegistration extends BaseRegister
 {
@@ -26,10 +27,12 @@ class StudentRegistration extends BaseRegister
                     ->unique(table: User::class, column: 'nim')
                     ->maxLength(50),
                     
-                TextInput::make('prodi')
+                // --- INI BAGIAN YANG DIUBAH ---
+                Select::make('program_studi_id') // Menggunakan nama kolom dari database
                     ->label('Program Studi')
-                    ->required()
-                    ->maxLength(100),
+                    ->options(ProgramStudi::all()->pluck('name', 'id'))
+                    ->searchable() // Agar bisa dicari
+                    ->required(),
 
                 TextInput::make('no_telepon')
                     ->label('No. Telepon')
@@ -54,13 +57,8 @@ class StudentRegistration extends BaseRegister
         // Pertama, buat user seperti biasa menggunakan data dari form
         $user = static::getUserModel()::create($data);
 
-
         // Setelah user dibuat, tetapkan rolenya menjadi 'mahasiswa'
         $user->assignRole('mahasiswa');
-        // -----------------------------
-
-         session()->flash('show_welcome_modal', true);
-
 
         // Kirim notifikasi email verifikasi (jika diaktifkan)
         $this->sendEmailVerificationNotification($user);

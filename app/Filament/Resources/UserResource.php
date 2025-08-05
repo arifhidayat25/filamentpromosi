@@ -3,8 +3,8 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\UserResource\Pages;
-use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\User;
+use App\Models\ProgramStudi; // <-- Tambahkan ini
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,12 +13,14 @@ use Filament\Tables\Table;
 use Filament\Forms\Components\Select;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Hash;
 
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-users';
+    protected static ?string $navigationGroup = 'Manajemen';
 
     public static function form(Form $form): Form
     {
@@ -31,24 +33,29 @@ class UserResource extends Resource
                     ->email()
                     ->required()
                     ->maxLength(255),
-                Forms\Components\DateTimePicker::make('email_verified_at'),
                 Forms\Components\TextInput::make('password')
                     ->password()
-                    ->required()
-                    ->maxLength(255),
+                    ->dehydrateStateUsing(fn ($state) => Hash::make($state))
+                    ->dehydrated(fn ($state) => filled($state))
+                    ->required(fn (string $context): bool => $context === 'create'),
                 
+                // --- INI BAGIAN YANG DIPERBAIKI ---
+                Forms\Components\Select::make('program_studi_id')
+                    ->label('Program Studi')
+                    ->options(ProgramStudi::all()->pluck('name', 'id'))
+                    ->searchable(),
+
                 Forms\Components\TextInput::make('nim')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('prodi')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('no_telepon')
                     ->tel()
                     ->maxLength(255),
-                    Select::make('roles')
-                ->relationship('roles', 'name')
-                ->multiple()
-                ->preload()
-                ->searchable()
+                
+                Select::make('roles')
+                    ->relationship('roles', 'name')
+                    ->multiple()
+                    ->preload()
+                    ->searchable()
             ]);
     }
 
@@ -56,31 +63,22 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('email')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('email_verified_at')
-                    ->dateTime()
-                    ->sortable(),
+                Tables\Columns\TextColumn::make('name')->searchable(),
+                Tables\Columns\TextColumn::make('email')->searchable(),
                 
-                Tables\Columns\TextColumn::make('nim')
+                // --- INI JUGA BAGIAN YANG DIPERBAIKI ---
+                Tables\Columns\TextColumn::make('programStudi.name')
+                    ->label('Program Studi')
+                    ->sortable()
                     ->searchable(),
-                Tables\Columns\TextColumn::make('prodi')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('no_telepon')
-                    ->searchable(),
+
+                Tables\Columns\TextColumn::make('roles.name')
+                    ->badge(),
+
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-            ])
-            ->filters([
-                //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -91,14 +89,7 @@ class UserResource extends Resource
                 ]),
             ]);
     }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
-
+    
     public static function getPages(): array
     {
         return [
@@ -106,5 +97,5 @@ class UserResource extends Resource
             'create' => Pages\CreateUser::route('/create'),
             'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
-    }
+    }    
 }

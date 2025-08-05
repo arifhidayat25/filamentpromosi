@@ -4,74 +4,74 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ReportResource\Pages;
 use App\Models\Report;
-use App\Models\Payment;
-use App\Models\Proposal;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Filament\Tables\Actions\Action;
-use Filament\Notifications\Notification;
+use Filament\Tables\Columns\BadgeColumn;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 
 class ReportResource extends Resource
 {
     protected static ?string $model = Report::class;
-    protected static ?string $navigationIcon = 'heroicon-o-document-check';
+    protected static ?string $navigationIcon = 'heroicon-o-document-chart-bar';
     protected static ?string $navigationLabel = 'Manajemen Laporan';
-    protected static ?string $modelLabel = 'Laporan';
     protected static ?string $navigationGroup = 'Manajemen';
+
+    /**
+     * LOGIKA BARU: Membatasi data yang bisa dilihat oleh Pembina.
+     */
+    public static function getEloquentQuery(): Builder
+    {
+        $query = parent::getEloquentQuery();
+
+        if (Auth::user()->hasRole('pembina')) {
+            $pembinaProdiId = Auth::user()->program_studi_id;
+            return $query->whereHas('proposal.user', function ($q) use ($pembinaProdiId) {
+                $q->where('program_studi_id', $pembinaProdiId);
+            });
+        }
+
+        return $query;
+    }
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('Detail Laporan')->schema([
-                    Forms\Components\Select::make('proposal_id')
-                        ->label('Proposal Terkait')
-                        ->relationship('proposal', 'id')
-                        ->getOptionLabelFromRecordUsing(fn (Proposal $record) => "{$record->user->name} - {$record->school->name}")
-                        ->searchable()
-                        ->preload()
-                        ->required(),
-                    // PERUBAHAN: Menambahkan default tanggal hari ini
-                    Forms\Components\DatePicker::make('event_date')
-                        ->label('Tanggal Kegiatan')
-                        ->required()
-                        ->default(now()),
-                    Forms\Components\TextInput::make('attendees_count')->label('Jumlah Peserta')->numeric()->required()->default(0),
-                    Forms\Components\RichEditor::make('qualitative_notes')->label('Catatan Kualitatif')->columnSpanFull(),
-                    Forms\Components\TextInput::make('documentation_path')->label('Link Dokumentasi')->columnSpanFull(),
-                ])->columns(2),
+                Forms\Components\Select::make('status')
+                    ->options([
+                        'diajukan' => 'Diajukan',
+                        'disetujui_staff' => 'Disetujui Staff',
+                        'ditolak_staff' => 'Ditolak Staff',
+                    ])->required(),
+                Forms\Components\RichEditor::make('notes')->label('Isi Laporan')->disabled(),
             ]);
     }
 
+    /**
+     * PERBAIKAN UTAMA: Menambahkan kolom Nama Sekolah dan Nama Pembina.
+     */
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('proposal.user.name')->label('Pengaju')->searchable(),
-                Tables\Columns\TextColumn::make('proposal.school.name')->label('Sekolah')->searchable(),
-                Tables\Columns\TextColumn::make('event_date')->label('Tgl Kegiatan')->date('d M Y')->sortable(),
-                Tables\Columns\BadgeColumn::make('proposal.status')->label('Status Proposal')->colors(['warning' => 'laporan_disubmit', 'success' => 'laporan_diverifikasi']),
+                Tables\Columns\TextColumn::make('proposal.user.name')->label('Mahasiswa')->searchable(),
+                Tables\Columns\TextColumn::make('proposal.school.name')->label('Sekolah Tujuan')->searchable(),
+                Tables\Columns\TextColumn::make('proposal.dosenPembina.name')->label('Dosen Pembina')->searchable(),
+                
+                BadgeColumn::make('status')->label('Status Laporan')->colors([
+                    'primary' => 'diajukan',
+                    'success' => 'disetujui_staff',
+                    'danger'  => 'ditolak_staff',
+                ]),
+                Tables\Columns\TextColumn::make('event_date')->label('Tgl Kegiatan')->date('d M Y'),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(), // Aksi edit sekarang aktif
-                Tables\Actions\DeleteAction::make(), // Aksi hapus sekarang aktif
-                Action::make('verify_report')->label('Verifikasi')->icon('heroicon-o-check-circle')->color('success')->requiresConfirmation()
-                    ->action(function (Report $record) {
-                        $proposal = $record->proposal;
-                        $proposal->status = 'laporan_diverifikasi';
-                        $proposal->save();
-                        Payment::updateOrCreate(['proposal_id' => $proposal->id], ['amount' => 250000, 'status' => 'menunggu_pembayaran']);
-                        Notification::make()->title('Laporan berhasil diverifikasi')->success()->send();
-                    })
-                    ->visible(fn (Report $record): bool => $record->proposal?->status === 'laporan_disubmit'),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(), // Aksi hapus massal aktif
-                ]),
+                Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(),
             ]);
     }
     
@@ -79,10 +79,7 @@ class ReportResource extends Resource
     {
         return [
             'index' => Pages\ListReports::route('/'),
-            'create' => Pages\CreateReport::route('/create'), // Halaman Create sekarang aktif
             'edit' => Pages\EditReport::route('/{record}/edit'),
         ];
-    }    
+    }
 }
-
-

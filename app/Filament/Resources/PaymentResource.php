@@ -11,8 +11,8 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Tables\Actions\Action;
-use Filament\Forms\Components\Placeholder; // Pastikan ini ada
-use Filament\Notifications\Notification; // Pastikan ini ada
+use Filament\Forms\Components\Placeholder;
+use Filament\Notifications\Notification;
 
 class PaymentResource extends Resource
 {
@@ -64,24 +64,14 @@ class PaymentResource extends Resource
                     ->visible(fn (Payment $record): bool => $record->status === 'menunggu_pembayaran')
                     ->requiresConfirmation()
                     ->modalHeading('Konfirmasi Pembayaran Fee')
-                    ->modalDescription('Pastikan Anda sudah mentransfer dana sesuai detail di bawah ini sebelum menekan tombol konfirmasi.')
+                    // Deskripsi disederhanakan
+                    ->modalDescription('Pastikan Anda sudah mentransfer dana secara manual sebelum menekan tombol konfirmasi.')
                     ->modalSubmitActionLabel('Ya, Sudah Dibayar')
                     ->form([
+                        // Tampilkan info penerima dan jumlah, HAPUS info bank
                         Placeholder::make('nama_penerima')
                             ->label('Nama Penerima')
                             ->content(fn (Payment $record): string => $record->proposal->user->name),
-
-                        Placeholder::make('bank_tujuan')
-                            ->label('Bank Tujuan')
-                            ->content(fn (Payment $record): string => $record->proposal->user->bankAccount->bank_name ?? 'Data Bank Belum Diisi'),
-
-                        Placeholder::make('nomor_rekening')
-                            ->label('Nomor Rekening')
-                            ->content(fn (Payment $record): string => $record->proposal->user->bankAccount->account_number ?? 'Data Bank Belum Diisi'),
-                            
-                        Placeholder::make('atas_nama')
-                            ->label('Atas Nama')
-                            ->content(fn (Payment $record): string => $record->proposal->user->bankAccount->account_holder_name ?? 'Data Bank Belum Diisi'),
 
                         Placeholder::make('jumlah_transfer')
                             ->label('Jumlah Transfer')
@@ -93,6 +83,7 @@ class PaymentResource extends Resource
                         $record->processed_by = auth()->id();
                         $record->save();
                         
+                        // Ini adalah pemicu agar tombol sertifikat muncul di panel mahasiswa
                         $record->proposal->status = 'selesai';
                         $record->proposal->save();
                         

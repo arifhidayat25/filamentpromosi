@@ -33,7 +33,7 @@ class User extends Authenticatable
         'email',
         'password',
         'nim',
-        'prodi',
+        'program_studi_id',
         'no_telepon',
     ];
 
@@ -57,10 +57,7 @@ class User extends Authenticatable
         'password' => 'hashed', // Pastikan password di-hash
     ];
     
-    public function bankAccount(): HasOne
-{
-    return $this->hasOne(BankAccount::class);
-}
+    
     /**
      * Relasi ke tabel proposals. Ini tidak berhubungan dengan peran dan bisa tetap ada.
      */
