@@ -61,42 +61,27 @@ class ReportResource extends Resource
                     ->default(now())
                     ->required(),
                 
-                Forms\Components\RichEditor::make('notes')
+                // --- INI PERBAIKAN UTAMANYA ---
+                // Nama field diubah agar sesuai dengan nama kolom di database
+                Forms\Components\RichEditor::make('qualitative_notes')
                     ->label('Isi Laporan')
                     ->required()
                     ->columnSpanFull(),
             ]);
     }
 
-    // ==========================================================
-    // == PERUBAHAN UTAMA ADA DI DALAM FUNGSI INI ==
-    // ==========================================================
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                // KOLOM BARU: Menampilkan nama mahasiswa (dirinya sendiri)
-                Tables\Columns\TextColumn::make('proposal.user.name')
-                    ->label('Nama Mahasiswa')
-                    ->searchable(),
-
-                // KOLOM BARU: Menampilkan nama sekolah
-                Tables\Columns\TextColumn::make('proposal.school.name')
-                    ->label('Sekolah Tujuan')
-                    ->searchable(),
-
-                // KOLOM BARU: Menampilkan nama pembina
-                Tables\Columns\TextColumn::make('proposal.dosenPembina.name')
-                    ->label('Dosen Pembina')
-                    ->searchable(),
-                
-                BadgeColumn::make('status')
-                    ->label('Status Laporan')
-                    ->colors([
-                        'primary' => 'diajukan',
-                        'success' => 'disetujui_staff',
-                        'danger'  => 'ditolak_staff',
-                    ]),
+                Tables\Columns\TextColumn::make('proposal.id')->label('Terkait Pengajuan #')->searchable(),
+                Tables\Columns\TextColumn::make('proposal.dosenPembina.name')->label('Dosen Pembina')->searchable(),
+                BadgeColumn::make('status')->label('Status Laporan')->colors([
+                    'primary' => 'diajukan',
+                    'success' => 'disetujui_staff',
+                    'danger'  => 'ditolak_staff',
+                ]),
+                Tables\Columns\TextColumn::make('created_at')->label('Tanggal Dibuat')->dateTime(),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),

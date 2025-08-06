@@ -11,8 +11,8 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\BadgeColumn;
-use Illuminate\Database\Eloquent\Builder; // <-- Tambahkan ini
-use Illuminate\Support\Facades\Auth;     // <-- Tambahkan ini
+use Illuminate\Database\Eloquent\Builder; // Pastikan ini ada
+use Illuminate\Support\Facades\Auth;     // Pastikan ini ada
 
 class ProposalResource extends Resource
 {
@@ -29,10 +29,11 @@ class ProposalResource extends Resource
     public static function getEloquentQuery(): Builder
     {
         $query = parent::getEloquentQuery();
+        $user = Auth::user();
 
         // Jika user yang login adalah 'pembina',
-        if (Auth::user()->hasRole('pembina')) {
-            $pembinaProdiId = Auth::user()->program_studi_id;
+        if ($user->hasRole('pembina')) {
+            $pembinaProdiId = $user->program_studi_id;
             // maka hanya tampilkan proposal dari mahasiswa yang satu prodi dengannya.
             return $query->whereHas('user', function ($q) use ($pembinaProdiId) {
                 $q->where('program_studi_id', $pembinaProdiId);
@@ -45,6 +46,7 @@ class ProposalResource extends Resource
 
     public static function form(Form $form): Form
     {
+        // Kode form Anda sudah benar, tidak perlu diubah
         return $form
             ->schema([
                 Forms\Components\Section::make('Informasi Pengajuan')->schema([
@@ -71,6 +73,8 @@ class ProposalResource extends Resource
                             'disetujui_pembina' => 'Disetujui Pembina',
                             'ditolak_pembina' => 'Ditolak Pembina',
                             'Menunggu Pembayaran' => 'Menunggu Pembayaran',
+                            'disetujui_staff' => 'Disetujui Staff',
+                            'ditolak_staff' => 'Ditolak Staff',
                             'selesai' => 'Selesai',
                         ])->required(),
                     
@@ -81,6 +85,7 @@ class ProposalResource extends Resource
 
     public static function table(Table $table): Table
     {
+        // Kode tabel Anda sudah benar, tidak perlu diubah
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('user.name')->label('Pengaju')->searchable()->sortable(),

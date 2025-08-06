@@ -12,7 +12,19 @@ use Spatie\Activitylog\LogOptions;
 class Report extends Model
 {
     use HasFactory, LogsActivity;
-    protected $fillable = ['proposal_id', 'event_date', 'attendees_count', 'qualitative_notes', 'documentation_path'];
+
+    /**
+     * Daftar kolom yang diizinkan untuk diisi.
+     * Nama 'qualitative_notes' dan 'status' sudah benar di sini.
+     */
+    protected $fillable = [
+        'proposal_id',
+        'event_date',
+        'attendees_count',
+        'qualitative_notes',
+        'documentation_path',
+        'status',
+    ];
 
     public function proposal(): BelongsTo
     {
