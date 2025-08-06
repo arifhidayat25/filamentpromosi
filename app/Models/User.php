@@ -10,6 +10,8 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles; // Menggunakan trait dari Spatie
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
+use Illuminate\Database\Eloquent\Relations\BelongsTo; // <-- Tambahkan ini di atas
+
 use App\Models\BankAccount;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
@@ -71,10 +73,21 @@ class User extends Authenticatable
         return LogOptions::defaults()->logAll();
     }
 
-    // SEMUA KODE LAMA TERKAIT PERAN (ROLE) SEPERTI:
-    // - public const ROLE_...
-    // - public function hasRole(...)
-    // - protected function isAdmin()
-    // - protected function isMahasiswa()
-    // TELAH DIHAPUS KARENA SUDAH DITANGANI OLEH TRAIT 'HasRoles'.
+    public function programStudi(): BelongsTo
+    {
+        return $this->belongsTo(ProgramStudi::class, 'program_studi_id');
+    }
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        if ($panel->getId() === 'admin') {
+            return $this->hasRole(['admin', 'pembina', 'staff']);
+        }
+
+        if ($panel->getId() === 'student') {
+            return $this->hasRole('mahasiswa');
+        }
+
+        return true;
+    }
 }

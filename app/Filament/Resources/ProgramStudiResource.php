@@ -15,21 +15,22 @@ class ProgramStudiResource extends Resource
     protected static ?string $model = ProgramStudi::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-academic-cap';
+    protected static ?string $navigationLabel = 'Program Studi';
+    protected static ?string $modelLabel = 'Program Studi';
     protected static ?string $navigationGroup = 'Akademik';
-    protected static ?string $pluralModelLabel = 'Program Studi';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
+                // --- PERBAIKAN DI SINI ---
+                Forms\Components\TextInput::make('name') // Menggunakan 'name'
                     ->label('Nama Program Studi')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('kode')
-                    ->label('Kode Prodi (Singkat)')
-                    ->required()
-                    ->maxLength(10),
+                    ->label('Kode Program Studi')
+                    ->maxLength(255),
             ]);
     }
 
@@ -37,12 +38,24 @@ class ProgramStudiResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')->label('Nama Program Studi')->searchable(),
-                Tables\Columns\TextColumn::make('kode')->label('Kode'),
+                // --- PERBAIKAN DI SINI ---
+                Tables\Columns\TextColumn::make('name') // Menggunakan 'name'
+                    ->label('Nama Program Studi')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('kode')
+                    ->label('Kode')
+                    ->searchable(),
+            ])
+            ->filters([
+                //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+            ])
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
             ]);
     }
     

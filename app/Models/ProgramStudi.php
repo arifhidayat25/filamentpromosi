@@ -9,6 +9,9 @@ class ProgramStudi extends Model
 {
     use HasFactory;
 
+        protected $fillable = ['name', 'kode'];
+
+
     public function users()
 {
     return $this->hasMany(User::class);
