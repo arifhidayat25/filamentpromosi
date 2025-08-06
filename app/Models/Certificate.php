@@ -13,6 +13,7 @@ class Certificate extends Model
     protected $fillable = [
         'proposal_id',
         'file_path',
+        'certificate_number',
     ];
 
     public function proposal(): BelongsTo

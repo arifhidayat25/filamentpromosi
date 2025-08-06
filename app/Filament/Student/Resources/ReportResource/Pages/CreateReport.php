@@ -3,7 +3,6 @@
 namespace App\Filament\Student\Resources\ReportResource\Pages;
 
 use App\Filament\Student\Resources\ReportResource;
-use App\Models\Proposal;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreateReport extends CreateRecord
@@ -12,23 +11,11 @@ class CreateReport extends CreateRecord
 
     /**
      * Metode ini berjalan SEBELUM data laporan disimpan.
-     * Ia akan menambahkan status 'diajukan' secara otomatis.
+     * Hanya mengatur status laporan, tidak mengubah status proposal.
      */
     protected function mutateFormDataBeforeCreate(array $data): array
     {
         $data['status'] = 'diajukan';
         return $data;
-    }
-
-    /**
-     * Metode ini berjalan SETELAH laporan berhasil dibuat.
-     * Ia akan mengubah status proposal menjadi 'Menunggu Pembayaran'.
-     */
-    protected function afterCreate(): void
-    {
-        $proposal = Proposal::find($this->record->proposal_id);
-        if ($proposal) {
-            $proposal->update(['status' => 'Menunggu Pembayaran']);
-        }
     }
 }

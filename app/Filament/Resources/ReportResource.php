@@ -9,9 +9,11 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\BadgeColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
+use Filament\Notifications\Notification;
 
 class ReportResource extends Resource
 {
@@ -20,18 +22,14 @@ class ReportResource extends Resource
     protected static ?string $navigationLabel = 'Manajemen Laporan';
     protected static ?string $navigationGroup = 'Manajemen';
 
-    /**
-     * LOGIKA BARU: Membatasi data yang bisa dilihat oleh Pembina.
-     */
     public static function getEloquentQuery(): Builder
     {
         $query = parent::getEloquentQuery();
+        $user = Auth::user();
 
-        if (Auth::user()->hasRole('pembina')) {
-            $pembinaProdiId = Auth::user()->program_studi_id;
-            return $query->whereHas('proposal.user', function ($q) use ($pembinaProdiId) {
-                $q->where('program_studi_id', $pembinaProdiId);
-            });
+        if ($user->hasRole('pembina')) {
+            $pembinaProdiId = $user->program_studi_id;
+            return $query->whereHas('proposal.user', fn ($q) => $q->where('program_studi_id', $pembinaProdiId));
         }
 
         return $query;
@@ -39,6 +37,7 @@ class ReportResource extends Resource
 
     public static function form(Form $form): Form
     {
+        // Form ini hanya untuk Admin, bukan untuk persetujuan
         return $form
             ->schema([
                 Forms\Components\Select::make('status')
@@ -47,13 +46,10 @@ class ReportResource extends Resource
                         'disetujui_staff' => 'Disetujui Staff',
                         'ditolak_staff' => 'Ditolak Staff',
                     ])->required(),
-                Forms\Components\RichEditor::make('notes')->label('Isi Laporan')->disabled(),
+                Forms\Components\RichEditor::make('qualitative_notes')->label('Isi Laporan')->disabled(),
             ]);
     }
 
-    /**
-     * PERBAIKAN UTAMA: Menambahkan kolom Nama Sekolah dan Nama Pembina.
-     */
     public static function table(Table $table): Table
     {
         return $table
@@ -61,16 +57,28 @@ class ReportResource extends Resource
                 Tables\Columns\TextColumn::make('proposal.user.name')->label('Mahasiswa')->searchable(),
                 Tables\Columns\TextColumn::make('proposal.school.name')->label('Sekolah Tujuan')->searchable(),
                 Tables\Columns\TextColumn::make('proposal.dosenPembina.name')->label('Dosen Pembina')->searchable(),
-                
                 BadgeColumn::make('status')->label('Status Laporan')->colors([
                     'primary' => 'diajukan',
                     'success' => 'disetujui_staff',
                     'danger'  => 'ditolak_staff',
                 ]),
-                Tables\Columns\TextColumn::make('event_date')->label('Tgl Kegiatan')->date('d M Y'),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                // Aksi "Setujui Laporan" hanya untuk Staff
+                Action::make('approve')
+                    ->label('Setujui Laporan')
+                    ->icon('heroicon-o-check-circle')
+                    ->color('success')
+                    ->requiresConfirmation()
+                    ->visible(fn (Report $record): bool => $record->status === 'diajukan' && Auth::user()->hasRole(['staff', 'admin']))
+                    ->action(function (Report $record) {
+                        $record->update(['status' => 'disetujui_staff']);
+                        $record->proposal->update(['status' => 'Menunggu Pembayaran']);
+                        Notification::make()->title('Laporan berhasil disetujui!')->success()->send();
+                    }),
+                
+                // Tombol Edit & View hanya untuk Admin
+                Tables\Actions\EditAction::make()->visible(fn (): bool => Auth::user()->hasRole('admin')),
                 Tables\Actions\ViewAction::make(),
             ]);
     }

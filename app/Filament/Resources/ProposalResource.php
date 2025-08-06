@@ -11,8 +11,8 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\BadgeColumn;
-use Illuminate\Database\Eloquent\Builder; // Pastikan ini ada
-use Illuminate\Support\Facades\Auth;     // Pastikan ini ada
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 
 class ProposalResource extends Resource
 {
@@ -23,69 +23,94 @@ class ProposalResource extends Resource
     protected static ?string $navigationGroup = 'Manajemen';
 
     /**
-     * INI ADALAH SOLUSI UTAMA:
-     * Memfilter data yang ditampilkan berdasarkan peran pengguna.
+     * Memfilter data agar pembina hanya melihat proposal dari prodinya.
      */
     public static function getEloquentQuery(): Builder
     {
         $query = parent::getEloquentQuery();
         $user = Auth::user();
 
-        // Jika user yang login adalah 'pembina',
         if ($user->hasRole('pembina')) {
             $pembinaProdiId = $user->program_studi_id;
-            // maka hanya tampilkan proposal dari mahasiswa yang satu prodi dengannya.
             return $query->whereHas('user', function ($q) use ($pembinaProdiId) {
                 $q->where('program_studi_id', $pembinaProdiId);
             });
         }
 
-        // Jika bukan pembina (admin/staff), tampilkan semua data.
         return $query;
     }
 
+    /**
+     * Mendefinisikan form untuk membuat dan mengedit data.
+     * Termasuk logika pembatasan status untuk peran pembina.
+     */
     public static function form(Form $form): Form
     {
-        // Kode form Anda sudah benar, tidak perlu diubah
         return $form
             ->schema([
                 Forms\Components\Section::make('Informasi Pengajuan')->schema([
                     Forms\Components\Select::make('user_id')
                         ->label('Pengaju (Mahasiswa)')
-                        ->options(User::whereHas('roles', fn($q) => $q->where('name', 'mahasiswa'))->pluck('name', 'id'))
-                        ->searchable()->required(),
+                        ->relationship('user', 'name')
+                        ->searchable()
+                        ->required(),
                     
-                    Forms\Components\Select::make('school_id')->label('Sekolah Tujuan')->relationship('school', 'name')->searchable()->preload()->required(),
+                    Forms\Components\Select::make('school_id')
+                        ->label('Sekolah Tujuan')
+                        ->relationship('school', 'name')
+                        ->searchable()
+                        ->preload()
+                        ->required(),
 
                     Forms\Components\Select::make('dosen_pembina_id')
                         ->label('Dosen Pembina')
                         ->options(User::whereHas('roles', fn($q) => $q->where('name', 'pembina'))->pluck('name', 'id'))
-                        ->searchable()->required(),
+                        ->searchable()
+                        ->required(),
 
-                    Forms\Components\DatePicker::make('proposed_date')->label('Tanggal Usulan')->required(),
-                    Forms\Components\RichEditor::make('notes')->label('Catatan Tambahan')->columnSpanFull(),
+                    Forms\Components\DatePicker::make('proposed_date')
+                        ->label('Tanggal Usulan')
+                        ->required(),
+
+                    Forms\Components\RichEditor::make('notes')
+                        ->label('Catatan Tambahan')
+                        ->columnSpanFull(),
                 ])->columns(2),
                 
                 Forms\Components\Section::make('Status & Persetujuan')->schema([
+                    // --- INI ADALAH LOGIKA UTAMA YANG ANDA MINTA ---
                     Forms\Components\Select::make('status')
-                        ->options([
-                            'diajukan' => 'Diajukan',
-                            'disetujui_pembina' => 'Disetujui Pembina',
-                            'ditolak_pembina' => 'Ditolak Pembina',
-                            'Menunggu Pembayaran' => 'Menunggu Pembayaran',
-                            'disetujui_staff' => 'Disetujui Staff',
-                            'ditolak_staff' => 'Ditolak Staff',
-                            'selesai' => 'Selesai',
-                        ])->required(),
+                        ->label('Ubah Status Pengajuan')
+                        ->options(function () {
+                            // Jika yang login adalah 'pembina'
+                            if (Auth::user()->hasRole('pembina')) {
+                                // Tampilkan hanya dua pilihan ini
+                                return [
+                                    'disetujui_pembina' => 'Setujui Pengajuan Ini',
+                                    'ditolak_pembina'  => 'Tolak Pengajuan Ini',
+                                ];
+                            }
+
+                            // Jika bukan pembina (misalnya admin atau staff), tampilkan semua pilihan
+                            return [
+                                'diajukan'           => 'Diajukan',
+                                'disetujui_pembina'   => 'Disetujui Pembina',
+                                'ditolak_pembina'     => 'Ditolak Pembina',
+                                'Menunggu Pembayaran' => 'Menunggu Pembayaran',
+                                'selesai'             => 'Selesai',
+                            ];
+                        })
+                        ->required(),
                     
-                    Forms\Components\Textarea::make('rejection_reason')->label('Alasan Penolakan')->visible(fn ($get) => in_array($get('status'), ['ditolak_pembina', 'ditolak_staff'])),
+                    Forms\Components\Textarea::make('rejection_reason')
+                        ->label('Alasan Penolakan')
+                        ->visible(fn ($get) => in_array($get('status'), ['ditolak_pembina', 'ditolak_staff'])),
                 ])
             ]);
     }
 
     public static function table(Table $table): Table
     {
-        // Kode tabel Anda sudah benar, tidak perlu diubah
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('user.name')->label('Pengaju')->searchable()->sortable(),

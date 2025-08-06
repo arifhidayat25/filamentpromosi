@@ -19,28 +19,22 @@ class Proposal extends Model
         'proposed_date',
         'notes',
         'rejection_reason',
-        'dosen_pembina_id', // Pastikan kolom ini ada di $fillable
+        'dosen_pembina_id',
     ];
 
     protected $casts = [
         'proposed_date' => 'date',
     ];
 
-    /**
-     * Logika ini berjalan setiap kali ada data Proposal BARU yang akan disimpan.
-     */
     protected static function booted(): void
     {
         static::creating(function (Proposal $proposal) {
             if (Auth::check()) {
-                // 1. Setel user_id (mahasiswa) dan status awal
                 $proposal->user_id = Auth::id();
                 $proposal->status = 'diajukan';
 
-                // 2. LOGIKA BARU: Cari dan setel Dosen Pembina secara otomatis
                 $mahasiswa = Auth::user();
                 if ($mahasiswa->program_studi_id) {
-                    // Cari satu user yang perannya 'pembina' DAN prodinya sama dengan mahasiswa
                     $pembina = User::where('program_studi_id', $mahasiswa->program_studi_id)
                                    ->whereHas('roles', fn($q) => $q->where('name', 'pembina'))
                                    ->first();
@@ -54,15 +48,11 @@ class Proposal extends Model
     }
 
     // --- Definisi Relasi ---
+    
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
-
-    public function certificate(): HasOne
-{
-    return $this->hasOne(Certificate::class);
-}
 
     public function school(): BelongsTo
     {
@@ -77,5 +67,19 @@ class Proposal extends Model
     public function dosenPembina(): BelongsTo
     {
         return $this->belongsTo(User::class, 'dosen_pembina_id');
+    }
+
+    public function payment(): HasOne
+    {
+        return $this->hasOne(Payment::class);
+    }
+
+    /**
+     * INI ADALAH METODE YANG HILANG:
+     * Mendefinisikan bahwa sebuah Proposal memiliki satu data Certificate.
+     */
+    public function certificate(): HasOne
+    {
+        return $this->hasOne(Certificate::class);
     }
 }
