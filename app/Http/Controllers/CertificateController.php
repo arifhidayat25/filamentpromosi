@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Proposal;
+use App\Models\User; // <-- Tambahkan ini
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use setasign\Fpdi\Fpdi;
@@ -11,23 +12,30 @@ class CertificateController extends Controller
 {
     public function generate(Proposal $proposal)
     {
+        // ... (kode keamanan Anda tetap sama)
         if ($proposal->user_id !== Auth::id() || $proposal->status !== 'selesai') {
             abort(403, 'Akses Ditolak atau Sertifikat Belum Tersedia.');
         }
 
-        // --- LOGIKA BARU DENGAN TABEL TERPISAH ---
+        // --- LOGIKA BARU DIMULAI DI SINI ---
+        $mahasiswa = $proposal->user;
+        $namaMahasiswa = $mahasiswa->name;
 
-        // 1. Cek apakah sertifikat sudah ada di tabel 'certificates'
+        // 1. Cari Pembina berdasarkan prodi Mahasiswa
+        $pembina = User::where('program_studi_id', $mahasiswa->program_studi_id)
+                       ->whereHas('roles', fn($q) => $q->where('name', 'pembina'))
+                       ->first();
+        
+        // 2. Tentukan nama yang akan dicetak
+        $namaPembina = $pembina ? $pembina->name : 'Ketua Pelaksana'; // Jika pembina tidak ditemukan, gunakan nama default
+
+        // Cek arsip, jika ada langsung unduh
         if ($proposal->certificate && Storage::disk('public')->exists($proposal->certificate->file_path)) {
-            // Jika ada, langsung unduh dari path yang tersimpan
             return Storage::disk('public')->download($proposal->certificate->file_path);
         }
 
-        // 2. Jika belum ada, buat PDF baru
-        $namaMahasiswa = $proposal->user->name;
-        $namaKetuaPelaksana = 'Rufus Hewart';
+        // Jika belum ada, buat PDF baru
         $templatePath = public_path('sertifikat_template/sertifikat.pdf');
-        
         $fileName = 'sertifikat/' . uniqid() . '-' . $proposal->id . '.pdf';
         $outputFile = storage_path('app/public/' . $fileName);
 
@@ -35,19 +43,19 @@ class CertificateController extends Controller
             Storage::disk('public')->makeDirectory('sertifikat');
         }
         
-        $this->fillPdfTemplate($templatePath, $namaMahasiswa, $namaKetuaPelaksana, $outputFile);
+        // 3. Kirim nama pembina yang dinamis ke fungsi pembuat PDF
+        $this->fillPdfTemplate($templatePath, $namaMahasiswa, $namaPembina, $outputFile);
 
-        // 3. Simpan record baru di tabel 'certificates'
+        // Simpan ke arsip
         $proposal->certificate()->create([
             'file_path' => $fileName,
         ]);
 
-        // 4. Kirim file yang baru dibuat untuk diunduh
         return Storage::disk('public')->download($fileName);
     }
 
     /**
-     * Fungsi ini tidak perlu diubah.
+     * Parameter kedua sekarang adalah nama pembina/ketua.
      */
     private function fillPdfTemplate($file, $nama, $ketua, $outputfile)
     {
@@ -74,7 +82,7 @@ class CertificateController extends Controller
         $textWidthKetua = $fpdi->GetStringWidth($ketua);
         $xKetua = (297 - $textWidthKetua) / 2;
         $fpdi->SetXY($xKetua, 184);
-        $fpdi->Write(0, $ketua);
+        $fpdi->Write(0, $ketua); // Mencetak nama pembina yang sudah ditemukan
 
         $fpdi->output($outputfile, 'F');
     }
