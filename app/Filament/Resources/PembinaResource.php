@@ -62,12 +62,16 @@ class PembinaResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
-            ]);
+            Tables\Actions\EditAction::make(),
+            Tables\Actions\DeleteAction::make()
+                ->successRedirectUrl(self::getUrl('index')), // <-- Tambahkan ini
+        ])
+        ->bulkActions([
+            Tables\Actions\BulkActionGroup::make([
+                Tables\Actions\DeleteBulkAction::make()
+                    ->successRedirectUrl(self::getUrl('index')), // <-- Dan ini
+            ]),
+        ]);
     }
     
     public static function getRelations(): array

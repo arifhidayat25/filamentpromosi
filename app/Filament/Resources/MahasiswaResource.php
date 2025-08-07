@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\MahasiswaResource\Pages;
 use App\Filament\Resources\MahasiswaResource\RelationManagers;
 use App\Models\Mahasiswa;
+use App\Models\ProgramStudi;
 use Filament\Forms;
 use Filament\Forms\Form;
 use App\Models\User;
@@ -38,8 +39,10 @@ class MahasiswaResource extends Resource
                     ->required(),
 
                 // Field untuk Prodi
-                Forms\Components\TextInput::make('prodi')
+                Forms\Components\Select::make('program_studi_id')
                     ->label('Program Studi')
+                    ->options(ProgramStudi::all()->pluck('name', 'id'))
+                    ->searchable()
                     ->required(),
                 
                 // Field lainnya yang dibutuhkan (misal: email, password)
@@ -72,8 +75,10 @@ class MahasiswaResource extends Resource
                     ->searchable(),
 
                 // Kolom untuk Prodi
-                Tables\Columns\TextColumn::make('prodi')
-                    ->label('Program Studi'),
+                Tables\Columns\TextColumn::make('programStudi.name')
+                    ->label('Program Studi')
+                    ->sortable()
+                    ->searchable(),
                 
                 // Kolom untuk Email
                 Tables\Columns\TextColumn::make('email'),
@@ -82,12 +87,16 @@ class MahasiswaResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
-            ]);
+            Tables\Actions\EditAction::make(),
+            Tables\Actions\DeleteAction::make()
+                ->successRedirectUrl(self::getUrl('index')), // <-- Tambahkan ini
+        ])
+        ->bulkActions([
+            Tables\Actions\BulkActionGroup::make([
+                Tables\Actions\DeleteBulkAction::make()
+                    ->successRedirectUrl(self::getUrl('index')), // <-- Dan ini
+            ]),
+        ]);
     }
     
     public static function getRelations(): array

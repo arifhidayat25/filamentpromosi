@@ -79,8 +79,15 @@ class ReportResource extends Resource
                 
                 // Tombol Edit & View hanya untuk Admin
                 Tables\Actions\EditAction::make()->visible(fn (): bool => Auth::user()->hasRole('admin')),
-                Tables\Actions\ViewAction::make(),
-            ]);
+                Tables\Actions\ViewAction::make()
+                ->successRedirectUrl(self::getUrl('index')),
+            ])
+            ->bulkActions([
+            Tables\Actions\BulkActionGroup::make([
+                Tables\Actions\DeleteBulkAction::make()
+                    ->successRedirectUrl(self::getUrl('index')), // <-- Dan ini
+            ]),
+        ]);
     }
     
     public static function getPages(): array

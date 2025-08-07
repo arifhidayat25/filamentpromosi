@@ -81,11 +81,21 @@ class ReportResource extends Resource
                     'success' => 'disetujui_staff',
                     'danger'  => 'ditolak_staff',
                 ]),
-                Tables\Columns\TextColumn::make('created_at')->label('Tanggal Dibuat')->dateTime(),
+                Tables\Columns\TextColumn::make('created_at')->label('Tanggal Dibuat')->dateTime()
+                
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-            ]);
+                Tables\Actions\EditAction::make(),
+                // Logika redirect ditempatkan di sini, pada Aksi
+                Tables\Actions\DeleteAction::make()
+                    ->successRedirectUrl(self::getUrl('index')),
+            ])
+            ->bulkActions([
+            Tables\Actions\BulkActionGroup::make([
+                Tables\Actions\DeleteBulkAction::make()
+                    ->successRedirectUrl(self::getUrl('index')), // <-- Dan ini
+            ]),
+        ]);
     }
 
     public static function getPages(): array

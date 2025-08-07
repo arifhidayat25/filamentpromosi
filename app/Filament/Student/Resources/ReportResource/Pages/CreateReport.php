@@ -8,6 +8,10 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateReport extends CreateRecord
 {
     protected static string $resource = ReportResource::class;
+    protected function getRedirectUrl(): string
+{
+    return $this->getResource()::getUrl('index');
+}
 
     /**
      * Metode ini berjalan SEBELUM data laporan disimpan.

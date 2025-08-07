@@ -16,4 +16,12 @@ class EditProposal extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
+
+    /**
+     * Mengarahkan pengguna kembali ke halaman daftar setelah berhasil mengubah data.
+     */
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 }

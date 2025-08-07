@@ -9,15 +9,11 @@ class CreateProposal extends CreateRecord
 {
     protected static string $resource = ProposalResource::class;
 
-    // KUNCI: Metode ini akan berjalan sebelum data disimpan ke database
-    protected function mutateFormDataBeforeCreate(array $data): array
+    /**
+     * Mengarahkan pengguna kembali ke halaman daftar setelah berhasil membuat data.
+     */
+    protected function getRedirectUrl(): string
     {
-        // Jika yang membuat BUKAN admin (misal: mahasiswa),
-        // otomatis set user_id dengan id user yang sedang login.
-        if (!auth()->user()->hasRole('admin')) {
-            $data['user_id'] = auth()->id();
-        }
-
-        return $data;
+        return $this->getResource()::getUrl('index');
     }
 }

@@ -18,11 +18,9 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-use Althinect\FilamentSpatieRolesPermissions\FilamentSpatieRolesPermissionsPlugin;
 use App\Http\Middleware\AdminPanelAccessMiddleware;
 use App\Filament\Auth\AdminLogin;
-use Filament\Navigation\NavigationItem; // <-- Jangan lupa tambahkan ini di atas
-
+use App\Models\User;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -46,7 +44,6 @@ class AdminPanelProvider extends PanelProvider
                 Widgets\AccountWidget::class,
                 Widgets\FilamentInfoWidget::class,
             ])
-            
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
@@ -61,9 +58,13 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->plugins([
                 FilamentShieldPlugin::make(),
+                
+                // --- PERUBAHAN UTAMA ADA DI SINI ---
                 \DutchCodingCompany\FilamentDeveloperLogins\FilamentDeveloperLoginsPlugin::make()
                     ->enabled(app()->environment('local'))
-                    ->users(fn () => \App\Models\User::pluck('email', 'name')->toArray()),
+                    // Mengambil semua user, mengabaikan Global Scopes apa pun.
+                    ->users(fn () => User::withoutGlobalScopes()->get()->pluck('email', 'name')->toArray()),
+
                 \Rmsramos\Activitylog\ActivitylogPlugin::make(),
             ])
             ->authMiddleware([

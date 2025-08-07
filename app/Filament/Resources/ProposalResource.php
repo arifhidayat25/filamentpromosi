@@ -125,8 +125,15 @@ class ProposalResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
-            ]);
+                Tables\Actions\DeleteAction::make()
+                    ->successRedirectUrl(self::getUrl('index')), // Perbaikan di sini
+            ])
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make()
+                        ->successRedirectUrl(self::getUrl('index')), // Perbaikan di sini
+                ])
+                ]);
     }
     
     public static function getPages(): array
