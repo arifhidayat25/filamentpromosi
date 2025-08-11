@@ -20,20 +20,31 @@ class CertificateController extends Controller
             return Storage::disk('public')->download($proposal->certificate->file_path);
         }
 
+        // --- PENGAMBILAN DATA DINAMIS ---
         $mahasiswa = $proposal->user;
         $namaMahasiswa = $mahasiswa->name;
         $staffPromosi = User::whereHas('roles', fn($q) => $q->where('name', 'staff'))->first();
         $namaStaffPromosi = $staffPromosi ? $staffPromosi->name : 'Kepala Staff Promosi';
 
+        // --- PROSES PEMBUATAN PDF (LOGIKA BARU) ---
+
+        // 1. Buat record sertifikat sementara untuk mendapatkan ID
+        $certificate = $proposal->certificate()->create([
+            'file_path' => 'temp', // Nilai sementara
+        ]);
+
+        // 2. Buat nomor sertifikat LENGKAP menggunakan ID yang baru didapat
         $nomorSertifikat = sprintf(
-            "03d/SERT-PROMOSI/%s/%s/%s",
+            "No: %03d/SERT-PROMOSI/%d/%s/%s/%s",
+            $certificate->id, // <-- Menggunakan ID Sertifikat
             $proposal->id,
             $mahasiswa->programStudi->kode ?? 'UMUM',
-            now()->format('m'),
+            $this->getRomanMonth(now()->month),
             now()->year
         );
 
-        $templatePath = public_path('sertifikat_template/sertifikat.pdf'); 
+        // 3. Siapkan path file
+        $templatePath = public_path('sertifikat_template/sertif.pdf'); 
         $fileName = 'sertifikat/' . uniqid() . '-' . $proposal->id . '.pdf';
         $outputFile = storage_path('app/public/' . $fileName);
 
@@ -41,30 +52,27 @@ class CertificateController extends Controller
             Storage::disk('public')->makeDirectory('sertifikat');
         }
         
+        // 4. Generate PDF dengan nomor yang sudah lengkap
         $this->fillPdfTemplate($templatePath, $namaMahasiswa, $namaStaffPromosi, $nomorSertifikat, $outputFile);
 
-        $proposal->certificate()->create([
+        // 5. Update record sertifikat dengan data final
+        $certificate->update([
             'file_path' => $fileName,
             'certificate_number' => $nomorSertifikat,
         ]);
 
+        // 6. Unduh file
         return Storage::disk('public')->download($fileName);
     }
 
-    /**
-     * Mengisi template PDF dengan data pada posisi yang sudah disesuaikan.
-     */
     private function fillPdfTemplate($file, $namaMahasiswa, $namaStaff, $nomorSertifikat, $outputfile)
     {
         $fpdi = new Fpdi();
-        
         $fpdi->setSourceFile($file);
         $template = $fpdi->importPage(1);
         $size = $fpdi->getTemplateSize($template);
-
         $fpdi->addPage($size['orientation'], [$size['width'], $size['height']]);
         $fpdi->useTemplate($template);
-
         $fpdi->SetTextColor(0, 0, 0);
 
         $centerText = function ($fpdi, $text, $y, $fontSize, $fontStyle = 'B') {
@@ -76,16 +84,21 @@ class CertificateController extends Controller
             $fpdi->Write(0, $text);
         };
 
-        // --- PERBAIKAN KOORDINAT ---
-        // 1. Menulis Nomor Sertifikat (Posisi Y dinaikkan dari 78 -> 74)
-        $centerText($fpdi, $nomorSertifikat, 70, 13, ''); 
+        // Menulis Nomor Sertifikat (di bawah tulisan "SERTIFIKAT")
+        $centerText($fpdi, $nomorSertifikat, 70, 15, ''); // Ukuran font disesuaikan agar muat
 
-        // 2. Menulis Nama Mahasiswa
+        // Menulis Nama Mahasiswa
         $centerText($fpdi, strtoupper($namaMahasiswa), 105, 32, 'B');
         
-        // 3. Menulis Nama & Jabatan Staff Promosi
-        $centerText($fpdi, 'Staff Promosi', 190, 12, '');
+        // Menulis Tanda Tangan Staff Promosi
+        $centerText($fpdi, $namaStaff, 170, 12, 'B');
+        $centerText($fpdi, 'Staff Promosi', 175, 12, '');
         
         $fpdi->output($outputfile, 'F');
+    }
+
+    private function getRomanMonth($month) {
+        $map = [1 => 'I', 2 => 'II', 3 => 'III', 4 => 'IV', 5 => 'V', 6 => 'VI', 7 => 'VII', 8 => 'VIII', 9 => 'IX', 10 => 'X', 11 => 'XI', 12 => 'XII'];
+        return $map[$month] ?? '';
     }
 }
