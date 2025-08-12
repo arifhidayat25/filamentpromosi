@@ -30,11 +30,16 @@ class StudentPanelProvider extends PanelProvider
             ->path('student')
             ->colors(['primary' => Color::Amber])
             ->login(StudentLogin::class)
-            ->profile() // <-- CUKUP TAMBAHKAN BARIS INI
+            ->profile()
+            
+            // --- PERUBAHAN DI SINI: Menambahkan Logo ---
+            ->brandLogo(asset('image/ITSK.jpg'))
+            ->brandLogoHeight('5rem')
+            // -----------------------------------------
+
             ->discoverResources(in: app_path('Filament/Student/Resources'), for: 'App\\Filament\\Student\\Resources')
             ->discoverPages(in: app_path(path: 'Filament/Student/Pages'), for: 'App\\Filament\\Student\\Pages')
             ->pages([
-                // Daftarkan halaman dashboard kustom di sini
                 Dashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Student/Widgets'), for: 'App\\Filament\\Student\\Widgets')

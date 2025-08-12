@@ -57,7 +57,7 @@ class AdminPanelProvider extends PanelProvider
 
             // 2. Menambahkan Logo Institusi dari folder public/image/
             ->brandLogo(asset('image/ITSK.jpg')) 
-            ->brandLogoHeight('2.5rem')
+            ->brandLogoHeight('5rem')
 
             // 3. Menggunakan Font "Poppins" yang sudah diimpor di atas
             ->font('Poppins')
