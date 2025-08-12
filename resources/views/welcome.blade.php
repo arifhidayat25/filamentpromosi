@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Sistem Magang - Universitas</title>
+        <title>Sistem Promosi - Universitas</title>
 
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
@@ -38,8 +38,8 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
                             </svg>
                         </div>
-                        <h1 class="text-4xl font-bold text-gray-800 dark:text-white mb-2">Sistem Magang</h1>
-                        <p class="text-xl text-gray-600 dark:text-gray-400">Universitas Indonesia</p>
+                        <h1 class="text-4xl font-bold text-gray-800 dark:text-white mb-2">Sistem Promosi</h1>
+                        <p class="text-xl text-gray-600 dark:text-gray-400">ITSK</p>
                     </div>
                 </div>
 
@@ -76,7 +76,7 @@
                                 <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">Login Mahasiswa</h2>
 
                                 <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                    Akses panel mahasiswa untuk mengajukan proposal magang, upload laporan kegiatan, dan monitoring status pengajuan.
+                                    Akses panel mahasiswa untuk mengajukan proposal promosi, upload laporan kegiatan, dan monitoring status pengajuan.
                                 </p>
                             </div>
 
@@ -96,7 +96,7 @@
                                 <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">Fitur Utama</h2>
 
                                 <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                    Sistem magang yang terintegrasi dengan fitur pengajuan proposal, monitoring progress, upload laporan, dan manajemen data sekolah mitra. Dilengkapi dengan sistem role-based access control untuk keamanan data.
+                                    Sistem Promosi yang terintegrasi dengan fitur pengajuan proposal, monitoring progress, upload laporan, dan manajemen data sekolah mitra. Dilengkapi dengan sistem role-based access control untuk keamanan data.
                                 </p>
                             </div>
                         </div>
