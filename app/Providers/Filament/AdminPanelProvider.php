@@ -51,13 +51,11 @@ class AdminPanelProvider extends PanelProvider
             // ==========================================================
             
             // 1. Mengganti skema warna utama
-            ->colors([
-                'primary' => Color::Teal,
-            ])
+            ->colors(['primary' => Color::hex('#19532bff')])
 
             // 2. Menambahkan Logo Institusi dari folder public/image/
             ->brandLogo(asset('image/ITSK.jpg')) 
-            ->brandLogoHeight('5rem')
+            ->brandLogoHeight('4rem')
 
             // 3. Menggunakan Font "Poppins" yang sudah diimpor di atas
             ->font('Poppins')

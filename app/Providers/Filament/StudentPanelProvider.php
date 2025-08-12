@@ -28,13 +28,13 @@ class StudentPanelProvider extends PanelProvider
         return $panel
             ->id('student')
             ->path('student')
-            ->colors(['primary' => Color::Amber])
+            ->colors(['primary' => Color::hex('#9542f5')])
             ->login(StudentLogin::class)
             ->profile()
             
             // --- PERUBAHAN DI SINI: Menambahkan Logo ---
             ->brandLogo(asset('image/ITSK.jpg'))
-            ->brandLogoHeight('5rem')
+            ->brandLogoHeight('4rem')
             // -----------------------------------------
 
             ->discoverResources(in: app_path('Filament/Student/Resources'), for: 'App\\Filament\\Student\\Resources')
