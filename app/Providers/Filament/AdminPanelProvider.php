@@ -21,9 +21,23 @@ use Illuminate\View\Middleware\ShareErrorsFromSession;
 use App\Http\Middleware\AdminPanelAccessMiddleware;
 use App\Filament\Auth\AdminLogin;
 use App\Models\User;
+use Filament\Support\Facades\FilamentView; // <-- Tambahkan ini
+use Illuminate\Support\Facades\Blade;     // <-- Tambahkan ini
 
 class AdminPanelProvider extends PanelProvider
 {
+    /**
+     * Metode ini dijalankan saat provider di-boot.
+     * Kita gunakan untuk mendaftarkan aset eksternal seperti Google Fonts.
+     */
+    public function boot(): void
+    {
+        FilamentView::registerRenderHook(
+            'panels::head.end',
+            fn (): string => Blade::render('<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />'),
+        );
+    }
+
     public function panel(Panel $panel): Panel
     {
         return $panel
@@ -31,9 +45,28 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login(AdminLogin::class)
+            
+            // ==========================================================
+            // == KUSTOMISASI VISUAL PANEL ==
+            // ==========================================================
+            
+            // 1. Mengganti skema warna utama
             ->colors([
-                'primary' => Color::Indigo,
+                'primary' => Color::Teal,
             ])
+
+            // 2. Menambahkan Logo Institusi dari folder public/image/
+            ->brandLogo(asset('image/ITSK.jpg')) 
+            ->brandLogoHeight('2.5rem')
+
+            // 3. Menggunakan Font "Poppins" yang sudah diimpor di atas
+            ->font('Poppins')
+
+            // 4. Mengaktifkan pilihan Dark Mode
+            ->darkMode(true)
+            
+            // ==========================================================
+            
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
@@ -59,7 +92,7 @@ class AdminPanelProvider extends PanelProvider
             ->plugins([
                 FilamentShieldPlugin::make(),
                 
-                // --- PERUBAHAN UTAMA ADA DI SINI ---
+                // --- PERBAIKAN UTAMA UNTUK "LOGIN AS" ---
                 \DutchCodingCompany\FilamentDeveloperLogins\FilamentDeveloperLoginsPlugin::make()
                     ->enabled(app()->environment('local'))
                     // Mengambil semua user, mengabaikan Global Scopes apa pun.
