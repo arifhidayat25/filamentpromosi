@@ -30,7 +30,6 @@ class StudentPanelProvider extends PanelProvider
             ->path('student')
             ->colors(['primary' => Color::Amber])
             ->login(StudentLogin::class)
-            ->registration(StudentRegistration::class)
             ->profile() // <-- CUKUP TAMBAHKAN BARIS INI
             ->discoverResources(in: app_path('Filament/Student/Resources'), for: 'App\\Filament\\Student\\Resources')
             ->discoverPages(in: app_path(path: 'Filament/Student/Pages'), for: 'App\\Filament\\Student\\Pages')
