@@ -13,6 +13,7 @@ use Filament\Tables\Table;
 use Filament\Tables\Columns\BadgeColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
+use AlperenErsoy\FilamentExport\Actions\FilamentExportHeaderAction; 
 
 class ProposalResource extends Resource
 {
@@ -112,6 +113,10 @@ class ProposalResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->headerActions([
+                FilamentExportHeaderAction::make('export')
+                    ->label('Export Data')
+            ])
             ->columns([
                 Tables\Columns\TextColumn::make('user.name')->label('Pengaju')->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('dosenPembina.name')->label('Pembina')->searchable()->sortable(),
