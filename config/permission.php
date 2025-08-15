@@ -178,25 +178,16 @@ return [
 
     'cache' => [
 
-        /*
-         * By default all permissions are cached for 24 hours to speed up performance.
-         * When permissions or roles are updated the cache is flushed automatically.
-         */
+    // Waktu berapa lama cache akan disimpan. Secara default 24 jam.
+    'expiration_time' => \DateInterval::createFromDateString('24 hours'),
 
-        'expiration_time' => \DateInterval::createFromDateString('24 hours'),
+    // Kunci unik untuk cache permission. Biarkan default.
+    'key' => 'spatie.permission.cache',
 
-        /*
-         * The cache key used to store all permissions.
-         */
+    // --- UBAH BAGIAN INI ---
+    // Ganti 'default' menjadi 'redis' untuk memberitahu Spatie
+    // agar menyimpan cache permission di Redis.
+    'store' => 'redis',
 
-        'key' => 'spatie.permission.cache',
-
-        /*
-         * You may optionally indicate a specific cache driver to use for permission and
-         * role caching using any of the `store` drivers listed in the cache.php config
-         * file. Using 'default' here means to use the `default` set in cache.php.
-         */
-
-        'store' => 'default',
-    ],
+],
 ];

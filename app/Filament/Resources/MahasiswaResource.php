@@ -14,6 +14,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Cache; // <-- Pastikan ini sudah di-import
 
 class MahasiswaResource extends Resource
 {
@@ -38,10 +39,17 @@ class MahasiswaResource extends Resource
                     ->label('NIM')
                     ->required(),
 
-                // Field untuk Prodi
+                // --- PERUBAHAN UTAMA ADA DI SINI ---
+                // Field untuk Prodi dengan Caching
                 Forms\Components\Select::make('program_studi_id')
                     ->label('Program Studi')
-                    ->options(ProgramStudi::all()->pluck('name', 'id'))
+                    ->options(function () {
+                        // Ambil data dari cache Redis. Jika tidak ada, jalankan query
+                        // lalu simpan hasilnya di cache selama 24 jam (1 hari).
+                        return Cache::remember('select_options:program_studi', now()->addDay(), function () {
+                            return ProgramStudi::all()->pluck('name', 'id');
+                        });
+                    })
                     ->searchable()
                     ->required(),
                 
@@ -89,12 +97,12 @@ class MahasiswaResource extends Resource
             ->actions([
             Tables\Actions\EditAction::make(),
             Tables\Actions\DeleteAction::make()
-                ->successRedirectUrl(self::getUrl('index')), // <-- Tambahkan ini
+                ->successRedirectUrl(self::getUrl('index')),
         ])
         ->bulkActions([
             Tables\Actions\BulkActionGroup::make([
                 Tables\Actions\DeleteBulkAction::make()
-                    ->successRedirectUrl(self::getUrl('index')), // <-- Dan ini
+                    ->successRedirectUrl(self::getUrl('index')),
             ]),
         ]);
     }

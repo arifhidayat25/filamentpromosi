@@ -6,6 +6,7 @@ use App\Models\Payment;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;   // <-- Tambahkan ini untuk caching
 
 class PembayaranStats extends BaseWidget
 {
@@ -13,13 +14,20 @@ class PembayaranStats extends BaseWidget
     {
         $userId = Auth::id();
 
-        $totalDibayar = Payment::whereHas('proposal', function ($query) use ($userId) {
-            $query->where('user_id', $userId);
-        })->where('status', 'dibayar')->sum('amount');
+         $cacheKeyPrefix = 'stats:pembayaran:' . $userId; // <-- 2. Buat kunci cache yang unik per user
 
-        $menungguPembayaran = Payment::whereHas('proposal', function ($query) use ($userId) {
-            $query->where('user_id', $userId);
-        })->where('status', 'menunggu_pembayaran')->sum('amount');
+        // Cache data selama 15 menit
+        $totalDibayar = Cache::remember($cacheKeyPrefix . ':dibayar', now()->addMinutes(15), function () use ($userId) {
+            return Payment::whereHas('proposal', function ($query) use ($userId) {
+                $query->where('user_id', $userId);
+            })->where('status', 'dibayar')->sum('amount');
+        });
+
+        $menungguPembayaran = Cache::remember($cacheKeyPrefix . ':menunggu', now()->addMinutes(15), function () use ($userId) {
+            return Payment::whereHas('proposal', function ($query) use ($userId) {
+                $query->where('user_id', $userId);
+            })->where('status', 'menunggu_pembayaran')->sum('amount');
+        });
 
         return [
             Stat::make('Total Fee Diterima', 'Rp ' . number_format($totalDibayar, 0, ',', '.'))
