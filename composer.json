@@ -14,7 +14,7 @@
         "filipfonal/filament-log-manager": "^2.1",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.0",
-        "laravel/sanctum": "^3.2",
+        "laravel/sanctum": "3.3",
         "laravel/tinker": "^2.8",
         "predis/predis": "^3.2",
         "rmsramos/activitylog": "^1.0",
