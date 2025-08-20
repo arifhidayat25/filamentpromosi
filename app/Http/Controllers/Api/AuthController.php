@@ -2,65 +2,50 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
-use Illuminate\Support\Facades\Log; // <-- 1. IMPORT FACADE LOG
 
 class AuthController extends Controller
 {
     public function login(Request $request)
     {
-        // --- LOGGING DIMULAI ---
-        Log::info('API Login attempt started.');
-        Log::info('Request data:', $request->all());
+        try {
+            $request->validate([
+                'nim' => 'required|string',
+                'password' => 'required|string',
+            ]);
 
-        $request->validate([
-            'nim' => 'required|string',
-            'password' => 'required|string',
-        ]);
+            $user = User::where('nim', $request->nim)->first();
 
-        $nim = $request->nim;
-        $password = $request->password;
+            if (! $user || ! Hash::check($request->password, $user->password)) {
+                // Gunakan 'fail' karena masalah ada pada data yang dikirim klien
+                return ResponseFormatter::fail(null, 'NIM atau Password salah', 401);
+            }
 
-        Log::info('Attempting to find user with NIM: ' . $nim);
-        $user = User::where('nim', $nim)->first();
+            $token = $user->createToken('auth_token')->plainTextToken;
 
-        // Cek 1: Apakah user dengan NIM tersebut ditemukan?
-        if (! $user) {
-            Log::warning('Login failed: User with NIM ' . $nim . ' not found.');
-            return response()->json([
-                'message' => 'User tidak ditemukan.'
-            ], 404); // 404 Not Found
+            return ResponseFormatter::success([
+                'access_token' => $token,
+                'token_type' => 'Bearer',
+                'user' => $user,
+            ], 'Login Berhasil');
+
+        } catch (ValidationException $e) {
+            // Tangkap khusus error validasi dan gunakan 'fail'
+            return ResponseFormatter::fail($e->errors(), 'Validasi gagal');
+        } catch (\Exception $e) {
+            // Tangkap semua error server lainnya
+            return ResponseFormatter::error('Terjadi kesalahan pada server');
         }
-
-        Log::info('User found: ' . $user->name);
-
-        // Cek 2: Apakah password yang dikirim cocok dengan hash di database?
-        if (! Hash::check($password, $user->password)) {
-            Log::warning('Login failed: Password mismatch for user ' . $user->name);
-            return response()->json([
-                'message' => 'Password yang diberikan salah.'
-            ], 401); // 401 Unauthorized
-        }
-
-        Log::info('Password check passed. Creating token for user: ' . $user->name);
-        $token = $user->createToken('auth_token')->plainTextToken;
-
-        return response()->json([
-            'message' => 'Login berhasil',
-            'access_token' => $token,
-            'token_type' => 'Bearer',
-            'user' => $user,
-        ]);
     }
 
     public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();
-        return response()->json(['message' => 'Logout berhasil']);
+        return ResponseFormatter::success(null, 'Logout berhasil');
     }
 }

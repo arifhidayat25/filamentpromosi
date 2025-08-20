@@ -12,57 +12,61 @@ class CertificateController extends Controller
 {
     public function generate(Proposal $proposal)
     {
-        if ($proposal->user_id !== Auth::id() || $proposal->status !== 'selesai') {
+        // Validasi akses tetap sama
+        if (($proposal->user_id !== Auth::id() && !Auth::user()->hasRole('admin')) || $proposal->status !== 'selesai') {
             abort(403, 'Akses Ditolak atau Sertifikat Belum Tersedia.');
         }
 
-        if ($proposal->certificate && Storage::disk('public')->exists($proposal->certificate->file_path)) {
-            return Storage::disk('public')->download($proposal->certificate->file_path);
+        // --- LOGIKA BARU: Cek dan Unduh dari MinIO ---
+        if ($proposal->certificate && Storage::disk('minio')->exists($proposal->certificate->file_path)) {
+            return Storage::disk('minio')->download($proposal->certificate->file_path);
         }
 
-        // --- PENGAMBILAN DATA DINAMIS ---
+        // Pengambilan data dinamis tetap sama
         $mahasiswa = $proposal->user;
         $namaMahasiswa = $mahasiswa->name;
-        $staffPromosi = User::whereHas('roles', fn($q) => $q->where('name', 'staff'))->first();
+        $staffPromosi = User::role('staff')->first();
         $namaStaffPromosi = $staffPromosi ? $staffPromosi->name : 'Kepala Staff Promosi';
 
-        // --- PROSES PEMBUATAN PDF (LOGIKA BARU) ---
+        $certificate = $proposal->certificate()->create(['file_path' => 'temp']);
 
-        // 1. Buat record sertifikat sementara untuk mendapatkan ID
-        $certificate = $proposal->certificate()->create([
-            'file_path' => 'temp', // Nilai sementara
-        ]);
-
-        // 2. Buat nomor sertifikat LENGKAP menggunakan ID yang baru didapat
         $nomorSertifikat = sprintf(
             "No: %03d/SERT-PROMOSI/%d/%s/%s/%s",
-            $certificate->id, // <-- Menggunakan ID Sertifikat
+            $certificate->id,
             $proposal->id,
             $mahasiswa->programStudi->kode ?? 'UMUM',
             $this->getRomanMonth(now()->month),
             now()->year
         );
 
-        // 3. Siapkan path file
-        $templatePath = public_path('sertifikat_template/sertif.pdf'); 
-        $fileName = 'sertifikat/' . uniqid() . '-' . $proposal->id . '.pdf';
-        $outputFile = storage_path('app/public/' . $fileName);
+        // --- LOGIKA BARU: Proses PDF dan Unggah ke MinIO ---
 
-        if (!Storage::disk('public')->exists('sertifikat')) {
-            Storage::disk('public')->makeDirectory('sertifikat');
+        // 1. Buat PDF di file sementara di server lokal
+        $templatePath = public_path('sertifikat_template/sertif.pdf');
+        $tempPdfPath = storage_path('app/temp/' . uniqid() . '.pdf');
+        if (!file_exists(storage_path('app/temp'))) {
+            mkdir(storage_path('app/temp'), 0755, true);
         }
+        $this->fillPdfTemplate($templatePath, $namaMahasiswa, $namaStaffPromosi, $nomorSertifikat, $tempPdfPath);
         
-        // 4. Generate PDF dengan nomor yang sudah lengkap
-        $this->fillPdfTemplate($templatePath, $namaMahasiswa, $namaStaffPromosi, $nomorSertifikat, $outputFile);
+        // 2. Tentukan nama file yang akan disimpan di MinIO
+        $fileName = 'sertifikat/' . uniqid('cert-') . '-' . $proposal->id . '.pdf';
 
-        // 5. Update record sertifikat dengan data final
+        // 3. Baca konten file sementara dan unggah ke MinIO menggunakan Storage::disk('minio')
+        $fileContent = file_get_contents($tempPdfPath);
+        Storage::disk('minio')->put($fileName, $fileContent, 'public');
+        
+        // 4. Hapus file sementara dari server lokal setelah diunggah
+        unlink($tempPdfPath);
+        
+        // 5. Update record di database dengan path file di MinIO
         $certificate->update([
             'file_path' => $fileName,
             'certificate_number' => $nomorSertifikat,
         ]);
 
-        // 6. Unduh file
-        return Storage::disk('public')->download($fileName);
+        // 6. Unduh file langsung dari MinIO untuk pengguna
+        return Storage::disk('minio')->download($fileName);
     }
 
     private function fillPdfTemplate($file, $namaMahasiswa, $namaStaff, $nomorSertifikat, $outputfile)
@@ -84,13 +88,8 @@ class CertificateController extends Controller
             $fpdi->Write(0, $text);
         };
 
-        // Menulis Nomor Sertifikat (di bawah tulisan "SERTIFIKAT")
-        $centerText($fpdi, $nomorSertifikat, 70, 15, ''); // Ukuran font disesuaikan agar muat
-
-        // Menulis Nama Mahasiswa
+        $centerText($fpdi, $nomorSertifikat, 70, 15, '');
         $centerText($fpdi, strtoupper($namaMahasiswa), 105, 32, 'B');
-        
-        // Menulis Tanda Tangan Staff Promosi
         $centerText($fpdi, $namaStaff, 170, 12, 'B');
         $centerText($fpdi, 'Staff Promosi', 175, 12, '');
         
