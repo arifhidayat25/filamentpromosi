@@ -9,9 +9,10 @@ use App\Http\Controllers\Api\AuthController;
 | API Routes
 |--------------------------------------------------------------------------
 */
-
+// Rute API ini akan menggunakan middleware 'api' yang sudah didefinisikan di Kernel.php
+Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:login');
 // --- RUTE PUBLIK UNTUK AUTENTIKASI ---
-Route::post('/login', [AuthController::class, 'login']);
+//Route::post('/login', [AuthController::class, 'login']);
 
 // --- RUTE YANG DILINDUNGI (MEMERLUKAN TOKEN) ---
 // Token yang sama bisa mengakses SEMUA rute di bawah ini.

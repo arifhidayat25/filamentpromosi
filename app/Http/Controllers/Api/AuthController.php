@@ -22,8 +22,8 @@ class AuthController extends Controller
             $user = User::where('nim', $request->nim)->first();
 
             if (! $user || ! Hash::check($request->password, $user->password)) {
-                // Gunakan 'fail' karena masalah ada pada data yang dikirim klien
-                return ResponseFormatter::fail(null, 'NIM atau Password salah', 401);
+                // Menggunakan 'error' untuk kredensial yang salah
+                return ResponseFormatter::error(null, 'NIM atau Password salah', 401);
             }
 
             $token = $user->createToken('auth_token')->plainTextToken;
@@ -35,11 +35,11 @@ class AuthController extends Controller
             ], 'Login Berhasil');
 
         } catch (ValidationException $e) {
-            // Tangkap khusus error validasi dan gunakan 'fail'
-            return ResponseFormatter::fail($e->errors(), 'Validasi gagal');
+            // Menggunakan 'error' untuk validasi yang gagal
+            return ResponseFormatter::error($e->errors(), 'Validasi gagal', 422);
         } catch (\Exception $e) {
-            // Tangkap semua error server lainnya
-            return ResponseFormatter::error('Terjadi kesalahan pada server');
+            // Menggunakan 'error' untuk masalah server
+            return ResponseFormatter::error(null, 'Terjadi kesalahan pada server', 500);
         }
     }
 

@@ -4,6 +4,8 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use App\Helpers\ResponseFormatter; // <-- 1. IMPORT FORMATTER ANDA
+use Illuminate\Http\Exceptions\ThrottleRequestsException; // <-- 2. IMPORT EXCEPTION THROTTLING
 
 class Handler extends ExceptionHandler
 {
@@ -43,6 +45,19 @@ class Handler extends ExceptionHandler
     {
         $this->reportable(function (Throwable $e) {
             //
+        });
+
+        // --- TAMBAHKAN BLOK KODE INI ---
+        // Blok ini akan menangani bagaimana error ditampilkan (dirender).
+       $this->renderable(function (ThrottleRequestsException $e, $request) {
+            if ($request->expectsJson()) {
+                // Menggunakan 'error' untuk throttling
+                return ResponseFormatter::error(
+                    null,
+                    'Terlalu banyak percobaan. Silakan coba lagi nanti.',
+                    429
+                );
+            }
         });
     }
 }

@@ -17,9 +17,10 @@ class CertificateController extends Controller
             abort(403, 'Akses Ditolak atau Sertifikat Belum Tersedia.');
         }
 
-        // --- LOGIKA BARU: Cek dan Unduh dari MinIO ---
+        // --- PERBAIKAN 1: Gunakan 'response()' untuk mengunduh ---
         if ($proposal->certificate && Storage::disk('minio')->exists($proposal->certificate->file_path)) {
-            return Storage::disk('minio')->download($proposal->certificate->file_path);
+            // Menggunakan response() untuk streaming file langsung dari MinIO
+            return Storage::disk('minio')->response($proposal->certificate->file_path);
         }
 
         // Pengambilan data dinamis tetap sama
@@ -39,9 +40,7 @@ class CertificateController extends Controller
             now()->year
         );
 
-        // --- LOGIKA BARU: Proses PDF dan Unggah ke MinIO ---
-
-        // 1. Buat PDF di file sementara di server lokal
+        // Proses pembuatan PDF dan unggah ke MinIO tetap sama
         $templatePath = public_path('sertifikat_template/sertif.pdf');
         $tempPdfPath = storage_path('app/temp/' . uniqid() . '.pdf');
         if (!file_exists(storage_path('app/temp'))) {
@@ -49,24 +48,21 @@ class CertificateController extends Controller
         }
         $this->fillPdfTemplate($templatePath, $namaMahasiswa, $namaStaffPromosi, $nomorSertifikat, $tempPdfPath);
         
-        // 2. Tentukan nama file yang akan disimpan di MinIO
         $fileName = 'sertifikat/' . uniqid('cert-') . '-' . $proposal->id . '.pdf';
 
-        // 3. Baca konten file sementara dan unggah ke MinIO menggunakan Storage::disk('minio')
         $fileContent = file_get_contents($tempPdfPath);
-        Storage::disk('minio')->put($fileName, $fileContent, 'public');
+        Storage::disk('minio')->put($fileName, $fileContent);
         
-        // 4. Hapus file sementara dari server lokal setelah diunggah
         unlink($tempPdfPath);
         
-        // 5. Update record di database dengan path file di MinIO
         $certificate->update([
             'file_path' => $fileName,
             'certificate_number' => $nomorSertifikat,
         ]);
 
-        // 6. Unduh file langsung dari MinIO untuk pengguna
-        return Storage::disk('minio')->download($fileName);
+        // --- PERBAIKAN 2: Gunakan 'response()' juga di sini ---
+        // Unduh file yang baru dibuat menggunakan streaming
+        return Storage::disk('minio')->response($fileName);
     }
 
     private function fillPdfTemplate($file, $namaMahasiswa, $namaStaff, $nomorSertifikat, $outputfile)
