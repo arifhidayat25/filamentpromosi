@@ -1,90 +1,739 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-g">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Sistem Promosi - ITSK Soepraoen</title>
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Sistem Promosi Mahasiswa - ITSK RS dr. Soepraoen</title>
+  <meta name="description" content="Platform bagi mahasiswa ITSK Soepraoen untuk berpartisipasi aktif dalam promosi kampus. Ajukan proposal kegiatan, dan jadilah duta almamater.">
+  <meta name="keywords" content="ITSK Soepraoen, Promosi Kampus, Kegiatan Mahasiswa, Proposal Online">
 
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
+  <!-- Favicons -->
+  <link href="https://bootstrapmade.com/demo/templates/FlexStart/assets/img/favicon.png" rel="icon">
+  <link href="https://bootstrapmade.com/demo/templates/FlexStart/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-        <style>
-            /* Tailwind CSS */
-            *,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:Figtree, sans-serif;font-feature-settings:normal}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;font-weight:inherit;line-height:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}[type=button],[type=reset],[type=submit],button{-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]{display:none}*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: }::-webkit-backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: }.relative{position:relative}.mx-auto{margin-left:auto;margin-right:auto}.mx-6{margin-left:1.5rem;margin-right:1.5rem}.ml-4{margin-left:1rem}.mt-16{margin-top:4rem}.mt-6{margin-top:1.5rem}.mt-4{margin-top:1rem}.-mt-px{margin-top:-1px}.mr-1{margin-right:0.25rem}.flex{display:flex}.inline-flex{display:inline-flex}.grid{display:grid}.h-16{height:4rem}.h-7{height:1.75rem}.h-6{height:1.5rem}.h-5{height:1.25rem}.min-h-screen{min-height:100vh}.w-auto{width:auto}.w-16{width:4rem}.w-7{width:1.75rem}.w-6{width:1.5rem}.w-5{width:1.25rem}.max-w-7xl{max-width:80rem}.shrink-0{flex-shrink:0}.scale-100{--tw-scale-x:1;--tw-scale-y:1;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.grid-cols-1{grid-template-columns:repeat(1, minmax(0, 1fr))}.items-center{align-items:center}.justify-center{justify-content:center}.gap-6{gap:1.5rem}.gap-4{gap:1rem}.self-center{align-self:center}.rounded-lg{border-radius:0.5rem}.rounded-full{border-radius:9999px}.bg-gray-100{--tw-bg-opacity:1;background-color:rgb(243 244 246 / var(--tw-bg-opacity))}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255 / var(--tw-bg-opacity))}.bg-red-50{--tw-bg-opacity:1;background-color:rgb(254 242 242 / var(--tw-bg-opacity))}.bg-dots-darker{background-image:url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.22676 0C1.91374 0 2.45351 0.539773 2.45351 1.22676C2.45351 1.91374 1.91374 2.45351 1.22676 2.45351C0.539773 2.45351 0 1.91374 0 1.22676C0 0.539773 0.539773 0 1.22676 0Z' fill='rgba(0,0,0,0.07)'/%3E%3C/svg%3E")}.from-gray-700\/50{--tw-gradient-from:rgb(55 65 81 / 0.5);--tw-gradient-to:rgb(55 65 81 / 0);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.via-transparent{--tw-gradient-to:rgb(0 0 0 / 0);--tw-gradient-stops:var(--tw-gradient-from), transparent, var(--tw-gradient-to)}.bg-center{background-position:center}.stroke-red-500{stroke:#ef4444}.stroke-gray-400{stroke:#9ca3af}.p-6{padding:1.5rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.text-center{text-align:center}.text-right{text-align:right}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.font-semibold{font-weight:600}.leading-relaxed{line-height:1.625}.text-gray-600{--tw-text-opacity:1;color:rgb(75 85 99 / var(--tw-text-opacity))}.text-gray-900{--tw-text-opacity:1;color:rgb(17 24 39 / var(--tw-text-opacity))}.text-gray-500{--tw-text-opacity:1;color:rgb(107 114 128 / var(--tw-text-opacity))}.underline{-webkit-text-decoration-line:underline;text-decoration-line:underline}.antialiased{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.shadow-2xl{--tw-shadow:0 25px 50px -12px rgb(0 0 0 / 0.25);--tw-shadow-colored:0 25px 50px -12px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-gray-500\/20{--tw-shadow-color:rgb(107 114 128 / 0.2);--tw-shadow:var(--tw-shadow-colored)}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.selection\:bg-red-500 *::selection{--tw-bg-opacity:1;background-color:rgb(239 68 68 / var(--tw-bg-opacity))}.selection\:text-white *::selection{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity))}.selection\:bg-red-500::selection{--tw-bg-opacity:1;background-color:rgb(239 68 68 / var(--tw-bg-opacity))}.selection\:text-white::selection{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity))}.hover\:text-gray-900:hover{--tw-text-opacity:1;color:rgb(17 24 39 / var(--tw-text-opacity))}.hover\:text-gray-700:hover{--tw-text-opacity:1;color:rgb(55 65 81 / var(--tw-text-opacity))}.focus\:rounded-sm:focus{border-radius:0.125rem}.focus\:outline:focus{outline-style:solid}.focus\:outline-2:focus{outline-width:2px}.focus\:outline-red-500:focus{outline-color:#ef4444}.group:hover .group-hover\:stroke-gray-600{stroke:#4b5563}@media (prefers-reduced-motion: no-preference){.motion-safe\:hover\:scale-\[1\.01\]:hover{--tw-scale-x:1.01;--tw-scale-y:1.01;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}}@media (prefers-color-scheme: dark){.dark\:bg-gray-900{--tw-bg-opacity:1;background-color:rgb(17 24 39 / var(--tw-bg-opacity))}.dark\:bg-gray-800\/50{background-color:rgb(31 41 55 / 0.5)}.dark\:bg-red-800\/20{background-color:rgb(153 27 27 / 0.2)}.dark\:bg-dots-lighter{background-image:url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.22676 0C1.91374 0 2.45351 0.539773 2.45351 1.22676C2.45351 1.91374 1.91374 2.45351 1.22676 2.45351C0.539773 2.45351 0 1.91374 0 1.22676C0 0.539773 0.539773 0 1.22676 0Z' fill='rgba(255,255,255,0.07)'/%3E%3C/svg%3E")}.dark\:bg-gradient-to-bl{background-image:linear-gradient(to bottom left, var(--tw-gradient-stops))}.dark\:stroke-gray-600{stroke:#4b5563}.dark\:text-gray-400{--tw-text-opacity:1;color:rgb(156 163 175 / var(--tw-text-opacity))}.dark\:text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity))}.dark\:shadow-none{--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.dark\:ring-1{--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)}.dark\:ring-inset{--tw-ring-inset:inset}.dark\:ring-white\/5{--tw-ring-color:rgb(255 255 255 / 0.05)}.dark\:hover\:text-white:hover{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity))}.group:hover .dark\:group-hover\:stroke-gray-400{stroke:#9ca3af}}@media (min-width: 640px){.sm\:fixed{position:fixed}.sm\:top-0{top:0px}.sm\:right-0{right:0px}.sm\:ml-0{margin-left:0px}.sm\:flex{display:flex}.sm\:items-center{align-items:center}.sm\:justify-center{justify-content:center}.sm\:justify-between{justify-content:space-between}.sm\:text-left{text-align:left}.sm\:text-right{text-align:right}}@media (min-width: 768px){.md\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}}@media (min-width: 1024px){.lg\:gap-8{gap:2rem}.lg\:p-8{padding:2rem}}
-        </style>
-    </head>
-    <body class="antialiased">
-        <div class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
-            @if (Route::has('login'))
-                <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right">
-                    @auth
-                        <a href="{{ url('/admin') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a>
-                    @else
-                        <a href="{{ url('/admin') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log in</a>
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 
-                        @if (Route::has('register'))
-                            <a href="{{ url('/student/register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
+  <!-- Vendor CSS Files -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
 
-            <div class="max-w-7xl mx-auto p-6 lg:p-8">
-                <div class="flex justify-center">
-                    <div class="text-center">
-                        <!-- PERUBAHAN DI SINI: Mengganti SVG dengan tag <img> untuk logo -->
-                        <img src="{{ asset('image/ITSK.jpg') }}" alt="Logo ITSK Soepraoen" class="h-24 w-auto mx-auto mb-4">
-                        
-                        <h1 class="text-4xl font-bold text-gray-800 dark:text-white mb-2">Sistem Promosi</h1>
-                        <p class="text-xl text-gray-600 dark:text-gray-400">ITSK RS dr. Soepraoen Malang</p>
-                    </div>
-                </div>
+  <!-- Main CSS File -->
+  <link href="https://bootstrapmade.com/demo/templates/FlexStart/assets/css/main.css" rel="stylesheet">
 
-                <div class="mt-16">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-                        <a href="{{ url('/admin') }}" class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
-                            <div>
-                                <div class="h-16 w-16 bg-indigo-50 dark:bg-indigo-800/20 flex items-center justify-center rounded-full">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="w-7 h-7 stroke-indigo-500">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-                                    </svg>
-                                </div>
+  <!-- Custom CSS for Elegant Design -->
+  <style>
+    :root {
+      --primary-color: #01573d; /* Hijau Tua Khas ITSK */
+      --secondary-color: #f0a500; /* Emas/Kuning Kalem */
+      --light-color: #ffffff;
+      --dark-color: #1a1a1a;
+      --font-primary: 'Poppins', sans-serif;
+      --font-secondary: 'Roboto', sans-serif;
+    }
 
-                                <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">Login Admin, Staff & Pembina</h2>
+    body {
+      font-family: var(--font-secondary);
+      color: var(--dark-color);
+    }
 
-                                <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                    Akses panel admin untuk mengelola sistem, data mahasiswa, monitoring proposal, dan pengaturan sistem.
-                                </p>
-                            </div>
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-primary);
+    }
 
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="self-center shrink-0 stroke-indigo-500 w-6 h-6 mx-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
-                            </svg>
-                        </a>
+    /* Preloader */
+    #preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 9999;
+      overflow: hidden;
+      background: var(--primary-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #preloader:before {
+      content: "";
+      position: fixed;
+      top: calc(50% - 30px);
+      left: calc(50% - 30px);
+      border: 6px solid var(--secondary-color);
+      border-top-color: var(--light-color);
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: animate-preloader 1s linear infinite;
+    }
+    @keyframes animate-preloader {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
 
-                        <a href="{{ url('/student') }}" class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
-                            <div>
-                                <div class="h-16 w-16 bg-amber-50 dark:bg-amber-800/20 flex items-center justify-center rounded-full">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="w-7 h-7 stroke-amber-500">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5" />
-                                    </svg>
-                                </div>
+    /* Navbar */
+    .header {
+      background-color: rgba(1, 87, 61, 0.9);
+    }
+    .navmenu a, .navmenu a:focus {
+        color: rgba(255, 255, 255, 0.8);
+    }
+    .navmenu a:hover, .navmenu .active, .navmenu .active:focus {
+        color: var(--light-color);
+    }
+    .btn-getstarted {
+        background: var(--secondary-color);
+        color: var(--primary-color);
+    }
+    .btn-getstarted:hover {
+        background: #ffc107;
+        color: var(--primary-color);
+    }
 
-                                <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">Login & Registrasi Mahasiswa</h2>
+    /* Hero Section */
+    #hero {
+      width: 100%;
+      height: 100vh;
+      background: url("{{ asset('image/gedung.jpg') }}") center center;
+      background-size: cover;
+      position: relative;
+    }
+    #hero:before {
+      content: "";
+      background: rgba(1, 87, 61, 0.85);
+      position: absolute;
+      bottom: 0;
+      top: 0;
+      left: 0;
+      right: 0;
+    }
+    #hero h1 {
+      color: var(--light-color);
+      font-weight: 700;
+      font-size: 48px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    #hero p {
+      color: rgba(255, 255, 255, 0.9);
+    }
+    #hero .btn-get-started {
+      background: var(--secondary-color);
+      color: var(--primary-color);
+      font-weight: 600;
+    }
+    #hero .btn-watch-video {
+        color: var(--light-color);
+    }
 
-                                <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                    Akses panel mahasiswa untuk mengajukan proposal promosi, upload laporan kegiatan, dan monitoring status pengajuan.
-                                </p>
-                            </div>
+    /* Sections */
+    .section-title h2, .section-title p {
+        color: var(--primary-color);
+    }
 
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="self-center shrink-0 stroke-amber-500 w-6 h-6 mx-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
-                            </svg>
-                        </a>
+    /* Features Section */
+    .features .feature-box {
+        border: 1px solid #eee;
+        transition: 0.3s;
+    }
+    .features .feature-box:hover {
+        background: var(--primary-color);
+        border-color: var(--primary-color);
+    }
+    .features .feature-box:hover h3, .features .feature-box:hover p, .features .feature-box:hover i {
+        color: var(--light-color);
+    }
+    .features .feature-box i {
+        color: var(--primary-color);
+        font-size: 36px;
+    }
+
+    /* Services Section Custom Colors */
+    .service-item {
+        transition: transform 0.3s;
+    }
+    .service-item:hover {
+        transform: translateY(-10px);
+    }
+    .service-item.item-green { --item-color: #01573d; }
+    .service-item.item-light-green { --item-color: #028a63; }
+    .service-item.item-gold { --item-color: #f0a500; }
+    .service-item .icon { color: var(--item-color); }
+    .service-item h3 { color: var(--item-color); font-size: 1.1rem; }
+    .service-item p { font-size: 0.9rem; }
+
+
+    /* CTA Section */
+    .cta {
+        background: linear-gradient(rgba(1, 87, 61, 0.9), rgba(1, 87, 61, 0.9)), url("{{ asset('image/gedung.jpg') }}") fixed center center;
+        background-size: cover;
+        padding: 120px 0;
+    }
+    .cta h3, .cta p {
+        color: var(--light-color);
+    }
+    .cta .cta-btn {
+        font-family: var(--font-primary);
+        font-weight: 600;
+        font-size: 16px;
+        letter-spacing: 1px;
+        display: inline-block;
+        padding: 12px 40px;
+        border-radius: 50px;
+        transition: 0.5s;
+        margin: 10px;
+        border: 2px solid var(--secondary-color);
+        color: var(--light-color);
+        background: var(--secondary-color);
+    }
+    .cta .cta-btn:hover {
+        background: transparent;
+        color: var(--secondary-color);
+    }
+
+    /* Footer */
+    .footer { background: #f6f9ff; }
+    .footer .footer-top { background: var(--light-color); }
+    .footer .footer-contact p, .footer .footer-links a { color: #444444; }
+    .footer .footer-links a:hover { color: var(--secondary-color); }
+    .footer .copyright { background: #f6f9ff; }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- ======= Preloader ======= -->
+  <div id="preloader"></div>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+
+      <a href="/" class="logo d-flex align-items-center me-auto">
+        <img src="{{ asset('image/ITSK-oke.png') }}" alt="Logo ITSK Soepraoen">
+        <h1 class="sitename">ITSK dr. Soepraoen</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="#hero" class="active">Beranda</a></li>
+          <li><a href="#features">Alur Sistem</a></li>
+          <li><a href="#prodi">Jenis Kegiatan</a></li>
+          <li><a href="#testimonials">Testimoni</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#contact">Kontak</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+      <div class="dropdown">
+        <a class="btn-getstarted dropdown-toggle flex-md-shrink-0" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Login
+        </a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="{{ url('/admin') }}">Login Admin/Staf</a></li>
+          <li><a class="dropdown-item" href="{{ url('/student') }}">Login Mahasiswa</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero section d-flex align-items-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8" data-aos="fade-up">
+                    <h1>Sistem Informasi Promosi Kampus</h1>
+                    <p>Platform untuk mahasiswa ITSK Soepraoen berpartisipasi aktif sebagai duta kampus. Ajukan proposal kegiatan promosimu dan jadilah bagian dari kemajuan almamater.</p>
+                    <div class="d-flex">
+                        <a href="{{ url('/student') }}" class="btn-get-started">Ajukan Proposal</a>
+                        <a href="#features" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-arrow-right-circle"></i><span>Lihat Alur Sistem</span></a>
                     </div>
                 </div>
             </div>
         </div>
-    </body>
+    </section><!-- /Hero Section -->
+
+    <!-- Features Section -->
+    <section id="features" class="features section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Alur Sistem</h2>
+        <p>Langkah Mudah Berpartisipasi dalam Promosi Kampus</p>
+      </div>
+      <div class="container">
+        <div class="row gy-4">
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="feature-box p-4 text-center">
+              <i class="bi bi-file-earmark-plus"></i>
+              <h3>1. Ajukan Proposal</h3>
+              <p>Login ke akun mahasiswa Anda dan isi formulir pengajuan proposal kegiatan secara online.</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="feature-box p-4 text-center">
+              <i class="bi bi-clipboard-check"></i>
+              <h3>2. Review & Persetujuan</h3>
+              <p>Proposal Anda akan ditinjau oleh staf dan pembina terkait. Pantau statusnya secara real-time.</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+            <div class="feature-box p-4 text-center">
+              <i class="bi bi-flag"></i>
+              <h3>3. Pelaksanaan & Pelaporan</h3>
+              <p>Laksanakan kegiatan yang telah disetujui dan unggah laporan pertanggungjawaban di sistem.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section><!-- /Features Section -->
+
+    <!-- Program Studi Section -->
+    <section id="prodi" class="services section">
+        <div class="container section-title" data-aos="fade-up">
+            <h2>Jenis Kegiatan Promosi</h2>
+            <p>Inspirasi Kegiatan yang Bisa Kamu Ajukan</p>
+        </div>
+        <div class="container">
+            <div class="row gy-4">
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="service-item item-green position-relative">
+                        <i class="bi bi-building icon"></i>
+                        <h3>Kunjungan Sekolah</h3>
+                        <p>Memperkenalkan ITSK Soepraoen secara langsung ke siswa-siswi SMA/SMK.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="service-item item-gold position-relative">
+                        <i class="bi bi-calendar4-event icon"></i>
+                        <h3>Pameran Pendidikan</h3>
+                        <p>Berpartisipasi dalam event pameran kampus untuk menjaring calon mahasiswa.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="service-item item-light-green position-relative">
+                        <i class="bi bi-mic icon"></i>
+                        <h3>Seminar & Workshop</h3>
+                        <p>Mengadakan seminar kesehatan atau workshop yang relevan dengan program studi.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="service-item item-gold position-relative">
+                        <i class="bi bi-instagram icon"></i>
+                        <h3>Konten Media Sosial</h3>
+                        <p>Membuat konten kreatif (video, poster) untuk promosi di platform digital.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="service-item item-light-green position-relative">
+                        <i class="bi bi-people icon"></i>
+                        <h3>Pengabdian Masyarakat</h3>
+                        <p>Kegiatan sosial yang sekaligus memperkenalkan peran kampus kepada masyarakat.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="service-item item-green position-relative">
+                        <i class="bi bi-lightbulb icon"></i>
+                        <h3>Ide Kreatif Lainnya</h3>
+                        <p>Punya ide promosi lain? Ajukan proposalmu dan wujudkan bersama kami!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><!-- /Program Studi Section -->
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Testimoni Mahasiswa</h2>
+        <p>Pengalaman Menggunakan Sistem Promosi</p>
+      </div>
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="swiper init-swiper">
+          <script type="application/json" class="swiper-config">
+            {
+              "loop": true,
+              "speed": 600,
+              "autoplay": { "delay": 5000 },
+              "slidesPerView": "auto",
+              "pagination": { "el": ".swiper-pagination", "type": "bullets", "clickable": true },
+              "breakpoints": {
+                "320": { "slidesPerView": 1, "spaceBetween": 40 },
+                "1200": { "slidesPerView": 3, "spaceBetween": 20 }
+              }
+            }
+          </script>
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <p>
+                  <i class="bi bi-quote quote-icon-left"></i>
+                  <span>Sistem ini membuat pengajuan proposal jadi sangat mudah dan terorganisir. Tidak ada lagi berkas yang tercecer.</span>
+                  <i class="bi bi-quote quote-icon-right"></i>
+                </p>
+                <div class="profile mt-auto">
+                  <img src="https://bootstrapmade.com/demo/templates/FlexStart/assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
+                  <h3>Budi Setiawan</h3>
+                  <h4>Mahasiswa S1 Keperawatan</h4>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <p>
+                  <i class="bi bi-quote quote-icon-left"></i>
+                  <span>Saya bisa memantau status proposal saya kapan saja. Fitur notifikasinya sangat membantu agar tidak ketinggalan info.</span>
+                  <i class="bi bi-quote quote-icon-right"></i>
+                </p>
+                <div class="profile mt-auto">
+                  <img src="https://bootstrapmade.com/demo/templates/FlexStart/assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
+                  <h3>Siti Aminah</h3>
+                  <h4>Mahasiswa S1 Gizi</h4>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <p>
+                  <i class="bi bi-quote quote-icon-left"></i>
+                  <span>Proses dari pengajuan, persetujuan, hingga pelaporan jadi satu alur yang jelas. Sangat efisien!</span>
+                  <i class="bi bi-quote quote-icon-right"></i>
+                </p>
+                <div class="profile mt-auto">
+                  <img src="https://bootstrapmade.com/demo/templates/FlexStart/assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
+                  <h3>Joko Susilo</h3>
+                  <h4>Mahasiswa D3 Fisioterapi</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
+    </section><!-- /Testimonials Section -->
+
+    <!-- FAQ Section -->
+    <section id="faq" class="faq section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Frequently Asked Questions</h2>
+        <p>Seputar Sistem Promosi Mahasiswa</p>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="faq-container">
+              <div class="faq-item">
+                <h3><span class="num">1.</span> Siapa saja yang bisa mengajukan proposal?</h3>
+                <div class="faq-content">
+                  <p>Seluruh mahasiswa aktif ITSK RS dr. Soepraoen dapat mengajukan proposal, baik secara individu maupun berkelompok (organisasi).</p>
+                </div>
+                <i class="faq-toggle bi bi-chevron-right"></i>
+              </div>
+              <div class="faq-item">
+                <h3><span class="num">2.</span> Berapa lama proses review proposal?</h3>
+                <div class="faq-content">
+                  <p>Proses review biasanya memakan waktu 3-5 hari kerja, tergantung pada kelengkapan dan kompleksitas proposal yang diajukan.</p>
+                </div>
+                <i class="faq-toggle bi bi-chevron-right"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+             <div class="faq-container">
+              <div class="faq-item">
+                <h3><span class="num">3.</span> Apakah ada pendanaan untuk kegiatan?</h3>
+                <div class="faq-content">
+                  <p>Ya, setiap proposal yang disetujui akan mendapatkan dukungan pendanaan dari pihak kemahasiswaan sesuai dengan anggaran yang telah disetujui.</p>
+                </div>
+                <i class="faq-toggle bi bi-chevron-right"></i>
+              </div>
+                 <div class="faq-item">
+                <h3><span class="num">4.</span> Bagaimana cara melihat status proposal saya?</h3>
+                <div class="faq-content">
+                  <p>Anda dapat login ke dashboard mahasiswa untuk melihat status proposal Anda secara real-time, apakah sedang direview, perlu revisi, disetujui, atau ditolak.</p>
+                </div>
+                <i class="faq-toggle bi bi-chevron-right"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section><!-- /FAQ Section -->
+
+    <!-- Call to Action Section -->
+    <section id="cta" class="cta">
+        <div class="container" data-aos="zoom-out">
+            <div class="row g-5">
+                <div class="col-lg-8 col-md-6 content d-flex flex-column justify-content-center order-last order-md-first">
+                    <h3>Punya Ide Promosi yang Brilian?</h3>
+                    <p>Jangan ragu untuk mewujudkannya. Sistem kami siap mendukung kreativitas Anda untuk kemajuan bersama. Segera ajukan proposal kegiatanmu!</p>
+                </div>
+                <div class="col-lg-4 col-md-6 order-first order-md-last d-flex align-items-center">
+                    <div class="img">
+                        <img src="https://bootstrapmade.com/demo/templates/FlexStart/assets/img/cta.jpg" alt="" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+             <div class="text-center mt-4">
+                <a class="cta-btn" href="{{ url('/student') }}">Login dan Ajukan Proposal</a>
+            </div>
+        </div>
+    </section><!-- /Call to Action Section -->
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact section">
+        <div class="container section-title" data-aos="fade-up">
+            <h2>Kontak</h2>
+            <p>Hubungi Tim Kemahasiswaan</p>
+        </div>
+        <div class="container" data-aos="fade-up" data-aos-delay="100">
+            <div class="row gy-4">
+                <div class="col-lg-6">
+                    <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="200">
+                        <i class="bi bi-geo-alt flex-shrink-0"></i>
+                        <div>
+                        <h3>Alamat</h3>
+                        <p>Jl. Jenderal Sudirman No.10, Malang, Jawa Timur</p>
+                        </div>
+                    </div>
+                    <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
+                        <i class="bi bi-telephone flex-shrink-0"></i>
+                        <div>
+                        <h3>Telepon</h3>
+                        <p>(0341) 123-456</p>
+                        </div>
+                    </div>
+                    <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
+                        <i class="bi bi-envelope flex-shrink-0"></i>
+                        <div>
+                        <h3>Email</h3>
+                        <p>kemahasiswaan@itsk-soepraoen.ac.id</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <form action="#" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+                        <div class="row gy-4">
+                            <div class="col-md-6">
+                                <input type="text" name="name" class="form-control" placeholder="Nama Anda" required="">
+                            </div>
+                            <div class="col-md-6 ">
+                                <input type="email" class="form-control" name="email" placeholder="Email Anda" required="">
+                            </div>
+                            <div class="col-12">
+                                <input type="text" class="form-control" name="subject" placeholder="Subjek" required="">
+                            </div>
+                            <div class="col-12">
+                                <textarea class="form-control" name="message" rows="6" placeholder="Pesan" required=""></textarea>
+                            </div>
+                            <div class="col-12 text-center">
+                                <div class="loading">Loading</div>
+                                <div class="error-message"></div>
+                                <div class="sent-message">Pesan Anda telah terkirim. Terima kasih!</div>
+                                <button type="submit">Kirim Pesan</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section><!-- /Contact Section -->
+
+  </main>
+
+  <footer id="footer" class="footer">
+    <div class="container footer-top">
+        <div class="row gy-4">
+            <div class="col-lg-5 col-md-12 footer-about">
+                <a href="/" class="logo d-flex align-items-center">
+                    <img src="{{ asset('image/ITSK-oke.png') }}" alt="Logo ITSK Soepraoen" style="max-height: 40px; margin-right: 10px;">
+                    <span class="sitename">ITSK Soepraoen</span>
+                </a>
+                <p class="mt-3">Mencetak lulusan yang unggul, profesional, dan berdaya saing global di bidang kesehatan dan teknologi.</p>
+                <div class="social-links d-flex mt-4">
+                    <a href=""><i class="bi bi-twitter-x"></i></a>
+                    <a href=""><i class="bi bi-facebook"></i></a>
+                    <a href=""><i class="bi bi-instagram"></i></a>
+                    <a href=""><i class="bi bi-linkedin"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-2 col-6 footer-links">
+                <h4>Tautan Penting</h4>
+                <ul>
+                    <li><i class="bi bi-chevron-right"></i> <a href="#hero">Beranda</a></li>
+                    <li><i class="bi bi-chevron-right"></i> <a href="#prodi">Jenis Kegiatan</a></li>
+                    <li><i class="bi bi-chevron-right"></i> <a href="#faq">FAQ</a></li>
+                    <li><i class="bi bi-chevron-right"></i> <a href="#">Website Utama</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-2 col-6 footer-links">
+                <h4>Portal</h4>
+                <ul>
+                    <li><i class="bi bi-chevron-right"></i> <a href="{{ url('/admin') }}">Login Admin</a></li>
+                    <li><i class="bi bi-chevron-right"></i> <a href="{{ url('/student') }}">Login Mahasiswa</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
+                <h4>Hubungi Kami</h4>
+                <p>
+                    Jl. Jenderal Sudirman No.10<br>
+                    Malang, Jawa Timur<br><br>
+                    <strong>Telepon:</strong> <span>(0341) 123-456</span><br>
+                    <strong>Email:</strong> <span>info@itsk-soepraoen.ac.id</span><br>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="container copyright text-center mt-4">
+      <p>© <span>Copyright</span> <strong class="px-1 sitename">ITSK Soepraoen</strong> <span>All Rights Reserved</span></p>
+    </div>
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>
+  <script src="https://bootstrapmade.com/demo/templates/FlexStart/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="https://bootstrapmade.com/demo/templates/FlexStart/assets/vendor/php-email-form/validate.js"></script>
+  
+  <!-- Main JS File -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      "use strict";
+
+      /**
+       * Preloader
+       */
+      const preloader = document.querySelector('#preloader');
+      if (preloader) {
+        window.addEventListener('load', () => {
+          preloader.remove();
+        });
+      }
+
+      /**
+       * Sticky header on scroll
+       */
+      const selectHeader = document.querySelector('#header');
+      if (selectHeader) {
+        document.addEventListener('scroll', () => {
+          window.scrollY > 100 ? selectHeader.classList.add('sticked') : selectHeader.classList.remove('sticked');
+        });
+      }
+
+      /**
+       * Mobile nav toggle
+       */
+      const mobileNavToogle = document.querySelector('.mobile-nav-toggle');
+      if (mobileNavToogle) {
+        mobileNavToogle.addEventListener('click', function(event) {
+          event.preventDefault();
+          document.querySelector('body').classList.toggle('mobile-nav-active');
+          this.classList.toggle('bi-list');
+          this.classList.toggle('bi-x');
+        });
+      }
+
+      /**
+       * Hide mobile nav on same-page/hash links
+       */
+      document.querySelectorAll('#navmenu a').forEach(navmenu => {
+        navmenu.addEventListener('click', () => {
+          if (document.querySelector('.mobile-nav-active')) {
+            document.querySelector('.mobile-nav-active').classList.remove('mobile-nav-active');
+            let navbarToggle = document.querySelector('.mobile-nav-toggle');
+            navbarToggle.classList.toggle('bi-list');
+            navbarToggle.classList.toggle('bi-x');
+          }
+        });
+      });
+
+      /**
+       * Toggle mobile nav dropdowns
+       */
+      const navDropdowns = document.querySelectorAll('.navmenu .dropdown > a');
+      navDropdowns.forEach(el => {
+        el.addEventListener('click', function(event) {
+          if (document.querySelector('.mobile-nav-active')) {
+            event.preventDefault();
+            this.classList.toggle('active');
+            this.nextElementSibling.classList.toggle('dropdown-active');
+            let dropDownIndicator = this.querySelector('.toggle-dropdown');
+            dropDownIndicator.classList.toggle('bi-chevron-up');
+            dropDownIndicator.classList.toggle('bi-chevron-down');
+          }
+        })
+      });
+
+      /**
+       * Scroll top button
+       */
+      const scrollTop = document.querySelector('.scroll-top');
+      if (scrollTop) {
+        const togglescrollTop = function() {
+          window.scrollY > 100 ? scrollTop.classList.add('active') : scrollTop.classList.remove('active');
+        }
+        window.addEventListener('load', togglescrollTop);
+        document.addEventListener('scroll', togglescrollTop);
+        scrollTop.addEventListener('click', window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        }));
+      }
+
+      /**
+       * Animation on scroll function and init
+       */
+      function aos_init() {
+        AOS.init({
+          duration: 1000,
+          easing: 'ease-in-out',
+          once: true,
+          mirror: false
+        });
+      }
+      window.addEventListener('load', () => {
+        aos_init();
+      });
+
+      /**
+       * Init swiper sliders
+       */
+      function initSwiper() {
+        document.querySelectorAll('.init-swiper').forEach(function(swiperElement) {
+          let config = JSON.parse(swiperElement.querySelector('.swiper-config').innerHTML.trim());
+          new Swiper(swiperElement, config);
+        });
+      }
+      window.addEventListener('load', initSwiper);
+
+      /**
+       * GLightbox
+       */
+      const glightbox = GLightbox({
+        selector: '.glightbox'
+      });
+
+      /**
+       * Pure Counter
+       */
+      new PureCounter();
+
+    });
+  </script>
+
+</body>
 </html>
