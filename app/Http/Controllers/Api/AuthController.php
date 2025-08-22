@@ -15,15 +15,15 @@ class AuthController extends Controller
     {
         try {
             $request->validate([
-                'nim' => 'required|string',
+                'email' => 'required|string|email',
                 'password' => 'required|string',
             ]);
 
-            $user = User::where('nim', $request->nim)->first();
+            $user = User::where('email', $request->email)->first();
 
             if (! $user || ! Hash::check($request->password, $user->password)) {
                 // Menggunakan 'error' untuk kredensial yang salah
-                return ResponseFormatter::error(null, 'NIM atau Password salah', 401);
+                return ResponseFormatter::error(null, 'Email atau Password salah', 401);
             }
 
             $token = $user->createToken('auth_token')->plainTextToken;
