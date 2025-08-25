@@ -138,7 +138,7 @@
       border: 2px solid var(--accent-color);
     }
      #hero .btn-get-started:hover {
-        background: #ec4899;
+        background: #5348ecff;
         border-color: #ec4899;
      }
     #hero .btn-watch-video {
@@ -334,15 +334,7 @@
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
 
-      <div class="dropdown">
-        <a class="btn-getstarted dropdown-toggle flex-md-shrink-0" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          Login
-        </a>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="{{ url('/admin') }}">Login Admin/Staf</a></li>
-          <li><a class="dropdown-item" href="{{ url('/student') }}">Login Mahasiswa</a></li>
-        </ul>
-      </div>
+      <a class="btn-getstarted flex-md-shrink-0" href="{{ url('/student') }}">Login</a>
 
     </div>
   </header>
@@ -853,4 +845,4 @@
   </script>
 
 </body>
-</ht
+</html>
