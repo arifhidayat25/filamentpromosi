@@ -30,10 +30,13 @@
   <!-- Custom CSS for Elegant Design -->
   <style>
     :root {
-      --primary-color: #01573d; /* Hijau Tua Khas ITSK */
-      --secondary-color: #f0a500; /* Emas/Kuning Kalem */
-      --light-color: #ffffff;
-      --dark-color: #1a1a1a;
+      --primary-blue: #2563EB;
+      --primary-aqua: #22D3EE;
+      --primary-glow: #E0F2FE;
+      --accent-color: #000080; /* Pink neon */
+      --light-color: #FFFFFF;
+      --dark-color: #1F2937; /* Abu gelap */
+      --base-color: #FFFFFF;
       --font-primary: 'Poppins', sans-serif;
       --font-secondary: 'Roboto', sans-serif;
     }
@@ -41,10 +44,12 @@
     body {
       font-family: var(--font-secondary);
       color: var(--dark-color);
+      background-color: var(--base-color);
     }
 
     h1, h2, h3, h4, h5, h6 {
       font-family: var(--font-primary);
+      color: var(--dark-color);
     }
 
     /* Preloader */
@@ -56,7 +61,7 @@
       bottom: 0;
       z-index: 9999;
       overflow: hidden;
-      background: var(--primary-color);
+      background: var(--primary-blue);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -66,7 +71,7 @@
       position: fixed;
       top: calc(50% - 30px);
       left: calc(50% - 30px);
-      border: 6px solid var(--secondary-color);
+      border: 6px solid var(--accent-color);
       border-top-color: var(--light-color);
       border-radius: 50%;
       width: 60px;
@@ -80,7 +85,7 @@
 
     /* Navbar */
     .header {
-      background-color: rgba(1, 87, 61, 0.9);
+      background-color: rgba(37, 99, 235, 0.9); /* Solid blue from gradient */
     }
     .navmenu a, .navmenu a:focus {
         color: rgba(255, 255, 255, 0.8);
@@ -89,12 +94,15 @@
         color: var(--light-color);
     }
     .btn-getstarted {
-        background: var(--secondary-color);
-        color: var(--primary-color);
+        background: var(--accent-color);
+        color: var(--light-color);
+        font-weight: 600;
+        border: 2px solid var(--accent-color);
     }
     .btn-getstarted:hover {
-        background: #ffc107;
-        color: var(--primary-color);
+        background: #4884ecff; /* Slightly darker pink on hover */
+        border-color: #094aa4ff;
+        color: var(--light-color);
     }
 
     /* Hero Section */
@@ -107,7 +115,7 @@
     }
     #hero:before {
       content: "";
-      background: rgba(1, 87, 61, 0.85);
+      background: linear-gradient(45deg, rgba(37, 99, 235, 0.85), rgba(34, 211, 238, 0.85)); /* Gradient Overlay */
       position: absolute;
       bottom: 0;
       top: 0;
@@ -124,54 +132,101 @@
       color: rgba(255, 255, 255, 0.9);
     }
     #hero .btn-get-started {
-      background: var(--secondary-color);
-      color: var(--primary-color);
+      background: var(--accent-color);
+      color: var(--light-color);
       font-weight: 600;
+      border: 2px solid var(--accent-color);
     }
+     #hero .btn-get-started:hover {
+        background: #ec4899;
+        border-color: #ec4899;
+     }
     #hero .btn-watch-video {
         color: var(--light-color);
     }
 
     /* Sections */
-    .section-title h2, .section-title p {
-        color: var(--primary-color);
+    .section {
+        background-color: var(--light-color);
+    }
+    .section-title {
+        text-align: center;
+        padding-bottom: 30px;
+    }
+    .section-title .pill-title {
+        display: inline-block;
+        padding: 6px 20px;
+        background-color: var(--primary-glow);
+        color: var(--primary-blue);
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 14px;
+        margin-bottom: 15px;
+        text-transform: uppercase;
+    }
+    .section-title h2 {
+        color: var(--dark-color);
+        font-weight: 700;
+        margin-bottom: 0;
     }
 
     /* Features Section */
     .features .feature-box {
-        border: 1px solid #eee;
+        border: 1px solid #e5e7eb;
         transition: 0.3s;
+        border-radius: 8px;
+        background-color: var(--light-color);
+        padding: 30px;
+        text-align: left;
+        box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
     }
     .features .feature-box:hover {
-        background: var(--primary-color);
-        border-color: var(--primary-color);
+        transform: translateY(-5px);
+        box-shadow: 0 6px 30px rgba(0, 0, 0, 0.1);
     }
-    .features .feature-box:hover h3, .features .feature-box:hover p, .features .feature-box:hover i {
-        color: var(--light-color);
+    .features .feature-box h3 {
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-bottom: 10px;
     }
     .features .feature-box i {
-        color: var(--primary-color);
-        font-size: 36px;
+        font-size: 24px;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--primary-glow);
+        color: var(--primary-blue);
+        border-radius: 50%;
+        margin-bottom: 15px;
     }
 
     /* Services Section Custom Colors */
+    .services.section {
+        background-color: #F9FAFB; /* Lighter gray for this section */
+    }
     .service-item {
         transition: transform 0.3s;
+        border-radius: 8px;
+        padding: 30px;
+        background-color: var(--light-color);
+        box-shadow: 0 0 30px rgba(0,0,0,0.08);
     }
     .service-item:hover {
         transform: translateY(-10px);
     }
-    .service-item.item-green { --item-color: #01573d; }
-    .service-item.item-light-green { --item-color: #028a63; }
-    .service-item.item-gold { --item-color: #f0a500; }
-    .service-item .icon { color: var(--item-color); }
-    .service-item h3 { color: var(--item-color); font-size: 1.1rem; }
+    .service-item.item-blue { --item-color: #2563EB; }
+    .service-item.item-aqua { --item-color: #22D3EE; }
+    .service-item.item-pink { --item-color: #F472B6; }
+    .service-item .icon { color: var(--item-color); font-size: 3rem; }
+    .service-item h3 { color: var(--item-color); font-size: 1.2rem; font-weight: 600; }
     .service-item p { font-size: 0.9rem; }
 
 
     /* CTA Section */
     .cta {
-        background: linear-gradient(rgba(1, 87, 61, 0.9), rgba(1, 87, 61, 0.9)), url("{{ asset('image/gedung.jpg') }}") fixed center center;
+        background: linear-gradient(45deg, rgba(37, 99, 235, 0.9), rgba(34, 211, 238, 0.9)), url("{{ asset('image/gedung.jpg') }}") fixed center center;
         background-size: cover;
         padding: 120px 0;
     }
@@ -188,21 +243,67 @@
         border-radius: 50px;
         transition: 0.5s;
         margin: 10px;
-        border: 2px solid var(--secondary-color);
+        border: 2px solid var(--accent-color);
         color: var(--light-color);
-        background: var(--secondary-color);
+        background: var(--accent-color);
     }
     .cta .cta-btn:hover {
         background: transparent;
-        color: var(--secondary-color);
+        color: var(--accent-color);
+    }
+    
+    /* Contact Section */
+    .contact .info-item {
+        background: var(--light-color);
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    .contact .info-item i {
+        font-size: 24px;
+        width: 50px;
+        height: 50px;
+        background: #fde2f3; /* Lighter pink */
+        color: var(--accent-color);
+        border-radius: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 20px;
+    }
+    .contact .info-item h3 {
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin: 0;
+    }
+    .contact .php-email-form {
+        width: 100%;
+        background: var(--light-color);
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
+    }
+     .contact .php-email-form button[type="submit"] {
+        background: var(--accent-color);
+        border: 0;
+        padding: 10px 30px;
+        color: #fff;
+        transition: 0.4s;
+        border-radius: 50px;
+    }
+    .contact .php-email-form button[type="submit"]:hover {
+        background: #ec4899;
     }
 
+
     /* Footer */
-    .footer { background: #f6f9ff; }
+    .footer { background: #F9FAFB; }
     .footer .footer-top { background: var(--light-color); }
-    .footer .footer-contact p, .footer .footer-links a { color: #444444; }
-    .footer .footer-links a:hover { color: var(--secondary-color); }
-    .footer .copyright { background: #f6f9ff; }
+    .footer .footer-contact p, .footer .footer-links a { color: #555; }
+    .footer .footer-links a:hover { color: var(--accent-color); }
+    .footer .copyright { background: #F9FAFB; }
 
   </style>
 </head>
@@ -218,7 +319,7 @@
 
       <a href="/" class="logo d-flex align-items-center me-auto">
         <img src="{{ asset('image/ITSK-oke.png') }}" alt="Logo ITSK Soepraoen">
-        <h1 class="sitename">ITSK dr. Soepraoen</h1>
+<h1 class="sitename" style="color: white;">ITSK dr. Soepraoen</h1>
       </a>
 
       <nav id="navmenu" class="navmenu">
@@ -256,8 +357,12 @@
                     <h1>Sistem Informasi Promosi Kampus</h1>
                     <p>Platform untuk mahasiswa ITSK Soepraoen berpartisipasi aktif sebagai duta kampus. Ajukan proposal kegiatan promosimu dan jadilah bagian dari kemajuan almamater.</p>
                     <div class="d-flex">
-                        <a href="{{ url('/student') }}" class="btn-get-started">Ajukan Proposal</a>
-                        <a href="#features" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-arrow-right-circle"></i><span>Lihat Alur Sistem</span></a>
+                        <a href="#" class="btn me-3 btn-get-started">Ajukan Proposal</a>
+<a href="#features" class="glightbox btn-watch-video d-flex align-items-center c">
+  <i class="bi bi-arrow-right-circle" style="color: white;"></i>
+  <span>Lihat Alur Sistem</span>
+</a>
+
                     </div>
                 </div>
             </div>
@@ -267,27 +372,27 @@
     <!-- Features Section -->
     <section id="features" class="features section">
       <div class="container section-title" data-aos="fade-up">
-        <h2>Alur Sistem</h2>
-        <p>Langkah Mudah Berpartisipasi dalam Promosi Kampus</p>
+        <p class="pill-title">Alur Sistem</p>
+        <h2>Langkah Mudah Berpartisipasi dalam Promosi Kampus</h2>
       </div>
       <div class="container">
         <div class="row gy-4">
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-            <div class="feature-box p-4 text-center">
+            <div class="feature-box">
               <i class="bi bi-file-earmark-plus"></i>
               <h3>1. Ajukan Proposal</h3>
               <p>Login ke akun mahasiswa Anda dan isi formulir pengajuan proposal kegiatan secara online.</p>
             </div>
           </div>
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-            <div class="feature-box p-4 text-center">
+            <div class="feature-box">
               <i class="bi bi-clipboard-check"></i>
               <h3>2. Review & Persetujuan</h3>
               <p>Proposal Anda akan ditinjau oleh staf dan pembina terkait. Pantau statusnya secara real-time.</p>
             </div>
           </div>
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-            <div class="feature-box p-4 text-center">
+            <div class="feature-box">
               <i class="bi bi-flag"></i>
               <h3>3. Pelaksanaan & Pelaporan</h3>
               <p>Laksanakan kegiatan yang telah disetujui dan unggah laporan pertanggungjawaban di sistem.</p>
@@ -300,48 +405,48 @@
     <!-- Program Studi Section -->
     <section id="prodi" class="services section">
         <div class="container section-title" data-aos="fade-up">
-            <h2>Jenis Kegiatan Promosi</h2>
-            <p>Inspirasi Kegiatan yang Bisa Kamu Ajukan</p>
+            <p class="pill-title">Jenis Kegiatan Promosi</p>
+            <h2>Inspirasi Kegiatan yang Bisa Kamu Ajukan</h2>
         </div>
         <div class="container">
             <div class="row gy-4">
                 <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-                    <div class="service-item item-green position-relative">
+                    <div class="service-item item-blue position-relative">
                         <i class="bi bi-building icon"></i>
                         <h3>Kunjungan Sekolah</h3>
                         <p>Memperkenalkan ITSK Soepraoen secara langsung ke siswa-siswi SMA/SMK.</p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-                    <div class="service-item item-gold position-relative">
+                    <div class="service-item item-aqua position-relative">
                         <i class="bi bi-calendar4-event icon"></i>
                         <h3>Pameran Pendidikan</h3>
                         <p>Berpartisipasi dalam event pameran kampus untuk menjaring calon mahasiswa.</p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-                    <div class="service-item item-light-green position-relative">
+                    <div class="service-item item-pink position-relative">
                         <i class="bi bi-mic icon"></i>
                         <h3>Seminar & Workshop</h3>
                         <p>Mengadakan seminar kesehatan atau workshop yang relevan dengan program studi.</p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-                    <div class="service-item item-gold position-relative">
+                    <div class="service-item item-aqua position-relative">
                         <i class="bi bi-instagram icon"></i>
                         <h3>Konten Media Sosial</h3>
                         <p>Membuat konten kreatif (video, poster) untuk promosi di platform digital.</p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-                    <div class="service-item item-light-green position-relative">
+                    <div class="service-item item-pink position-relative">
                         <i class="bi bi-people icon"></i>
                         <h3>Pengabdian Masyarakat</h3>
                         <p>Kegiatan sosial yang sekaligus memperkenalkan peran kampus kepada masyarakat.</p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-                    <div class="service-item item-green position-relative">
+                    <div class="service-item item-blue position-relative">
                         <i class="bi bi-lightbulb icon"></i>
                         <h3>Ide Kreatif Lainnya</h3>
                         <p>Punya ide promosi lain? Ajukan proposalmu dan wujudkan bersama kami!</p>
@@ -354,8 +459,8 @@
     <!-- Testimonials Section -->
     <section id="testimonials" class="testimonials section">
       <div class="container section-title" data-aos="fade-up">
-        <h2>Testimoni Mahasiswa</h2>
-        <p>Pengalaman Menggunakan Sistem Promosi</p>
+        <p class="pill-title">Testimoni Mahasiswa</p>
+        <h2>Pengalaman Menggunakan Sistem Promosi</h2>
       </div>
       <div class="container" data-aos="fade-up" data-aos-delay="100">
         <div class="swiper init-swiper">
@@ -424,8 +529,8 @@
     <!-- FAQ Section -->
     <section id="faq" class="faq section">
       <div class="container section-title" data-aos="fade-up">
-        <h2>Frequently Asked Questions</h2>
-        <p>Seputar Sistem Promosi Mahasiswa</p>
+        <p class="pill-title">Frequently Asked Questions</p>
+        <h2>Seputar Sistem Promosi Mahasiswa</h2>
       </div>
       <div class="container">
         <div class="row">
@@ -492,8 +597,8 @@
     <!-- Contact Section -->
     <section id="contact" class="contact section">
         <div class="container section-title" data-aos="fade-up">
-            <h2>Kontak</h2>
-            <p>Hubungi Tim Kemahasiswaan</p>
+            <p class="pill-title">Kontak</p>
+            <h2>Hubungi Tim Kemahasiswaan</h2>
         </div>
         <div class="container" data-aos="fade-up" data-aos-delay="100">
             <div class="row gy-4">
@@ -585,8 +690,7 @@
             <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
                 <h4>Hubungi Kami</h4>
                 <p>
-                    Jl. Jenderal Sudirman No.10<br>
-                    Malang, Jawa Timur<br><br>
+                    Jl. S. Supriadi No.22, Sukun, Kec. Sukun, Kota Malang, Jawa Timur Kode Pos: 65147<br><br>
                     <strong>Telepon:</strong> <span>(0341) 123-456</span><br>
                     <strong>Email:</strong> <span>info@itsk-soepraoen.ac.id</span><br>
                 </p>
@@ -688,10 +792,13 @@
         }
         window.addEventListener('load', togglescrollTop);
         document.addEventListener('scroll', togglescrollTop);
-        scrollTop.addEventListener('click', window.scrollTo({
-          top: 0,
-          behavior: 'smooth'
-        }));
+        scrollTop.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
       }
 
       /**
@@ -732,8 +839,18 @@
        */
       new PureCounter();
 
+      /**
+       * FAQ Toggle
+       */
+      const faqItems = document.querySelectorAll('.faq-item');
+      faqItems.forEach(item => {
+          item.addEventListener('click', () => {
+              item.classList.toggle('active');
+          });
+      });
+
     });
   </script>
 
 </body>
-</html>
+</ht
