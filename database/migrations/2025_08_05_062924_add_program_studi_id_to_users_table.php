@@ -23,7 +23,11 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            //
-        });
+    if (Schema::hasColumn('users', 'program_studi_id')) {
+        $table->dropForeign(['program_studi_id']);
+        $table->dropColumn('program_studi_id');
+    }
+});
+
     }
 };

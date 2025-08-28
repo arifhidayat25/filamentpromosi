@@ -19,26 +19,21 @@ class ProposalCreationTest extends TestCase
      */
     public function test_authenticated_user_can_create_proposal(): void
     {
-        // 1. Persiapan (Arrange)
-        // --- PERBAIKAN DI SINI ---
-        // Buat user dengan password yang kita ketahui ('password')
-        // Ini akan di-hash secara otomatis oleh UserFactory/Model.
         $user = User::factory()->create([
             'password' => 'password',
         ]);
         $school = School::factory()->create();
 
-        // 2. Aksi (Act)
-        // Simulasikan permintaan POST sebagai user tersebut
         $response = $this->actingAs($user, 'sanctum')->postJson('/api/proposals', [
             'school_id' => $school->id,
             'proposed_date' => now()->toDateString(),
             'notes' => 'Ini adalah catatan untuk tes proposal.',
         ]);
 
-        // 3. Pengecekan (Assert)
-        // Sesuaikan ekspektasi status code dengan controller Anda
-        $response->assertStatus(200);
+        // --- PERBAIKAN DI SINI ---
+        // Kembalikan ekspektasi ke 201 Created, sesuai best practice
+        // dan sesuai dengan apa yang dikembalikan oleh controller Anda.
+        $response->assertStatus(201);
         $response->assertJson(['status' => 'success']);
         $this->assertDatabaseHas('proposals', [
             'user_id' => $user->id,

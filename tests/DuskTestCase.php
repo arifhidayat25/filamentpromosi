@@ -5,13 +5,39 @@ namespace Tests;
 use Facebook\WebDriver\Chrome\ChromeOptions;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Schema;
 use Laravel\Dusk\TestCase as BaseTestCase;
 use PHPUnit\Framework\Attributes\BeforeClass;
 
 abstract class DuskTestCase extends BaseTestCase
 {
     use CreatesApplication;
+    
+    /**
+     * Modifikasi metode setUpTraits untuk menangani foreign key constraints.
+     * Ini akan berjalan sebelum setiap tes yang menggunakan DatabaseMigrations.
+     *
+     * @return array
+     */
+    protected function setUpTraits()
+    {
+        $uses = parent::setUpTraits();
+
+        if (isset($uses[DatabaseMigrations::class])) {
+            // Nonaktifkan pengecekan foreign key sebelum migrasi
+            Schema::disableForeignKeyConstraints();
+            
+            // Jalankan migrasi
+            $this->runDatabaseMigrations();
+            
+            // Aktifkan kembali pengecekan foreign key setelah migrasi
+            Schema::enableForeignKeyConstraints();
+        }
+
+        return $uses;
+    }
 
     /**
      * Prepare for Dusk test execution.
@@ -23,7 +49,7 @@ abstract class DuskTestCase extends BaseTestCase
             static::startChromeDriver(['--port=9515']);
         }
     }
-
+    
     /**
      * Create the RemoteWebDriver instance.
      */

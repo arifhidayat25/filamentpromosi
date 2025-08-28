@@ -10,35 +10,32 @@ use App\Models\Proposal;
 use App\Models\School;
 use App\Models\ProgramStudi;
 use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class PembinaApprovalTest extends DuskTestCase
 {
     use DatabaseMigrations;
 
-    /**
-     * Tes alur pembina menyetujui proposal.
-     *
-     * @return void
-     */
     public function testPembinaCanApproveProposal(): void
     {
-        // 1. Persiapan (Arrange)
-        // Buat roles
-        Role::firstOrCreate(['name' => 'mahasiswa']);
-        Role::firstOrCreate(['name' => 'pembina']);
+        // --- PERBAIKAN DI SINI: Siapkan Roles dan Permissions ---
+        $roleMahasiswa = Role::firstOrCreate(['name' => 'mahasiswa', 'guard_name' => 'web']);
+        $rolePembina = Role::firstOrCreate(['name' => 'pembina', 'guard_name' => 'web']);
+        
+        // Buat permission yang dibutuhkan untuk mengakses halaman edit
+        $permission = Permission::firstOrCreate(['name' => 'update_proposal', 'guard_name' => 'web']);
+        $rolePembina->givePermissionTo($permission);
 
-        // Buat prodi dan sekolah
+        // Persiapan data lainnya
         $prodi = ProgramStudi::factory()->create();
         $sekolah = School::factory()->create();
 
-        // Buat user mahasiswa dan pembina dari prodi yang sama
-        $mahasiswa = User::factory()->create(['program_studi_id' => $prodi->id]);
-        $mahasiswa->assignRole('mahasiswa');
+        $mahasiswa = User::factory()->create(['program_studi_id' => $prodi->id, 'password' => 'password']);
+        $mahasiswa->assignRole($roleMahasiswa);
 
-        $pembina = User::factory()->create(['program_studi_id' => $prodi->id]);
-        $pembina->assignRole('pembina');
+        $pembina = User::factory()->create(['program_studi_id' => $prodi->id, 'password' => 'password']);
+        $pembina->assignRole($rolePembina);
 
-        // Buat proposal yang diajukan oleh mahasiswa
         $proposal = Proposal::factory()->create([
             'user_id' => $mahasiswa->id,
             'school_id' => $sekolah->id,
@@ -46,19 +43,18 @@ class PembinaApprovalTest extends DuskTestCase
             'status' => 'diajukan'
         ]);
 
-        // 2. Aksi & Pengecekan
         $this->browse(function (Browser $browser) use ($pembina, $proposal) {
-            $browser->loginAs($pembina, 'web') // Login sebagai pembina
-                    ->visit('/admin/proposals/' . $proposal->id . '/edit') // Kunjungi halaman edit proposal
-                    ->assertSee('Informasi Pengajuan')
+            $browser->loginAs($pembina, 'web')
+                    ->visit('/admin/proposals/' . $proposal->id . '/edit')
+                    ->waitForText('Edit Ajuan Promosi') // Tunggu hingga halaman dimuat
+                    ->assertSee('Edit Ajuan Promosi')
 
-                    // Pilih opsi untuk menyetujui
-                    ->select('status', 'disetujui_pembina')
+                    ->select('data.status', 'disetujui_pembina')
+                    ->press('Save changes')
 
-                    ->press('Save changes') // Klik tombol simpan
-
-                    ->assertPathIs('/admin/proposals') // Kembali ke halaman daftar
-                    ->assertSee('Disetujui Pembina'); // Cek status baru di tabel
+                    ->waitForLocation('/admin/proposals')
+                    ->assertPathIs('/admin/proposals')
+                    ->assertSee('Disetujui Pembina');
         });
     }
 }

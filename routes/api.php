@@ -44,6 +44,8 @@ Route::middleware('auth:sanctum')->group(function () {
   // Endpoint untuk membuat proposal baru
      Route::post('/proposals', [ProposalController::class, 'store']);
 
+     Route::get('/pembina/proposals', [\App\Http\Controllers\Api\ProposalController::class, 'indexForPembina']);
+
     // Endpoint untuk logout
     Route::post('/logout', [AuthController::class, 'logout']);
 });

@@ -6,29 +6,34 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 use App\Models\User;
+use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Hash;
 
 class LoginTest extends DuskTestCase
 {
     use DatabaseMigrations;
 
-    /**
-     * A Dusk test example.
-     *
-     * @return void
-     */
-    public function testSuccessfulLogin()
+    public function test_student_can_login_successfully(): void
     {
-        // Membuat user untuk pengujian
-        $user = User::factory()->create([
-            'email' => 'pengguna@tes.com',
+        // Persiapan: Buat peran dan user mahasiswa
+        Role::create(['name' => 'mahasiswa', 'guard_name' => 'web']);
+        $student = User::factory()->create([
+            'email' => 'mahasiswa@test.com',
+            'password' => Hash::make('password123'), // password harus di-hash
         ]);
+        $student->assignRole('mahasiswa');
 
-        $this->browse(function (Browser $browser) use ($user) {
-            $browser->visit('/student/login') // 1. Kunjungi halaman login
-                    ->type('email', $user->email) // 2. Isi input email
-                    ->type('password', 'password') // 3. Isi input password
-                    ->press('Login') // 4. Klik tombol Login
-                    ->assertPathIs('/dashboard'); // 5. Pastikan halaman dialihkan ke dashboard
+        $this->browse(function (Browser $browser) use ($student) {
+            $browser->visit('/student/login')
+                    ->assertSee('Login Portal Student')
+                    
+                    ->type('#data\.email', $student->email)
+                    ->type('#data\.password', 'password123')
+                    
+                    ->press('Sign in') // ganti sesuai label tombol submit
+                    ->waitForLocation('/student') // sesuaikan route redirect
+                    ->assertPathIs('/student')
+                    ->assertSee('Dashboard');
         });
     }
 }
