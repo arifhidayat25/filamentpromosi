@@ -163,6 +163,17 @@
       0 => 'Laravel\\Tinker\\TinkerServiceProvider',
     ),
   ),
+  'leandrocfe/filament-apex-charts' => 
+  array (
+    'aliases' => 
+    array (
+      'FilamentApexCharts' => 'Leandrocfe\\FilamentApexCharts\\Facades\\FilamentApexCharts',
+    ),
+    'providers' => 
+    array (
+      0 => 'Leandrocfe\\FilamentApexCharts\\FilamentApexChartsServiceProvider',
+    ),
+  ),
   'livewire/livewire' => 
   array (
     'aliases' => 

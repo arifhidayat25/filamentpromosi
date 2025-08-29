@@ -23,6 +23,9 @@ use App\Filament\Auth\AdminLogin;
 use App\Models\User;
 use Filament\Support\Facades\FilamentView; // <-- Tambahkan ini
 use Illuminate\Support\Facades\Blade;     // <-- Tambahkan ini
+use App\Filament\Widgets\ProposalChart;
+use App\Filament\Widgets\ProposalsByProdiChart;
+
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -72,6 +75,8 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
+                ProposalChart::class,
+                ProposalsByProdiChart::class,
                 Widgets\AccountWidget::class,
                 Widgets\FilamentInfoWidget::class,
             ])
@@ -97,6 +102,8 @@ class AdminPanelProvider extends PanelProvider
                     ->users(fn () => User::withoutGlobalScopes()->get()->pluck('email', 'name')->toArray()),
 
                 \Rmsramos\Activitylog\ActivitylogPlugin::make(),
+                \Leandrocfe\FilamentApexCharts\FilamentApexChartsPlugin::make(),
+                \Leandrocfe\FilamentApexCharts\FilamentApexChartsPlugin::make(),
             ])
             ->authMiddleware([
                 Authenticate::class,
