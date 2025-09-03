@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class SchoolResource extends Resource
 {
     protected static ?string $model = School::class;
-        protected static ?string $recordTitleAttribute = 'name'; // <-- TAMBAHKAN BARIS INI
+    protected static ?string $recordTitleAttribute = 'name'; // <-- TAMBAHKAN BARIS INI
 
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';

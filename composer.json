@@ -27,6 +27,7 @@
     "require-dev": {
         "dutchcodingcompany/filament-developer-logins": "^1.9",
         "fakerphp/faker": "^1.9.1",
+        "laravel/dusk": "^8.3",
         "laravel/pint": "^1.0",
         "laravel/sail": "^1.18",
         "mockery/mockery": "^1.4.4",

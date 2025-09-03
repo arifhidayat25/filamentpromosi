@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\ProposalController; // <-- 1. Import controller baru
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +41,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/my-payments', function (Request $request) {
         return $request->user()->proposals()->with('payment')->get()->pluck('payment')->filter();
     });
+  // Endpoint untuk membuat proposal baru
+     Route::post('/proposals', [ProposalController::class, 'store']);
+
+     Route::get('/pembina/proposals', [\App\Http\Controllers\Api\ProposalController::class, 'indexForPembina']);
 
     // Endpoint untuk logout
     Route::post('/logout', [AuthController::class, 'logout']);
