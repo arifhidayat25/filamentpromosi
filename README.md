@@ -1,4 +1,3 @@
-Tentu, setelah mempelajari semua file dan alur sistem yang Anda berikan, berikut adalah draf dokumentasi komprehensif yang siap untuk Anda salin dan tempel ke dalam file `README.md` di repositori GitHub Anda.
 
 -----
 
