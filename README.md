@@ -1,16 +1,5 @@
 -----
-\<h1\>Sistem Manajemen Proposal Promosi Mahasiswa\</h1\>
-\<p\>
-Sebuah aplikasi web canggih untuk mengelola alur pengajuan proposal promosi mahasiswa, dari pembuatan hingga penerbitan sertifikat digital. Dibangun dengan cinta menggunakan \<strong\>Laravel & Filament PHP\</strong\>.
-\</p\>
-\<p\>
-\<a href="\#fitur-utama-sparkles"\>Fitur Utama\</a\> •
-\<a href="\#alur-kerja--flow\_chart"\>Alur Kerja\</a\> •
-\<a href="\#stack-teknologi-computer"\>Stack Teknologi\</a\> •
-\<a href="\#panduan-instalasi-rocket"\>Instalasi\</a\> •
-\<a href="\#akun-demo-key"\>Akun Demo\</a\>
-\</p\>
-\</div\>
+<h1>Sistem Manajemen Proposal Promosi Mahasiswa</h1>
 
 ## Fitur Utama ✨
 
