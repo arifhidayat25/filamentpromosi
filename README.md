@@ -1,66 +1,149 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+Tentu, setelah mempelajari semua file dan alur sistem yang Anda berikan, berikut adalah draf dokumentasi komprehensif yang siap untuk Anda salin dan tempel ke dalam file `README.md` di repositori GitHub Anda.
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+-----
 
-## About Laravel
+# Sistem Manajemen Proposal Promosi Mahasiswa
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Sistem ini adalah aplikasi web berbasis Laravel yang dirancang untuk mengelola alur pengajuan proposal promosi oleh mahasiswa ke berbagai sekolah. Aplikasi ini dibangun menggunakan framework TALL Stack, dengan **Filament PHP** sebagai panel admin utamanya.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Aplikasi ini memiliki dua panel yang terpisah untuk membedakan hak akses dan fungsionalitas:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+1.  **Panel Admin (`/admin`)**: Diperuntukkan bagi pengguna dengan peran **Admin**, **Staff**, dan **Pembina**.
+2.  **Panel Mahasiswa (`/student`)**: Diperuntukkan bagi pengguna dengan peran **Mahasiswa**.
 
-## Learning Laravel
+## Fitur Utama
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 1\. Sistem Multi-Panel dengan Hak Akses Berbasis Peran
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+  - **Pemisahan Akses**: Pengguna secara otomatis diarahkan ke panel yang sesuai berdasarkan peran mereka saat login. Mahasiswa tidak dapat mengakses panel admin, dan sebaliknya.
+  - **Manajemen Peran & Hak Akses**: Dikelola menggunakan `spatie/laravel-permission` dan terintegrasi dengan `BezhanSalleh/FilamentShield` untuk kontrol yang mendalam.
+  - **Tiga Peran Admin**:
+      - **Admin**: Akses penuh ke seluruh sistem, termasuk manajemen pengguna, peran, dan semua data.
+      - **Staff**: Dapat memverifikasi laporan yang diajukan mahasiswa dan memproses pembayaran.
+      - **Pembina**: Hanya dapat melihat dan menyetujui/menolak proposal dari mahasiswa yang berada di bawah program studinya.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 2\. Alur Kerja Proposal (End-to-End)
 
-## Laravel Sponsors
+  - **Pengajuan oleh Mahasiswa**: Mahasiswa dapat membuat proposal, memilih sekolah tujuan, dan secara otomatis akan ditetapkan dosen pembina berdasarkan program studinya.
+  - **Persetujuan oleh Pembina**: Pembina menerima notifikasi dan dapat menyetujui atau menolak proposal yang masuk.
+  - **Pelaporan oleh Mahasiswa**: Setelah proposal disetujui, mahasiswa dapat *mengirimkan* laporan kegiatan.
+  - **Verifikasi oleh Staff**: Staff memeriksa laporan yang masuk dan menyetujuinya, yang kemudian memicu proses pembayaran *fee*.
+  - **Manajemen Pembayaran**: Staff dapat mengelola dan mencatat pembayaran *fee* untuk mahasiswa.
+  - **Penerbitan Sertifikat**: Setelah semua proses selesai dan pembayaran lunas, sistem dapat menghasilkan sertifikat PDF secara otomatis untuk mahasiswa, yang dapat diunduh.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+### 3\. Panel Mahasiswa yang Interaktif
 
-### Premium Partners
+  - **Dashboard Informatif**: Menampilkan ringkasan statistik total pengajuan, proposal yang disetujui, ditolak, serta status pembayaran *fee*.
+  - **Manajemen Mandiri**: Mahasiswa dapat mengelola proposal, laporan, melihat riwayat pembayaran, dan memperbarui data sekolah.
+  - **Manajemen API Token**: Mahasiswa dapat membuat dan mengelola API token untuk mengakses data mereka dari aplikasi eksternal.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+### 4\. Panel Admin yang Kuat
 
-## Contributing
+  - **Visualisasi Data**: Dashboard admin dilengkapi dengan grafik tren pengajuan proposal per bulan dan berdasarkan program studi.
+  - **Manajemen Data Master**: CRUD (Create, Read, Update, Delete) untuk semua entitas penting seperti Pengguna, Sekolah, Program Studi, dan lainnya.
+  - **Fitur "Login As"**: Admin dapat masuk sebagai pengguna lain untuk tujuan *debugging* atau bantuan (hanya aktif di lingkungan lokal).
+  - **Arsip & Ekspor**: Proposal yang telah selesai akan diarsipkan dan seluruh data dapat diekspor ke format Excel.
+  - **Log Aktivitas**: Setiap perubahan data penting dicatat oleh sistem untuk keperluan audit.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 5\. API RESTful
 
-## Code of Conduct
+  - Aplikasi menyediakan *endpoint* API untuk memungkinkan aplikasi eksternal (misalnya aplikasi *mobile*) berinteraksi dengan data pengguna, seperti mengambil daftar proposal, laporan, dan status pembayaran.
+  - Autentikasi API menggunakan Laravel Sanctum.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Stack Teknologi
 
-## Security Vulnerabilities
+  - **Framework**: Laravel
+  - **Panel Admin**: Filament PHP v3
+  - **Frontend**: Livewire & Alpine.js (TALL Stack)
+  - **Database**: MySQL (dapat disesuaikan di `config/database.php`)
+  - **Manajemen Peran**: `spatie/laravel-permission`
+  - **Penyimpanan File**: MinIO (S3 Compatible) untuk menyimpan sertifikat dan dokumen lainnya
+  - **Log Aktivitas**: `spatie/laravel-activitylog`
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Panduan Instalasi
 
-## License
+Berikut adalah langkah-langkah untuk menjalankan proyek ini di lingkungan lokal Anda.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### 1\. Prasyarat
+
+  - PHP 8.1+
+  - Composer
+  - Node.js & NPM
+  - Database (MySQL direkomendasikan)
+  - Server MinIO atau layanan S3-compatible lainnya (opsional, untuk fitur sertifikat)
+
+### 2\. Kloning Repositori
+
+```bash
+git clone https://github.com/username/nama-repositori.git
+cd nama-repositori
+```
+
+### 3\. Instalasi Dependensi
+
+```bash
+composer install
+npm install
+npm run build
+```
+
+### 4\. Konfigurasi Lingkungan
+
+  - Salin file `.env.example` menjadi `.env`.
+    ```bash
+    cp .env.example .env
+    ```
+  - Buat kunci aplikasi baru.
+    ```bash
+    php artisan key:generate
+    ```
+  - Konfigurasikan koneksi database Anda di dalam file `.env`.
+    ```
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=nama_database
+    DB_USERNAME=root
+    DB_PASSWORD=
+    ```
+  - (Opsional) Jika Anda menggunakan MinIO untuk penyimpanan file, konfigurasikan kredensial S3.
+    ```
+    FILESYSTEM_DISK=minio
+    AWS_ACCESS_KEY_ID=minioadmin
+    AWS_SECRET_ACCESS_KEY=minioadmin
+    AWS_DEFAULT_REGION=us-east-1
+    AWS_BUCKET=nama-bucket
+    AWS_ENDPOINT=http://localhost:9000
+    AWS_USE_PATH_STYLE_ENDPOINT=true
+    ```
+
+### 5\. Migrasi dan Seeding Database
+
+Jalankan migrasi untuk membuat semua tabel yang diperlukan. Kemudian, jalankan *seeder* untuk mengisi data awal seperti peran (*roles*), hak akses (*permissions*), dan pengguna admin.
+
+```bash
+php artisan migrate --seed
+```
+
+### 6\. Buat Pengguna Admin
+
+Filament memerlukan pengguna awal untuk bisa login ke panel admin. Jalankan perintah berikut dan ikuti instruksinya.
+
+```bash
+php artisan make:filament-user
+```
+
+Pastikan untuk memberikan peran **admin** kepada pengguna ini saat proses *seeding* atau secara manual di database.
+
+### 7\. Jalankan Server Pengembangan
+
+```bash
+php artisan serve
+```
+
+Aplikasi Anda sekarang berjalan dan dapat diakses:
+
+  - **Panel Admin**: `http://localhost:8000/admin`
+  - **Panel Mahasiswa**: `http://localhost:8000/student`
+
+Selamat\! Sistem siap untuk digunakan.
