@@ -1,148 +1,171 @@
+-----
+
+\<div align="center"\>
+\<img src="httpsa://[raw.githubusercontent.com/laravolt/indonesia/master/art/cover.png](https://www.google.com/search?q=https://raw.githubusercontent.com/laravolt/indonesia/master/art/cover.png)" alt="Logo Proyek" width="200"/\>
+\<h1\>Sistem Manajemen Proposal Promosi Mahasiswa\</h1\>
+\<p\>
+Sebuah aplikasi web canggih untuk mengelola alur pengajuan proposal promosi mahasiswa, dari pembuatan hingga penerbitan sertifikat digital. Dibangun dengan cinta menggunakan \<strong\>Laravel & Filament PHP\</strong\>.
+\</p\>
+\<p\>
+\<a href="\#fitur-utama-sparkles"\>Fitur Utama\</a\> •
+\<a href="\#alur-kerja--flow\_chart"\>Alur Kerja\</a\> •
+\<a href="\#stack-teknologi-computer"\>Stack Teknologi\</a\> •
+\<a href="\#panduan-instalasi-rocket"\>Instalasi\</a\> •
+\<a href="\#akun-demo-key"\>Akun Demo\</a\>
+\</p\>
+\</div\>
+
+## Fitur Utama ✨
+
+Sistem ini dirancang dengan arsitektur **Multi-Panel** yang aman dan intuitif, memisahkan dunia **Admin** dan **Mahasiswa** secara total.
+
+### Panel Admin (`/admin`) - Pusat Kendali 🧠
+
+  * **Dashboard Visual**: Pantau tren pengajuan proposal secara *real-time* melalui grafik interaktif berdasarkan bulan dan program studi.
+  * **Manajemen Peran Fleksibel**: Atur hak akses mendetail untuk peran **Admin**, **Staff**, dan **Pembina** menggunakan `FilamentShield`.
+  * **Alur Persetujuan Bertingkat**: Kelola proposal dari status "Diajukan" hingga "Selesai" dengan validasi dari Pembina dan Staff.
+  * **Arsip & Ekspor Data**: Semua proposal yang selesai secara otomatis diarsipkan dan seluruh data dapat diekspor ke Excel.
+  * **Audit Trail**: Lacak setiap perubahan data penting melalui log aktivitas yang komprehensif.
+  * **"Login As"**: Fitur *debugging* yang memungkinkan admin masuk sebagai pengguna lain (hanya di lingkungan lokal).
+
+### Panel Mahasiswa (`/student`) - Ruang Kerja Pribadi 🧑‍🎓
+
+  * **Dashboard Personal**: Lihat ringkasan statistik proposal, status laporan, dan notifikasi pembayaran *fee* dalam satu layar.
+  * **Pengajuan Proposal Mandiri**: Buat dan kirim proposal promosi dengan mudah, di mana dosen pembina ditetapkan secara otomatis berdasarkan program studi.
+  * **Pelaporan Kegiatan**: Setelah proposal disetujui, mahasiswa dapat langsung mengirimkan laporan kegiatan promosi.
+  * **Sertifikat Digital**: Unduh sertifikat partisipasi dalam format PDF yang digenerasi secara otomatis setelah semua proses selesai.
+  * **API Token**: Hasilkan token API pribadi untuk mengakses data dari aplikasi pihak ketiga (misalnya aplikasi *mobile*) dengan aman menggunakan Laravel Sanctum.
 
 -----
 
-# Sistem Manajemen Proposal Promosi Mahasiswa
+## Alur Kerja  flowchart
 
-Sistem ini adalah aplikasi web berbasis Laravel yang dirancang untuk mengelola alur pengajuan proposal promosi oleh mahasiswa ke berbagai sekolah. Aplikasi ini dibangun menggunakan framework TALL Stack, dengan **Filament PHP** sebagai panel admin utamanya.
+Sistem ini memfasilitasi alur kerja yang jelas dan terstruktur, memastikan setiap tahapan terdokumentasi dengan baik.
 
-Aplikasi ini memiliki dua panel yang terpisah untuk membedakan hak akses dan fungsionalitas:
+1.  **Pengajuan**: Mahasiswa membuat proposal melalui Panel Mahasiswa.
+2.  **Validasi Pembina**: Dosen Pembina menerima proposal dan melakukan validasi (Setuju/Tolak).
+3.  **Pelaksanaan & Laporan**: Mahasiswa melaksanakan kegiatan dan mengirimkan laporan melalui panel.
+4.  **Verifikasi Staff**: Staff memverifikasi laporan. Jika valid, status proposal diubah menjadi "Menunggu Pembayaran".
+5.  **Pembayaran Fee**: Staff memproses pembayaran *fee* promosi untuk mahasiswa.
+6.  **Selesai & Sertifikat**: Setelah pembayaran lunas, status proposal menjadi "Selesai" dan mahasiswa dapat mengunduh sertifikat digital.
 
-1.  **Panel Admin (`/admin`)**: Diperuntukkan bagi pengguna dengan peran **Admin**, **Staff**, dan **Pembina**.
-2.  **Panel Mahasiswa (`/student`)**: Diperuntukkan bagi pengguna dengan peran **Mahasiswa**.
+-----
 
-## Fitur Utama
+## Stack Teknologi 💻
 
-### 1\. Sistem Multi-Panel dengan Hak Akses Berbasis Peran
+Aplikasi ini dibangun menggunakan ekosistem Laravel modern yang andal dan skalabel.
 
-  - **Pemisahan Akses**: Pengguna secara otomatis diarahkan ke panel yang sesuai berdasarkan peran mereka saat login. Mahasiswa tidak dapat mengakses panel admin, dan sebaliknya.
-  - **Manajemen Peran & Hak Akses**: Dikelola menggunakan `spatie/laravel-permission` dan terintegrasi dengan `BezhanSalleh/FilamentShield` untuk kontrol yang mendalam.
-  - **Tiga Peran Admin**:
-      - **Admin**: Akses penuh ke seluruh sistem, termasuk manajemen pengguna, peran, dan semua data.
-      - **Staff**: Dapat memverifikasi laporan yang diajukan mahasiswa dan memproses pembayaran.
-      - **Pembina**: Hanya dapat melihat dan menyetujui/menolak proposal dari mahasiswa yang berada di bawah program studinya.
+| Komponen            | Teknologi                                                                                                                                                                                                                                                                 |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Framework** | Laravel 10                                                                                                                                                                                                                                           |
+| **Panel Admin** | Filament PHP v3                                                                                                                                                                                                       |
+| **Frontend** | Livewire & Alpine.js (TALL Stack)                                                                                                                                                                                                                                         |
+| **Database** | MySQL (dapat disesuaikan)                                                                                                                                                                                                                       |
+| **Caching** | **Redis** (untuk performa optimal pada *cache* aplikasi dan hak akses)                                                                                                                                                        |
+| **Manajemen Peran** | `spatie/laravel-permission` & `bezhanSalleh/filament-shield`                                                                                                                                                       |
+| **Penyimpanan File**| MinIO (S3 Compatible) untuk menyimpan sertifikat dan aset lainnya                                                                                                                                                                            |
+| **API** | Laravel Sanctum untuk autentikasi API yang aman                                                                                                                                                                                                  |
 
-### 2\. Alur Kerja Proposal (End-to-End)
+-----
 
-  - **Pengajuan oleh Mahasiswa**: Mahasiswa dapat membuat proposal, memilih sekolah tujuan, dan secara otomatis akan ditetapkan dosen pembina berdasarkan program studinya.
-  - **Persetujuan oleh Pembina**: Pembina menerima notifikasi dan dapat menyetujui atau menolak proposal yang masuk.
-  - **Pelaporan oleh Mahasiswa**: Setelah proposal disetujui, mahasiswa dapat *mengirimkan* laporan kegiatan.
-  - **Verifikasi oleh Staff**: Staff memeriksa laporan yang masuk dan menyetujuinya, yang kemudian memicu proses pembayaran *fee*.
-  - **Manajemen Pembayaran**: Staff dapat mengelola dan mencatat pembayaran *fee* untuk mahasiswa.
-  - **Penerbitan Sertifikat**: Setelah semua proses selesai dan pembayaran lunas, sistem dapat menghasilkan sertifikat PDF secara otomatis untuk mahasiswa, yang dapat diunduh.
+## Panduan Instalasi 🚀
 
-### 3\. Panel Mahasiswa yang Interaktif
-
-  - **Dashboard Informatif**: Menampilkan ringkasan statistik total pengajuan, proposal yang disetujui, ditolak, serta status pembayaran *fee*.
-  - **Manajemen Mandiri**: Mahasiswa dapat mengelola proposal, laporan, melihat riwayat pembayaran, dan memperbarui data sekolah.
-  - **Manajemen API Token**: Mahasiswa dapat membuat dan mengelola API token untuk mengakses data mereka dari aplikasi eksternal.
-
-### 4\. Panel Admin yang Kuat
-
-  - **Visualisasi Data**: Dashboard admin dilengkapi dengan grafik tren pengajuan proposal per bulan dan berdasarkan program studi.
-  - **Manajemen Data Master**: CRUD (Create, Read, Update, Delete) untuk semua entitas penting seperti Pengguna, Sekolah, Program Studi, dan lainnya.
-  - **Fitur "Login As"**: Admin dapat masuk sebagai pengguna lain untuk tujuan *debugging* atau bantuan (hanya aktif di lingkungan lokal).
-  - **Arsip & Ekspor**: Proposal yang telah selesai akan diarsipkan dan seluruh data dapat diekspor ke format Excel.
-  - **Log Aktivitas**: Setiap perubahan data penting dicatat oleh sistem untuk keperluan audit.
-
-### 5\. API RESTful
-
-  - Aplikasi menyediakan *endpoint* API untuk memungkinkan aplikasi eksternal (misalnya aplikasi *mobile*) berinteraksi dengan data pengguna, seperti mengambil daftar proposal, laporan, dan status pembayaran.
-  - Autentikasi API menggunakan Laravel Sanctum.
-
-## Stack Teknologi
-
-  - **Framework**: Laravel
-  - **Panel Admin**: Filament PHP v3
-  - **Frontend**: Livewire & Alpine.js (TALL Stack)
-  - **Database**: MySQL (dapat disesuaikan di `config/database.php`)
-  - **Manajemen Peran**: `spatie/laravel-permission`
-  - **Penyimpanan File**: MinIO (S3 Compatible) untuk menyimpan sertifikat dan dokumen lainnya
-  - **Log Aktivitas**: `spatie/laravel-activitylog`
-
-## Panduan Instalasi
-
-Berikut adalah langkah-langkah untuk menjalankan proyek ini di lingkungan lokal Anda.
+Ikuti langkah-langkah berikut untuk menjalankan proyek ini di lingkungan pengembangan lokal Anda.
 
 ### 1\. Prasyarat
 
   - PHP 8.1+
   - Composer
   - Node.js & NPM
-  - Database (MySQL direkomendasikan)
-  - Server MinIO atau layanan S3-compatible lainnya (opsional, untuk fitur sertifikat)
+  - Database (misalnya MySQL)
+  - **Server Redis**
+  - Server MinIO (opsional, untuk fitur sertifikat)
 
-### 2\. Kloning Repositori
+### 2\. Kloning & Setup Awal
 
 ```bash
+# 1. Kloning repositori
 git clone https://github.com/username/nama-repositori.git
 cd nama-repositori
-```
 
-### 3\. Instalasi Dependensi
-
-```bash
+# 2. Instal dependensi PHP & JS
 composer install
 npm install
 npm run build
+
+# 3. Buat file .env dan generate kunci aplikasi
+cp .env.example .env
+php artisan key:generate
 ```
 
-### 4\. Konfigurasi Lingkungan
+### 3\. Konfigurasi Lingkungan (`.env`)
 
-  - Salin file `.env.example` menjadi `.env`.
-    ```bash
-    cp .env.example .env
-    ```
-  - Buat kunci aplikasi baru.
-    ```bash
-    php artisan key:generate
-    ```
-  - Konfigurasikan koneksi database Anda di dalam file `.env`.
-    ```
-    DB_CONNECTION=mysql
-    DB_HOST=127.0.0.1
-    DB_PORT=3306
-    DB_DATABASE=nama_database
-    DB_USERNAME=root
-    DB_PASSWORD=
-    ```
-  - (Opsional) Jika Anda menggunakan MinIO untuk penyimpanan file, konfigurasikan kredensial S3.
-    ```
-    FILESYSTEM_DISK=minio
-    AWS_ACCESS_KEY_ID=minioadmin
-    AWS_SECRET_ACCESS_KEY=minioadmin
-    AWS_DEFAULT_REGION=us-east-1
-    AWS_BUCKET=nama-bucket
-    AWS_ENDPOINT=http://localhost:9000
-    AWS_USE_PATH_STYLE_ENDPOINT=true
-    ```
+Buka file `.env` dan sesuaikan variabel berikut:
 
-### 5\. Migrasi dan Seeding Database
+```env
+# Konfigurasi Database
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=nama_database_anda
+DB_USERNAME=root
+DB_PASSWORD=
 
-Jalankan migrasi untuk membuat semua tabel yang diperlukan. Kemudian, jalankan *seeder* untuk mengisi data awal seperti peran (*roles*), hak akses (*permissions*), dan pengguna admin.
+# Konfigurasi Redis
+REDIS_CLIENT=phpredis # atau predis
+REDIS_HOST=127.0.0.1
+REDIS_PORT=6379
+
+# Konfigurasi MinIO/S3 (jika digunakan)
+FILESYSTEM_DISK=minio
+AWS_ACCESS_KEY_ID=minioadmin
+AWS_SECRET_ACCESS_KEY=minioadmin
+AWS_BUCKET=nama-bucket
+AWS_ENDPOINT=http://localhost:9000
+AWS_USE_PATH_STYLE_ENDPOINT=true
+```
+
+> **Penting**: Aplikasi ini memerlukan **klien Redis** untuk PHP. Pilih salah satu:
+>
+>   * **`phpredis` (Direkomendasikan)**: Instal ekstensi PECL `redis` dan aktifkan di `php.ini`.
+>   * **`predis`**: Jalankan `composer require predis/predis` dan atur `REDIS_CLIENT=predis` di `.env`.
+
+### 4\. Migrasi & Seeding Database
+
+Perintah ini akan membuat semua tabel dan mengisi data awal seperti peran (*roles*) dan hak akses (*permissions*).
 
 ```bash
 php artisan migrate --seed
 ```
 
-### 6\. Buat Pengguna Admin
-
-Filament memerlukan pengguna awal untuk bisa login ke panel admin. Jalankan perintah berikut dan ikuti instruksinya.
+### 5\. Buat Pengguna Admin Pertama
 
 ```bash
 php artisan make:filament-user
 ```
 
-Pastikan untuk memberikan peran **admin** kepada pengguna ini saat proses *seeding* atau secara manual di database.
+Ikuti petunjuk untuk membuat akun yang akan Anda gunakan untuk login pertama kali.
 
-### 7\. Jalankan Server Pengembangan
+### 6\. Jalankan Aplikasi
 
 ```bash
 php artisan serve
 ```
 
-Aplikasi Anda sekarang berjalan dan dapat diakses:
+🎉 **Selesai\!** Aplikasi Anda sekarang dapat diakses:
 
   - **Panel Admin**: `http://localhost:8000/admin`
   - **Panel Mahasiswa**: `http://localhost:8000/student`
 
-Selamat\! Sistem siap untuk digunakan.
+-----
+
+## Akun Demo 🔑
+
+Setelah menjalankan `php artisan migrate --seed`, Anda dapat menggunakan akun berikut untuk mencoba sistem:
+
+  - **Admin**:
+      - Email: `admin@example.com`
+      - Password: `password`
+  - **Mahasiswa**:
+      - Email: `student@example.com`
+      - Password: `password`
