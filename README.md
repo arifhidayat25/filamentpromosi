@@ -1,7 +1,4 @@
 -----
-
-\<div align="center"\>
-\<img src="httpsa://[raw.githubusercontent.com/laravolt/indonesia/master/art/cover.png](https://www.google.com/search?q=https://raw.githubusercontent.com/laravolt/indonesia/master/art/cover.png)" alt="Logo Proyek" width="200"/\>
 \<h1\>Sistem Manajemen Proposal Promosi Mahasiswa\</h1\>
 \<p\>
 Sebuah aplikasi web canggih untuk mengelola alur pengajuan proposal promosi mahasiswa, dari pembuatan hingga penerbitan sertifikat digital. Dibangun dengan cinta menggunakan \<strong\>Laravel & Filament PHP\</strong\>.
