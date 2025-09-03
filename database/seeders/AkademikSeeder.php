@@ -6,22 +6,29 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\ProgramStudi;
 use Spatie\Permission\Models\Role;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str; // <-- Tambahkan ini
 
 class AkademikSeeder extends Seeder
 {
     /**
-     * Jalankan seeder untuk mengisi data Program Studi
-     * dan membuat Dosen Pembina dengan nama asli untuk setiap prodi.
+     * Jalankan seeder untuk mengisi data awal aplikasi.
      */
     public function run(): void
     {
         // =================================================================
-        // BAGIAN 1: MEMBUAT SEMUA PROGRAM STUDI
+        // BAGIAN 1: MEMBUAT ROLE DASAR
         // =================================================================
-        $this->command->info('Membuat data Program Studi ITSK Soepraoen...');
-        DB::table('program_studis')->delete();
+        $this->command->info('Membuat role dasar (admin, staff, pembina, mahasiswa)...');
+        $roles = ['admin', 'staff', 'pembina', 'mahasiswa'];
+        foreach ($roles as $role) {
+            Role::firstOrCreate(['name' => $role, 'guard_name' => 'web']);
+        }
+        $this->command->info('-> Role berhasil dibuat.');
 
+        // =================================================================
+        // BAGIAN 2: MEMBUAT PROGRAM STUDI
+        // =================================================================
+        $this->command->info('Membuat data Program Studi...');
         $prodiData = [
             ['name' => 'S1 Informatika', 'kode' => 'IF'],
             ['name' => 'S1 Farmasi Klinis dan Komunitas', 'kode' => 'FKK'],
@@ -37,15 +44,16 @@ class AkademikSeeder extends Seeder
         ];
 
         foreach ($prodiData as $prodi) {
-            ProgramStudi::create($prodi);
+            // Gunakan updateOrCreate untuk mencegah duplikasi jika seeder dijalankan lagi
+            ProgramStudi::updateOrCreate(['kode' => $prodi['kode']], ['name' => $prodi['name']]);
         }
         $this->command->info('-> Data Program Studi berhasil dibuat.');
 
         // =================================================================
-        // BAGIAN 2: MEMBUAT PEMBINA DENGAN NAMA ASLI UNTUK SETIAP PRODI
+        // BAGIAN 3: MEMBUAT PEMBINA UNTUK SETIAP PRODI
         // =================================================================
-        $this->command->info('Membuat data Dosen Pembina untuk setiap Program Studi...');
-        $rolePembina = Role::firstOrCreate(['name' => 'pembina']);
+        $this->command->info('Membuat data Dosen Pembina...');
+        $rolePembina = Role::where('name', 'pembina')->first();
 
         $pembinaData = [
             'IF' => ['Dr. Budi Darmawan, S.Kom., M.T.', 'Ayu Lestari, S.Kom., M.Cs.'],
@@ -65,10 +73,10 @@ class AkademikSeeder extends Seeder
             $prodi = ProgramStudi::where('kode', $kodeProdi)->first();
             if ($prodi) {
                 foreach ($namaPembinaList as $nama) {
-                    // Membuat email berdasarkan nama (contoh: budi.darmawan@kampus.test)
-                    $email = strtolower(str_replace(['. ', ', '], '.', preg_replace('/, M\.Kom\.|, S\.Kom\.|, M\.T\.|, S\.Farm\.|, M\.Farm\.Klin\.|, S\.Ft\.|, M\.Fis\.|, S\.Keb\.|, Bd\.|, M\.Keb\.|, S\.Kep\.|, Ns\.|, M\.Kep\.|, Drg\.|, S\.Tr\.Kep\.An\.|, A\.Md\.Kep\.|, A\.Md\.Farm\.|, A\.Md\.Akup\.|, A\.Md\.RMIK\.|Dr\.|Apt\./', '', $nama))) . '@kampus.test';
+                    // Membuat email yang lebih bersih (contoh: budi.darmawan@kampus.test)
+                    $email = Str::slug(explode(',', $nama)[0], '.') . '@kampus.test';
 
-                    $dosen = User::firstOrCreate(
+                    $dosen = User::updateOrCreate(
                         ['email' => $email],
                         [
                             'name' => $nama,
@@ -76,11 +84,34 @@ class AkademikSeeder extends Seeder
                             'program_studi_id' => $prodi->id,
                         ]
                     );
-                    $dosen->assignRole($rolePembina);
+                    $dosen->syncRoles($rolePembina);
                 }
             }
         }
         $this->command->info('-> Data Dosen Pembina berhasil dibuat.');
+        
+        // =================================================================
+        // BAGIAN 4: MEMBUAT USER ADMIN, STAFF, DAN MAHASISWA CONTOH
+        // =================================================================
+        $this->command->info('Membuat user Admin, Staff, dan Mahasiswa contoh...');
+        
+        $admin = User::updateOrCreate(['email' => 'admin@kampus.test'], ['name' => 'Admin', 'password' => bcrypt('password')]);
+        $admin->syncRoles('admin');
+
+        $staff = User::updateOrCreate(['email' => 'staff@kampus.test'], ['name' => 'Staff Promosi Kampus', 'password' => bcrypt('password')]);
+        $staff->syncRoles('staff');
+
+        $prodiIf = ProgramStudi::where('kode', 'IF')->first();
+        if ($prodiIf) {
+            $mahasiswa = User::updateOrCreate(
+                ['email' => 'mahasiswa@kampus.test'],
+                ['name' => 'Mahasiswa Contoh', 'password' => bcrypt('password'), 'program_studi_id' => $prodiIf->id, 'nim' => '22510000']
+            );
+            $mahasiswa->syncRoles('mahasiswa');
+        }
+        $this->command->info('-> User Admin, Staff, dan Mahasiswa contoh berhasil dibuat.');
+
+
         $this->command->info('===================================================');
         $this->command->info('SEMUA DATA AWAL BERHASIL DIBUAT!');
         $this->command->info('===================================================');
